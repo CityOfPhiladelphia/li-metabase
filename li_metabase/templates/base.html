@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L & I Dashboards</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/phila-standards@0.11.2/dist/css/phila-app.min.css">
+  <link rel="shortcut icon" type="image/x-icon" href="https://standards.phila.gov/img/favicon.png"> <meta name="twitter:card" content="summary">
+  {% block assets %}{% endblock %}
+<meta property="og:title" content=""> 
+<meta property="og:description" content=""> 
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:site_name" content="Digital Standards | City of Philadelphia">
+<meta property="og:image" content="https://beta.phila.gov/media/20160715133810/phila-gov.jpg">
+
+</head>
+
+<body lang="en">
+  <div id="application">
+  <!-- Begin header -->
+  <nav class="navbar">
+    <p>City of Philadelphia | L & I Dashboards</p>
+    <div class="dropdown">
+      <button class="dropbtn">Miscellaneous</button>
+      <div class="dropdown-content">
+        <a href="/imminently-dangerous">Imminently Dangerous Violations</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Violations</button>
+      <div class="dropdown-content">
+        <a href="/imminently-dangerous">Imminently Dangerous Violations</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Permits</button>
+      <div class="dropdown-content">
+        <a href="/imminently-dangerous">Imminently Dangerous Violations</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Trade Licenses</button>
+      <div class="dropdown-content">
+        <a href="/imminently-dangerous">Imminently Dangerous Violations</a>
+      </div>
+    </div>
+    <div class="dropdown">
+      <button class="dropbtn">Business Licenses</button>
+      <div class="dropdown-content">
+        <a href="/bl/active-jobs">Business Licenses Active Jobs</a>
+      </div>
+    </div>
+  </nav>
+  <main id="main">
+    <noscript>
+      <div class="flash"> 
+      <strong>Your browser does not have JavaScript enabled. Please enable JavaScript for this site to work properly.</strong>
+      </div>
+    </noscript>
+    {% for message in get_flashed_messages() %}
+        <div class="flash">{{ message }}</div>
+    {% endfor %}
+    <div class="container">
+      {% block content %}
+      {% endblock %}
+    </div>
+  </main>
+    <div class="app-footer anchor">
+    <footer>
+      <div class="row expanded">
+        <div class="columns">
+          <nav>
+            <ul class="inline-list">
+              <li>
+                <a href="mailto:ligisteam@phila.gov">Questions? Click Here to Contact LIGISTeam</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </footer>
+  </div>
+</div>
+<!-- #application -->
+
+</body>
+
+</html>
