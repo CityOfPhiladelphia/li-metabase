@@ -1,7 +1,10 @@
 from flask import Flask, render_template
 
 from li_metabase.config import SECRET_KEY
-from li_metabase.views import business_licenses
+from li_metabase.views import (
+    business_licenses, trade_licenses, permits,
+    violations, misc
+)
 from li_metabase.utils import build_iframe_url
 
 
@@ -12,6 +15,10 @@ def create_app():
     app.secret_key = SECRET_KEY
 
     app.register_blueprint(business_licenses.bp)
+    app.register_blueprint(trade_licenses.bp)
+    app.register_blueprint(permits.bp)
+    app.register_blueprint(violations.bp)
+    app.register_blueprint(misc.bp)
 
     @app.route('/')
     def index():
