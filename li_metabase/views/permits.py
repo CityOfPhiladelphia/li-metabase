@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-from li_metabase.utils import Dashboard, get_dashboard_id_from_url, build_iframe_url
+from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url
 
 
 PERMITS_DASHBOARDS = [
@@ -15,13 +15,6 @@ bp = Blueprint('permits', __name__)
 def permits(dashboard_url):
     global PERMITS_DASHBOARDS
 
-    dashboard_id = get_dashboard_id_from_url(dashboard_url, PERMITS_DASHBOARDS)
-
-    payload = {
-        'resource': {'dashboard': dashboard_id},
-        'params': {}
-    }
-
-    iframe_url = build_iframe_url(payload)
+    iframe_url = build_iframe_url_from_dashboard_url(dashboard_url, PERMITS_DASHBOARDS)
 
     return render_template('dashboard.html', iframe_url=iframe_url)
