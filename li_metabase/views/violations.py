@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template
 
-from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url
+from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url, DashboardNotFound
 
 
 VIOLATIONS_DASHBOARDS = [
@@ -17,3 +17,7 @@ def violations(dashboard_url):
     iframe_url = build_iframe_url_from_dashboard_url(dashboard_url, VIOLATIONS_DASHBOARDS)
 
     return render_template('dashboard.html', iframe_url=iframe_url)
+
+@bp.errorhandler(DashboardNotFound)
+def handle_error(error):
+    return render_template('error.html')

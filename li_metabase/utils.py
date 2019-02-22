@@ -1,12 +1,16 @@
 from collections import namedtuple
 
 import jwt
+from flask import render_template
 
 from li_metabase.config import METABASE_SECRET_KEY, METABASE_SITE_URL
 
 
 # A convenient data structure for defining many dashboards
 Dashboard = namedtuple('Dashboard', ['name', 'url', 'id'])
+
+class DashboardNotFound(Exception):
+    pass
 
 def get_dashboard_id_from_url(dashboard_url, dashboards):
     """Search through a list of dashboards to find the dashboard with the given
@@ -19,6 +23,7 @@ def get_dashboard_id_from_url(dashboard_url, dashboards):
     for dashboard in dashboards:
         if dashboard.url == dashboard_url:
             return dashboard.id
+    raise DashboardNotFound # If the dashboard wasn't found
 
 def build_iframe_url(payload):
     """Build an iframe_url from a payload.
