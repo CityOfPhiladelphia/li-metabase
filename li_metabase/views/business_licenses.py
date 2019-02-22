@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 
 from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url, DashboardNotFound
+from li_metabase.auth import auth
 
 
 BUSINESS_LICENSES_DASHBOARDS = [
@@ -20,6 +21,7 @@ BUSINESS_LICENSES_DASHBOARDS = [
 bp = Blueprint('business_licenses', __name__)
 
 @bp.route('/bl/<dashboard_url>')
+@auth.login_required
 def business_licenses(dashboard_url):
     global BUSINESS_LICENSES_DASHBOARDS
 

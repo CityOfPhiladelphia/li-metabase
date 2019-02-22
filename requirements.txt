@@ -1,3 +1,4 @@
-gevent==1.3.0
 Flask==1.0.2
+gevent==1.3.0
+Flask_HTTPAuth==3.2.4
 PyJWT==1.7.1

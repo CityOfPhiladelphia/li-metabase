@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 
 from li_metabase.config import SECRET_KEY
+from li_metabase.auth import auth
 from li_metabase.views import (
     business_licenses, trade_licenses, permits,
     violations, misc
@@ -21,6 +22,7 @@ def create_app():
     app.register_blueprint(misc.bp)
 
     @app.route('/')
+    @auth.login_required
     def index():
         global INDEX_PAGE_DASHBOARD_ID
 

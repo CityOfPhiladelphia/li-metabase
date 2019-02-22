@@ -32,8 +32,6 @@ def build_iframe_url(payload):
     payload -- A dictionary of the payload required to build a dashboard. Consists of the dashboard's id 
     and any filters to apply to the dashboard.
     """
-    global METABASE_SECRET_KEY, METABASE_SITE_URL
-
     token = jwt.encode(payload, METABASE_SECRET_KEY, algorithm='HS256')
     iframe_url = METABASE_SITE_URL + '/embed/dashboard/' + token.decode('utf8') + '#bordered=true&titled=true'
     return iframe_url

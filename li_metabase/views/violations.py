@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 
 from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url, DashboardNotFound
+from li_metabase.auth import auth
 
 
 VIOLATIONS_DASHBOARDS = [
@@ -11,6 +12,7 @@ VIOLATIONS_DASHBOARDS = [
 bp = Blueprint('violations', __name__)
 
 @bp.route('/violations/<dashboard_url>')
+@auth.login_required
 def violations(dashboard_url):
     global VIOLATIONS_DASHBOARDS
 
