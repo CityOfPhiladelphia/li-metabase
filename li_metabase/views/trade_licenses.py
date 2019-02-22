@@ -6,12 +6,12 @@ from li_metabase.utils import Dashboard, get_dashboard_id_from_url, build_iframe
 TRADE_LICENSES_DASHBOARDS = [
     Dashboard('Trade Licenses Active Jobs', 'active-jobs', 69),
     Dashboard('Trade Licenses Active Processes', 'active-processes', 71),
-    Dashboard('Trade Licenses Expiration Dates', 'expiration-dates', 74, {'date_filter': '2017-12-31~'}),
-    Dashboard('Trade Licenses Incomplete Processes', 'incomplete-processes', 75, {'date_filter': '2017-12-31~'}),
-    Dashboard('Trade Licenses Job Volumes By Submission Type', 'job-volumes-by-submission-type', 73, {'job_created_date_filter', '2017-12-31~'}),
-    Dashboard('Trade Licenses Revenue', 'revenue', 43, {'payment_date_filter': '2015-12-31~'}),
+    Dashboard('Trade Licenses Expiration Dates', 'expiration-dates', 74),
+    Dashboard('Trade Licenses Incomplete Processes', 'incomplete-processes', 75),
+    Dashboard('Trade Licenses Job Volumes By Submission Type', 'job-volumes-by-submission-type', 73),
+    Dashboard('Trade Licenses Revenue', 'revenue', 43),
     Dashboard('Trade Licenses Submittal Types', 'submittal-types', 44),
-    Dashboard('Trade Licenses Volumes', 'volumes', 35, {'issue_date_filter': '2015-12-31~'}),
+    Dashboard('Trade Licenses Volumes', 'volumes', 35),
 ]
 
 bp = Blueprint('trade_licenses', __name__)

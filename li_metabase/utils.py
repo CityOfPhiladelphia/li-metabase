@@ -6,8 +6,8 @@ from li_metabase.config import METABASE_SECRET_KEY, METABASE_SITE_URL
 
 
 # A convenient data structure for defining many dashboards
-Dashboard = namedtuple('Dashboard', ['name', 'url', 'id', 'filter'])
-Dashboard.__new__.__defaults__ = (None, None, None, None) # Default to None when nothing is passed in
+Dashboard = namedtuple('Dashboard', ['name', 'url', 'id'])
+Dashboard.__new__.__defaults__ = (None, None, None) # Default to None when nothing is passed in
 
 
 def get_dashboard_id_from_url(dashboard_url, dashboards):

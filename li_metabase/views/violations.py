@@ -4,7 +4,7 @@ from li_metabase.utils import Dashboard, get_dashboard_id_from_url, build_iframe
 
 
 VIOLATIONS_DASHBOARDS = [
-    Dashboard('Unsafe Violations', 'unsafe', 42, {'date_filter': '2015-12-31~'}),
+    Dashboard('Unsafe Violations', 'unsafe', 42),
     Dashboard('Imminently Dangerous Violations', 'imminently-dangerous', 36),
 ]
 

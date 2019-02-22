@@ -4,10 +4,10 @@ from li_metabase.utils import Dashboard, get_dashboard_id_from_url, build_iframe
 
 
 MISC_DASHBOARDS = [
-    Dashboard('Individual Workloads', 'individual-workloads', 49, {'process_completion_date': '2017-12-31~'}),
+    Dashboard('Individual Workloads', 'individual-workloads', 49),
     Dashboard('Expiring Licenses with Tax Issues', 'expiring-licenses-with-tax-issues', 72),
-    Dashboard('Public Demos', 'public-demos', 76, {'demolition_date': '2006-12-31~'}),
-    Dashboard('Uninspected Service Requests', 'unispected-service-requests', 77, {'call_date': '2015-12-31~'}),
+    Dashboard('Public Demos', 'public-demos', 76),
+    Dashboard('Uninspected Service Requests', 'unispected-service-requests', 77),
 ]
 
 bp = Blueprint('misc', __name__)

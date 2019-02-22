@@ -4,9 +4,9 @@ from li_metabase.utils import Dashboard, get_dashboard_id_from_url, build_iframe
 
 
 PERMITS_DASHBOARDS = [
-    Dashboard('Permit Volumes and Revenues', 'volume-and-revenues', 39, {'issue_date_filter': '2015-12-31~'}),
-    Dashboard('Permits: OTC vs Reviewed', 'otc-vs-reviewed', 40, {'issue_date_filter': '2015-12-31~'}),
-    Dashboard('Accelerated Review Permits', 'accelerated-review', 41, {'permit_application_date_filter': '2015-12-31~'}),
+    Dashboard('Permit Volumes and Revenues', 'volume-and-revenues', 39),
+    Dashboard('Permits: OTC vs Reviewed', 'otc-vs-reviewed', 40),
+    Dashboard('Accelerated Review Permits', 'accelerated-review', 41),
 ]
 
 bp = Blueprint('permits', __name__)
