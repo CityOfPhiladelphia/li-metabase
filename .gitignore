@@ -54,3 +54,6 @@ docs/_build/
 
 # Configuration
 config.py
+
+# Log files
+etl/log.txt
