@@ -57,3 +57,6 @@ config.py
 
 # Log files
 etl/log.txt
+
+# Pickle files
+*.p
