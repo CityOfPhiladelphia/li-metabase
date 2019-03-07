@@ -1,5 +1,6 @@
 import sys
 import datetime
+import os
 
 import petl as etl
 
@@ -10,12 +11,11 @@ from sql_queries import queries
 
 
 class CursorProxy(object):
+    '''Required to use petl with cx_Oracle https://petl.readthedocs.io/en/stable/io.html#databases'''
     def __init__(self, cursor):
         self._cursor = cursor
     def executemany(self, statement, parameters, **kwargs):
-        # convert parameters to a list
         parameters = list(parameters)
-        # pass through to proxied cursor
         return self._cursor.executemany(statement, parameters, **kwargs)
     def __getattr__(self, item):
         return getattr(self._cursor, item)
@@ -41,7 +41,7 @@ def get_logger():
 
     return logger
 
-def send_email():
+def send_email(failed):
     from email.mime.text import MIMEText
     from phila_mail import server
 
@@ -49,15 +49,14 @@ def send_email():
                       'dani.interrante@phila.gov', 
                       'philip.ribbens@phila.gov',
                       'shannon.holm@phila.gov']
-    sender = 'peter.dannemann@phila.gov'
-    commaspace = ', '
-    email = 'LI Dashboards ETL failed. Please read the log file and troubleshoot this issue.'
-    text = f'AUTOMATIC EMAIL: \n {email}'
-    msg = MIMEText(text)
-    msg['To'] = commaspace.join(recipientslist)
+    sender = 'ligisteam@phila.gov'
+    body = 'AUTOMATIC EMAIL: \n' + '\n\nThe following tables failed to update:\n\n' + ', \n'.join(failed)  
+    msg = MIMEText(body)
+    msg['To'] =  ', '.join(recipientslist)
     msg['From'] = sender
     msg['X-Priority'] = '2'
-    msg['Subject'] = 'Important Email'
+    msg['Subject'] = 'Dashboards ETL Failure'
+       
     server.server.sendmail(sender, recipientslist, msg.as_string())
     server.server.quit()
 
@@ -77,37 +76,41 @@ def get_extract_query(query):
     with open(query.extract_query_file) as sql:
         return sql.read()
 
-def etl_(query, target):
+def etl_(query):
     source_db = get_source_db(query)
     extract_query = get_extract_query(query)
-    target_table = query.target_table
 
     with source_db() as source:
         etl.fromdb(source, extract_query) \
-           .todb(get_cursor(target), target_table.upper())
+           .topickle(f'temp/{query.target_table}.p')
+
+    with GISLICLD.GISLICLD() as target:
+        etl.frompickle(f'temp/{query.target_table}.p') \
+           .todb(get_cursor(target), query.target_table.upper())
 
 def etl_process(queries):
     logger = get_logger()
     logger.info('---------------------------------')
     logger.info('ETL process initialized: ' + str(datetime.datetime.now()))
     
-    with GISLICLD.GISLICLD() as target:
-        for query in queries:
-            try:
-                etl_(query, target)
-                logger.info(f'{query.target_table} successfully updated.')
-            except:
-                logger.error(f'ETL Process into GISLICLD.{query.target_table} failed.', exc_info=True)
+    failed = []
+
+    for query in queries:
+        try:
+            etl_(query)
+            logger.info(f'{query.target_table} successfully updated.')
+        except:
+            logger.error(f'ETL Process into GISLICLD.{query.target_table} failed.', exc_info=True)
+            failed.append(query.target_table)
 
     logger.info('ETL process ended: ' + str(datetime.datetime.now()))
 
+    if len(failed) > 0:
+        send_email(failed)
 
 def main():
     global queries
     etl_process(queries)
 
 if __name__ == '__main__':
-    try:
-        main()
-    except:
-        send_email()
+    main()
