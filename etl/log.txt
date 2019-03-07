@@ -1,0 +1,16 @@
+2019-03-07 10:40:27,627 - INFO - ---------------------------------
+2019-03-07 10:40:27,627 - INFO - ETL process initialized: 2019-03-07 10:40:27.627973
+2019-03-07 10:40:28,511 - ERROR - ETL Process into GISLICLD.li_stat_immdang_ind failed.
+Traceback (most recent call last):
+  File "G:\01_Peter_Dannemann_Project_Folder\Web Apps\li-dashboard-etl\utils.py", line 96, in etl_process
+    etl_(query, target)
+TypeError: etl_() missing 1 required positional argument: 'source'
+2019-03-07 10:40:28,544 - INFO - ETL process ended: 2019-03-07 10:40:28.544717
+2019-03-07 10:41:17,772 - INFO - ---------------------------------
+2019-03-07 10:41:17,774 - INFO - ETL process initialized: 2019-03-07 10:41:17.774259
+2019-03-07 10:41:21,426 - INFO - li_stat_immdang_ind successfully updated.
+2019-03-07 10:41:21,442 - INFO - ETL process ended: 2019-03-07 10:41:21.442460
+2019-03-07 10:56:07,803 - INFO - ---------------------------------
+2019-03-07 10:56:07,803 - INFO - ETL process initialized: 2019-03-07 10:56:07.803091
+2019-03-07 10:56:11,750 - INFO - li_stat_immdang_ind successfully updated.
+2019-03-07 10:56:11,772 - INFO - ETL process ended: 2019-03-07 10:56:11.771446
