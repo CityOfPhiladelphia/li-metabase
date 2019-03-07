@@ -3,11 +3,16 @@ This is a simple Flask Application that embeds Metabase dashboards.
 
 This allows us to easily restrict access to individual dashboards to specific users in addition to adding the data download button only seen when dashboards are embedded.
 
+## Requirements
+- Python 3.6+
+- Pip
+- Connections to all of L+I's databases in the form of the li_dbs Python package
+
 ## Installation
 ```bash
 $ pip install -r requirements.txt
 ```
-- Get the config.py file from me and put it in your base project directory
+- Get the config.py file from me and replace li_metabase/sample_config.py with it
 
 ### Development Web Server
 ```bash
