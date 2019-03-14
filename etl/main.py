@@ -79,7 +79,6 @@ def get_extract_query(query):
 def etl_(query):
     source_db = get_source_db(query)
     extract_query = get_extract_query(query)
-    target_table = query.target_table
 
     with source_db() as source:
         etl.fromdb(source, extract_query) \
@@ -87,7 +86,7 @@ def etl_(query):
 
     with GISLICLD.GISLICLD() as target:
         etl.frompickle(f'temp/{query.target_table}.p') \
-           .todb(get_cursor(target), target_table.upper())
+           .todb(get_cursor(target), query.target_table.upper())
 
 def etl_process(queries):
     logger = get_logger()
@@ -114,7 +113,4 @@ def main():
     etl_process(queries)
 
 if __name__ == '__main__':
-    try:
-        main()
-    except:	
-        send_email()
+    main()

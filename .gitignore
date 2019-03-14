@@ -59,8 +59,8 @@ config.py
 etl/log.txt
 output_and_errors.txt
 
-# Pickle files
-*.p
-
 # Batch files
 *.bat
+
+# Pickle files
+*.p
