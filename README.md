@@ -12,7 +12,7 @@ This allows us to easily restrict access to individual dashboards to specific us
 ```bash
 $ pip install -r requirements.txt
 ```
-- Get the config.py file from me and put it in your base project directory
+- Get the config.py file from me and replace li_metabase/sample_config.py with it
 
 ### Development Web Server
 ```bash
