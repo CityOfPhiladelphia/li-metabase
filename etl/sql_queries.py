@@ -175,9 +175,9 @@ SubmittalVolumesTL = SqlQuery(
 )
 
 PermitsFees = SqlQuery(
-    extract_query_file = 'permits/Slide1_MonthlyPermitsSubmittedwithPaidFees.sql',
+    extract_query_file = 'permits/permits_and_fees.sql',
     source_db='LIDB',
-    target_table = 'li_stat_permitsfees'
+    target_table = 'permits_fees'
 )
 
 PermitsOTCvsReview = SqlQuery(
