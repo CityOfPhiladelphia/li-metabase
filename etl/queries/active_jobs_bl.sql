@@ -4,11 +4,7 @@ SELECT DISTINCT j.externalfilenum JobNumber,
   stat.description JobStatus,
   proc.processid ProcessID,
   pt.description ProcessType,
-  Extract(MONTH FROM proc.datecompleted)
-  || '/'
-  ||Extract(DAY FROM proc.datecompleted)
-  || '/'
-  || Extract(YEAR FROM proc.datecompleted) JobAcceptedDate,
+  proc.datecompleted JobAcceptedDate,
   proc.processstatus ProcessStatus,
   proc.assignedstaff AssignedStaff,
   (

@@ -23,16 +23,16 @@ IncompleteProcessesTL = SqlQuery(
     target_table = 'incompleteprocesses_tl'
 )
 
-Man001ActiveJobsBLInd = SqlQuery(
-    extract_query_file = 'Man001ActiveJobsBL_ind_records.sql',
+ActiveJobsBL = SqlQuery(
+    extract_query_file = 'active_jobs_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_activejobs_bl_ind'
+    target_table = 'active_jobs_bl'
 )
 
-Man001ActiveJobsTLInd = SqlQuery(
-    extract_query_file = 'Man001ActiveJobsTL_ind_records.sql',
+ActiveJobsTL = SqlQuery(
+    extract_query_file = 'active_jobs_tl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_activejobs_tl_ind'
+    target_table = 'active_jobs_tl'
 )
 
 Man002ActiveProcessesBLInd = SqlQuery(
@@ -204,8 +204,8 @@ queries = [
     IncompleteProcessesBL,
     IncompleteProcessesTL,
     UninspectedBLsWithCompCheck,
-    Man001ActiveJobsBLInd,
-    Man001ActiveJobsTLInd, 
+    ActiveJobsBL,
+    ActiveJobsTL, 
     Man002ActiveProcessesBLInd,
     Man002ActiveProcessesTLInd,
     Man004BLJobVolumesBySubmissionTypes,
