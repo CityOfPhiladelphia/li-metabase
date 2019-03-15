@@ -6,16 +6,8 @@ FROM
     stat.Description JobStatus,
     proc.ProcessId ProcessID,
     pt.Description ProcessType,
-    extract(MONTH FROM proc.CreatedDate)
-    || '/'
-    ||extract(DAY FROM proc.CreatedDate)
-    || '/'
-    || extract(YEAR FROM proc.CreatedDate) CreatedDate,
-    extract(MONTH FROM proc.ScheduledStartDate)
-    || '/'
-    || extract(DAY FROM proc.ScheduledStartDate)
-    || '/'
-    ||extract(YEAR FROM proc.ScheduledStartDate) ScheduledStartDate,
+    proc.CreatedDate CreatedDate,
+    proc.ScheduledStartDate ScheduledStartDate,
     proc.ProcessStatus ProcessStatus,
     (
     CASE
@@ -66,16 +58,8 @@ FROM
     stat.Description JobStatus,
     proc.ProcessId ProcessID,
     pt.Description ProcessType,
-    extract(MONTH FROM proc.CreatedDate)
-    || '/'
-    ||extract(DAY FROM proc.CreatedDate)
-    || '/'
-    || extract(YEAR FROM proc.CreatedDate) CreatedDate,
-    extract(MONTH FROM proc.ScheduledStartDate)
-    || '/'
-    || extract(DAY FROM proc.ScheduledStartDate)
-    || '/'
-    ||extract(YEAR FROM proc.ScheduledStartDate) ScheduledStartDate,
+    proc.CreatedDate CreatedDate,
+    proc.ScheduledStartDate ScheduledStartDate,
     proc.ProcessStatus ProcessStatus,
     (
     CASE

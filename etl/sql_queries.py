@@ -35,16 +35,16 @@ ActiveJobsTL = SqlQuery(
     target_table = 'active_jobs_tl'
 )
 
-Man002ActiveProcessesBLInd = SqlQuery(
-    extract_query_file = 'Man002ActiveProcessesBL_ind_records.sql',
+ActiveProcessesBL = SqlQuery(
+    extract_query_file = 'active_processes_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_activeproc_bl_ind'
+    target_table = 'active_processes_bl'
 )
 
-Man002ActiveProcessesTLInd = SqlQuery(
-    extract_query_file = 'Man002ActiveProcessesTL_ind_records.sql',
+ActiveProcessesTL = SqlQuery(
+    extract_query_file = 'active_processes_tl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_activeproc_tl_ind'
+    target_table = 'active_processes_tl'
 )
 
 Man004BLJobVolumesBySubmissionTypes = SqlQuery(
@@ -206,8 +206,8 @@ queries = [
     UninspectedBLsWithCompCheck,
     ActiveJobsBL,
     ActiveJobsTL, 
-    Man002ActiveProcessesBLInd,
-    Man002ActiveProcessesTLInd,
+    ActiveProcessesBL,
+    ActiveProcessesTL,
     Man004BLJobVolumesBySubmissionTypes,
     Man004TLJobVolumesBySubmissionTypes,
     Man005BLExpirationDates,

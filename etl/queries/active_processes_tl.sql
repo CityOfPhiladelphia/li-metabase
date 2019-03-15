@@ -4,16 +4,8 @@ SELECT DISTINCT j.externalfilenum JobNumber,
   stat.description JobStatus,
   proc.processid ProcessID,
   pt.description ProcessType,
-  Extract(MONTH FROM proc.createddate)
-  || '/'
-  ||Extract(DAY FROM proc.createddate)
-  || '/'
-  || Extract(YEAR FROM proc.createddate) CreatedDate,
-  Extract(MONTH FROM proc.scheduledstartdate)
-  || '/'
-  || Extract(DAY FROM proc.scheduledstartdate)
-  || '/'
-  ||Extract(YEAR FROM proc.scheduledstartdate) ScheduledStartDate,
+  proc.CreatedDate CreatedDate,
+  proc.ScheduledStartDate ScheduledStartDate,
   proc.processstatus ProcessStatus,
   (CASE
     WHEN ROUND(SYSDATE - proc.scheduledstartdate) <= 1
