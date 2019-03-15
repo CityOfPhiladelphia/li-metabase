@@ -29,22 +29,10 @@ Man001ActiveJobsBLInd = SqlQuery(
     target_table = 'li_dash_activejobs_bl_ind'
 )
 
-Man001ActiveJobsBLCount = SqlQuery(
-    extract_query_file = 'Man001ActiveJobsBL_counts.sql',
-    source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_activejobs_bl_counts'
-)
-
 Man001ActiveJobsTLInd = SqlQuery(
     extract_query_file = 'Man001ActiveJobsTL_ind_records.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'li_dash_activejobs_tl_ind'
-)
-
-Man001ActiveJobsTLCount = SqlQuery(
-    extract_query_file = 'Man001ActiveJobsTL_counts.sql',
-    source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_activejobs_tl_counts'
 )
 
 Man002ActiveProcessesBLInd = SqlQuery(
@@ -53,22 +41,10 @@ Man002ActiveProcessesBLInd = SqlQuery(
     target_table = 'li_dash_activeproc_bl_ind'
 )
 
-Man002ActiveProcessesBLCount = SqlQuery(
-    extract_query_file = 'Man002ActiveProcessesBL_counts.sql',
-    source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_activeproc_bl_counts'
-)
-
 Man002ActiveProcessesTLInd = SqlQuery(
     extract_query_file = 'Man002ActiveProcessesTL_ind_records.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'li_dash_activeproc_tl_ind'
-)
-
-Man002ActiveProcessesTLCount = SqlQuery(
-    extract_query_file = 'Man002ActiveProcessesTL_counts.sql',
-    source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_activeproc_tl_counts'
 )
 
 Man004BLJobVolumesBySubmissionTypes = SqlQuery(
@@ -192,22 +168,10 @@ PermitsAccelReview = SqlQuery(
     target_table = 'li_stat_permits_accelreview'
 )
 
-ImmDangCounts = SqlQuery(
-    extract_query_file = 'ImmDangCounts.sql',
-    source_db = 'GISLNI',
-    target_table = 'li_stat_immdang_counts'
-)
-
 ImmDangInd = SqlQuery(
     extract_query_file = 'ImmDangInd.sql',
     source_db = 'GISLNI',
     target_table = 'li_stat_immdang_ind'
-)
-
-UnsafesCounts = SqlQuery(
-    extract_query_file = 'UnsafesCounts.sql',
-    source_db = 'GISLNI',
-    target_table = 'li_stat_unsafes_counts'
 )
 
 UnsafesInd = SqlQuery(
@@ -241,13 +205,9 @@ queries = [
     IncompleteProcessesTL,
     UninspectedBLsWithCompCheck,
     Man001ActiveJobsBLInd,
-    Man001ActiveJobsBLCount,
     Man001ActiveJobsTLInd, 
-    Man001ActiveJobsTLCount,
     Man002ActiveProcessesBLInd,
-    Man002ActiveProcessesBLCount, 
     Man002ActiveProcessesTLInd,
-    Man002ActiveProcessesTLCount,
     Man004BLJobVolumesBySubmissionTypes,
     Man004TLJobVolumesBySubmissionTypes,
     Man005BLExpirationDates,
@@ -261,9 +221,7 @@ queries = [
     PermitsFees,
     PermitsOTCvsReview,
     PermitsAccelReview,
-    ImmDangCounts,
     ImmDangInd,
-    UnsafesCounts,
     UnsafesInd,
     PublicDemos,
     UninspectedServiceRequests,
