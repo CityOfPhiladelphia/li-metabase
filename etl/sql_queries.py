@@ -14,13 +14,13 @@ IndividualWorkloads = SqlQuery(
 IncompleteProcessesBL = SqlQuery(
     extract_query_file = 'incomplete_processes_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_incompleteprocesses_bl'
+    target_table = 'incompleteprocesses_bl'
 )
 
 IncompleteProcessesTL = SqlQuery(
     extract_query_file = 'incomplete_processes_tl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_incompleteprocesses_tl'
+    target_table = 'incompleteprocesses_tl'
 )
 
 Man001ActiveJobsBLInd = SqlQuery(

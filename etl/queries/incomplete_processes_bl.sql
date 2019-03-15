@@ -15,8 +15,7 @@ SELECT proc.processid,
     THEN 0
     ELSE regexp_count(proc.ASSIGNEDSTAFF, ',') + 1
   END ) NUMASSIGNEDSTAFF,
-  Extract(month FROM proc.scheduledstartdate) || '/' ||Extract(day FROM proc.scheduledstartdate) || '/' || Extract(year FROM proc.scheduledstartdate) ScheduledStartDate,
-  proc.scheduledstartdate ScheduledStartDateField,
+  proc.scheduledstartdate ScheduledStartDate,
   SYSDATE - proc.scheduledstartdate TimeSinceScheduledStartDate,
  (CASE
     WHEN jt.description LIKE 'Business License Application'
@@ -54,8 +53,7 @@ SELECT proc.processid,
     THEN 0
     ELSE regexp_count(proc.ASSIGNEDSTAFF, ',') + 1
   END ) NUMASSIGNEDSTAFF,
-  Extract(month FROM proc.scheduledstartdate) || '/' ||Extract(day FROM proc.scheduledstartdate) || '/' || Extract(year FROM proc.scheduledstartdate) ScheduledStartDate,
-  proc.scheduledstartdate ScheduledStartDateField,
+  proc.scheduledstartdate ScheduledStartDate,
   SYSDATE - proc.scheduledstartdate TimeSinceScheduledStartDate,
     (
   CASE
