@@ -27,16 +27,8 @@ SELECT lic.licensenumber LicenseNumber,
   END) CreatedByType,
   ap.externalfilenum JobNumber,
   REPLACE(jt.name, 'j_TL_', '') JobType,
-  Extract(MONTH FROM ap.createddate)
-  || '/'
-  ||Extract(DAY FROM ap.createddate)
-  || '/'
-  || Extract(YEAR FROM ap.createddate) JobCreatedDate,
-  Extract(MONTH FROM ap.completeddate)
-  || '/'
-  ||Extract(DAY FROM ap.completeddate)
-  || '/'
-  || Extract(YEAR FROM ap.completeddate) JobCompletedDate,
+  ap.createddate JobCreatedDate,
+  ap.completeddate JobCompletedDate,
   NULL LicenseRenewedOnDate,
   (
   CASE
@@ -93,17 +85,9 @@ SELECT lic.licensenumber LicenseNumber,
   END ) CreatedByType,
   ar.externalfilenum JobNumber,
   REPLACE(jt.name, 'j_TL_', '') JobType,
-  Extract(MONTH FROM ar.createddate)
-  || '/'
-  ||Extract(DAY FROM ar.createddate)
-  || '/'
-  || Extract(YEAR FROM ar.createddate) JobCreatedDate,
+  ar.createddate JobCreatedDate,
   NULL JobCompletedDate,
-  Extract(MONTH FROM ar.licenserenewedondate)
-  || '/'
-  ||Extract(DAY FROM ar.licenserenewedondate)
-  || '/'
-  || Extract(YEAR FROM ar.licenserenewedondate) LicenseRenewedOnDate,
+  ar.licenserenewedondate LicenseRenewedOnDate,
   (
   CASE
     WHEN jt.description LIKE 'Trade License Amend/Renew'

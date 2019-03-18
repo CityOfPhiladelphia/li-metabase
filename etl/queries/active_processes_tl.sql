@@ -17,7 +17,7 @@ SELECT DISTINCT j.externalfilenum JobNumber,
     WHEN ROUND(SYSDATE - proc.scheduledstartdate) BETWEEN 11 AND 365
     THEN '11 Days-1 Year'
     ELSE 'Over 1 Year'
-  END) Duration,
+  END) TimeSinceScheduledStartDate,
   (CASE
     WHEN jt.description LIKE 'Trade License Application'
     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2854033&objectHandle='

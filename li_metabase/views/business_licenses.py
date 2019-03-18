@@ -7,7 +7,7 @@ from li_metabase.auth import auth
 BUSINESS_LICENSES_DASHBOARDS = [
     Dashboard('Business Licenses Active Jobs', 'active-jobs', 33),
     Dashboard('Business Licenses Active Processes', 'active-processes', 45),
-    Dashboard('Business Licenses Expiration Dates', 'expiration-dates', 47),
+    Dashboard('Expiring Business Licenses', 'expiring-licenses', 47),
     Dashboard('Business Licenses Incomplete Processes', 'incomplete-processes', 50),
     Dashboard('Business Licenses Job Volumes By Submission Type', 'job-volumes-by-submission-type', 46),
     Dashboard('Business Licenses Overdue Inspections', 'overdue-inspections', 48),

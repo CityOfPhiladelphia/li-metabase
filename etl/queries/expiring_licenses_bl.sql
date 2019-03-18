@@ -27,16 +27,8 @@ SELECT lic.licensenumber LicenseNumber,
   END) CreatedByType,
   ap.externalfilenum JobNumber,
   REPLACE(jt.name, 'j_BL_', '') JobType,
-  Extract(MONTH FROM ap.createddate)
-  || '/'
-  ||Extract(DAY FROM ap.createddate)
-  || '/'
-  || Extract(YEAR FROM ap.createddate) JobCreatedDate,
-  Extract(MONTH FROM ap.completeddate)
-  || '/'
-  ||Extract(DAY FROM ap.completeddate)
-  || '/'
-  || Extract(YEAR FROM ap.completeddate) JobCompletedDate,
+  ap.createddate JobCreatedDate,
+  ap.completeddate JobCompletedDate,
   (
   CASE
     WHEN jt.description LIKE 'Business License Application'
@@ -100,16 +92,8 @@ SELECT lic.licensenumber LicenseNumber,
   END ) CreatedByType,
   ar.externalfilenum JobNumber,
   REPLACE(jt.name, 'j_BL_', '') JobType,
-  Extract(MONTH FROM ar.createddate)
-  || '/'
-  ||Extract(DAY FROM ar.createddate)
-  || '/'
-  || Extract(YEAR FROM ar.createddate) JobCreatedDate,
-  Extract(MONTH FROM ar.completeddate)
-  || '/'
-  ||Extract(DAY FROM ar.completeddate)
-  || '/'
-  || Extract(YEAR FROM ar.completeddate) JobCompletedDate,
+  ar.createddate JobCreatedDate,
+  ar.completeddate JobCompletedDate,
   (
   CASE
     WHEN jt.description LIKE 'Amendment/Renewal'

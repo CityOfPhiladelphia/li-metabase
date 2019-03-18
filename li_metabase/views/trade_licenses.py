@@ -7,7 +7,7 @@ from li_metabase.auth import auth
 TRADE_LICENSES_DASHBOARDS = [
     Dashboard('Trade Licenses Active Jobs', 'active-jobs', 69),
     Dashboard('Trade Licenses Active Processes', 'active-processes', 71),
-    Dashboard('Trade Licenses Expiration Dates', 'expiration-dates', 74),
+    Dashboard('Expiring Trade Licenses', 'expiring-licenses', 74),
     Dashboard('Trade Licenses Incomplete Processes', 'incomplete-processes', 75),
     Dashboard('Trade Licenses Job Volumes By Submission Type', 'job-volumes-by-submission-type', 73),
     Dashboard('Trade Licenses Revenue', 'revenue', 43),

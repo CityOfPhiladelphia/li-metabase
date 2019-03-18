@@ -59,16 +59,16 @@ Man004TLJobVolumesBySubmissionTypes = SqlQuery(
     target_table = 'li_dash_jobvolsbysubtype_tl'
 )
 
-Man005BLExpirationDates = SqlQuery(
-    extract_query_file = 'Man005BLExpirationDates.sql',
+ExpiringLicensesBL = SqlQuery(
+    extract_query_file = 'expiring_licenses_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_expirationdates_bl'
+    target_table = 'expiring_licenses_bl'
 )
 
-Man005TLExpirationDates = SqlQuery(
-    extract_query_file = 'Man005TLExpirationDates.sql',
+ExpiringLicensesTL = SqlQuery(
+    extract_query_file = 'expiring_licenses_tl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_expirationdates_tl'
+    target_table = 'expiring_licenses_tl'
 )
 
 Man006OverdueBLInspections = SqlQuery(
@@ -210,8 +210,8 @@ queries = [
     ActiveProcessesTL,
     Man004BLJobVolumesBySubmissionTypes,
     Man004TLJobVolumesBySubmissionTypes,
-    Man005BLExpirationDates,
-    Man005TLExpirationDates,
+    ExpiringLicensesBL,
+    ExpiringLicensesTL,
     Man006OverdueBLInspections,
     SLA_BL,
     SLA_BL_BUS_DAYS,
