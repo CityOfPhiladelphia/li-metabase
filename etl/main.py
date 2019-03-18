@@ -105,8 +105,8 @@ def etl_process(queries):
 
     logger.info('ETL process ended: ' + str(datetime.datetime.now()))
 
-    #if len(failed) > 0:
-    #    send_email(failed)
+    if len(failed) > 0:
+        send_email(failed)
 
 def main():
     global queries

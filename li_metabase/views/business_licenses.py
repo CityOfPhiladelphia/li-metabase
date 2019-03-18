@@ -9,7 +9,7 @@ BUSINESS_LICENSES_DASHBOARDS = [
     Dashboard('Business Licenses Active Processes', 'active-processes', 45),
     Dashboard('Expiring Business Licenses', 'expiring-licenses', 47),
     Dashboard('Business Licenses Incomplete Processes', 'incomplete-processes', 50),
-    Dashboard('Business Licenses Jobs By Submission Mode', 'jobs-by-submission-mode', 83),
+    Dashboard('Business Licenses Jobs By Submission Mode', 'submission-mode', 83),
     Dashboard('Business Licenses Overdue Inspections', 'overdue-inspections', 48),
     Dashboard('Business Licenses Revenue', 'revenue', 37),
     Dashboard('Business Licenses SLA', 'sla', 51),
