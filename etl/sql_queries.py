@@ -108,16 +108,16 @@ UninspectedBLsWithCompCheck = SqlQuery(
 )
 
 # LI Stat Queries
-LicenseVolumesBL = SqlQuery(
-    extract_query_file = 'licenses/slide1_license_volumes_BL.sql',
+LicensesIssuedBL = SqlQuery(
+    extract_query_file = 'licenses/licenses_issued_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_stat_licensevolumes_bl'
+    target_table = 'licenses_issued_bl'
 )
 
-LicenseVolumesTL = SqlQuery(
-    extract_query_file = 'licenses/slide1_license_volumes_TL.sql',
+LicensesIssuedTL = SqlQuery(
+    extract_query_file = 'licenses/licenses_issued_tl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_stat_licensevolumes_tl'
+    target_table = 'licenses_issued_tl'
 )
 
 LicenseRevenueBL = SqlQuery(
@@ -226,8 +226,8 @@ queries = [
     PublicDemos,
     UninspectedServiceRequests,
     UninspectedServiceRequestsBusDays,
-    LicenseVolumesBL,
-    LicenseVolumesTL,
+    LicensesIssuedBL,
+    LicensesIssuedTL,
     LicenseRevenueBL,
     LicenseRevenueTL,
     LicenseTrendsBL,
