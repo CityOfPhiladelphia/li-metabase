@@ -19,7 +19,7 @@ SELECT DISTINCT lt.name licensetype,
   lic.externalfilenum licensenumber,
   ar.ExternalFileNum jobnumber,
   ar.applicationtype jobtype,
-  ar.issuedate jobissuedate
+  ar.issuedate issuedate
 FROM query.j_bl_amendrenew ar,
   query.r_bl_amendrenew_license rla,
   query.o_bl_license lic,
@@ -36,7 +36,7 @@ SELECT DISTINCT lt.name licensetype,
   lic.externalfilenum licensenumber,
   ap.ExternalFileNum jobnumber,
   ap.applicationtype jobtype,
-  ap.IssueDate jobissuedate
+  ap.IssueDate issuedate
 FROM query.o_bl_license lic,
   lmscorral.bl_licensetype lt,
   query.j_bl_application ap
