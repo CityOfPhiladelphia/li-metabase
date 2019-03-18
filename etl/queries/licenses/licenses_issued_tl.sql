@@ -2,7 +2,7 @@ SELECT DISTINCT lic.licensetype LicenseType,
   lic.LicenseNumber,
   ap.externalfilenum JobNumber,
   ap.applicationtype JobType,
-  lic.LICENSEISSUEDATE JobIssueDate
+  lic.LICENSEISSUEDATE IssueDate
 FROM lmscorral.tl_tradelicenses lic,
   query.j_tl_application ap
 WHERE lic.objectid    = ap.tradelicenseobjectid (+)
@@ -14,7 +14,7 @@ SELECT DISTINCT lic.licensetype LicenseType,
   lic.licensenumber,
   tar.externalfilenum JobNumber,
   tar.applicationtype JobType,
-  tar.completeddate jobissuedate
+  tar.completeddate issuedate
 FROM lmscorral.tl_tradelicenses lic,
   query.r_tl_amendrenew_license ar,
   query.j_tl_amendrenew tar
