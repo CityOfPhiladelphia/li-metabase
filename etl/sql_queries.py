@@ -47,10 +47,10 @@ ActiveProcessesTL = SqlQuery(
     target_table = 'active_processes_tl'
 )
 
-Man004BLJobVolumesBySubmissionTypes = SqlQuery(
-    extract_query_file = 'Man004BLJobVolumesBySubmissionType.sql',
+SubmissionModeBL = SqlQuery(
+    extract_query_file = 'licenses/submission_mode_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_jobvolsbysubtype_bl'
+    target_table = 'submission_mode_bl'
 )
 
 Man004TLJobVolumesBySubmissionTypes = SqlQuery(
@@ -208,7 +208,7 @@ queries = [
     ActiveJobsTL, 
     ActiveProcessesBL,
     ActiveProcessesTL,
-    Man004BLJobVolumesBySubmissionTypes,
+    SubmissionModeBL,
     Man004TLJobVolumesBySubmissionTypes,
     ExpiringLicensesBL,
     ExpiringLicensesTL,
