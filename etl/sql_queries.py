@@ -121,15 +121,15 @@ LicensesIssuedTL = SqlQuery(
 )
 
 LicenseRevenueBL = SqlQuery(
-    extract_query_file = 'licenses/slide2_PaymentsbyMonth_BL.sql',
+    extract_query_file = 'licenses/revenue_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_stat_licenserevenue_bl'
+    target_table = 'revenue_bl'
 )
 
 LicenseRevenueTL = SqlQuery(
-    extract_query_file = 'licenses/slide2_PaymentsbyMonth_TL.sql',
+    extract_query_file = 'licenses/revenue_tl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_stat_licenserevenue_tl'
+    target_table = 'revenue_tl'
 )
 
 LicenseTrendsBL = SqlQuery(
