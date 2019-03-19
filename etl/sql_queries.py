@@ -181,9 +181,9 @@ UnsafesInd = SqlQuery(
 )
 
 PublicDemos = SqlQuery(
-    extract_query_file = 'PublicDemos.sql',
+    extract_query_file = 'public_demos.sql',
     source_db = 'DataBridge',
-    target_table = 'li_stat_publicdemos'
+    target_table = 'public_demos'
 )
 
 UninspectedServiceRequests = SqlQuery(
