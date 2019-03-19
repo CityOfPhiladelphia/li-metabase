@@ -2,7 +2,7 @@ SELECT DISTINCT lt.name licensetype,
   lic.externalfilenum licensenumber,
   ap.ExternalFileNum jobnumber,
   ap.applicationtype jobtype,
-  ap.issuedate jobissuedate
+  ap.issuedate issuedate
 FROM query.j_bl_application ap,
   query.r_bl_application_license apl,
   query.o_bl_license lic,
