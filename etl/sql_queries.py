@@ -102,9 +102,9 @@ SLA_TL_BUS_DAYS = SqlQuery(
 )
 
 UninspectedBLsWithCompCheck = SqlQuery(
-    extract_query_file = 'UninspectedBLsWithCompChecks.sql',
+    extract_query_file = 'uninsp_bl_comp_check.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_uninsp_bl_comp_check'
+    target_table = 'uninsp_bl_comp_check'
 )
 
 # LI Stat Queries
