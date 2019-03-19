@@ -9,10 +9,9 @@ TRADE_LICENSES_DASHBOARDS = [
     Dashboard('Trade Licenses Active Processes', 'active-processes', 71),
     Dashboard('Expiring Trade Licenses', 'expiring-licenses', 74),
     Dashboard('Trade Licenses Incomplete Processes', 'incomplete-processes', 75),
-    Dashboard('Trade Licenses Job Volumes By Submission Type', 'job-volumes-by-submission-type', 73),
+    Dashboard('Trade Licenses Jobs By Submission Mode', 'submission-mode', 73),
     Dashboard('Trade Licenses Revenue', 'revenue', 43),
     Dashboard('Trade Licenses SLA', 'sla', 79),
-    Dashboard('Trade Licenses Submittal Types', 'submittal-types', 44),
     Dashboard('Trade Licenses Issued', 'issued', 35),
 ]
 
