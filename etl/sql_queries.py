@@ -174,10 +174,10 @@ ImmDangInd = SqlQuery(
     target_table = 'li_stat_immdang_ind'
 )
 
-UnsafesInd = SqlQuery(
-    extract_query_file = 'UnsafesInd.sql',
+Unsafes = SqlQuery(
+    extract_query_file = 'unsafes.sql',
     source_db = 'GISLNI',
-    target_table = 'li_stat_unsafes_ind'
+    target_table = 'unsafes'
 )
 
 PublicDemos = SqlQuery(
@@ -222,7 +222,7 @@ queries = [
     PermitsOTCvsReview,
     PermitsAccelReview,
     ImmDangInd,
-    UnsafesInd,
+    Unsafes,
     PublicDemos,
     UninspectedServiceRequests,
     UninspectedServiceRequestsBusDays,
