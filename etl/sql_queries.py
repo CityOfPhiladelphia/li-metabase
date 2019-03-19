@@ -71,10 +71,10 @@ ExpiringLicensesTL = SqlQuery(
     target_table = 'expiring_licenses_tl'
 )
 
-Man006OverdueBLInspections = SqlQuery(
-    extract_query_file = 'Man006OverdueBLInspections.sql',
+OverdueInspectionsBL = SqlQuery(
+    extract_query_file = 'overdue_inspections_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_overdueinsp_bl'
+    target_table = 'overdue_inspections_bl'
 )
 
 SLA_BL = SqlQuery(
@@ -212,7 +212,7 @@ queries = [
     SubmissionModeTL,
     ExpiringLicensesBL,
     ExpiringLicensesTL,
-    Man006OverdueBLInspections,
+    OverdueInspectionsBL,
     SLA_BL,
     SLA_BL_BUS_DAYS,
     SLA_TL,

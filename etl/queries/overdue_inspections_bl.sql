@@ -17,17 +17,8 @@ SELECT biz.address BusinessAddress,
   END ) InspectionOn,
   ins.inspectiontype InspectionType,
   ins.objectid InspectionObjectId,
-  Extract(MONTH FROM ins.createddate)
-  || '/'
-  ||Extract(DAY FROM ins.createddate)
-  || '/'
-  || Extract(YEAR FROM ins.createddate) InspectionCreatedDate,
-  Extract(MONTH FROM ins.scheduledinspectiondate)
-  || '/'
-  ||Extract(DAY FROM ins.scheduledinspectiondate)
-  || '/'
-  || Extract(YEAR FROM ins.scheduledinspectiondate) ScheduledInspectionDate,
-  ins.scheduledinspectiondate ScheduledInspectionDateField,
+  ins.createddate InspectionCreatedDate,
+  ins.scheduledinspectiondate ScheduledInspectionDate,
   ROUND(SYSDATE - ins.scheduledinspectiondate) DaysOverdue,
   (
   CASE
@@ -76,17 +67,8 @@ SELECT biz.address BusinessAddress,
   END ) InspectionOn,
   ins.inspectiontype InspectionType,
   ins.objectid InspectionObjectId,
-  Extract(MONTH FROM ins.createddate)
-  || '/'
-  ||Extract(DAY FROM ins.createddate)
-  || '/'
-  || Extract(YEAR FROM ins.createddate) InspectionCreatedDate,
-  Extract(MONTH FROM ins.scheduledinspectiondate)
-  || '/'
-  ||Extract(DAY FROM ins.scheduledinspectiondate)
-  || '/'
-  || Extract(YEAR FROM ins.scheduledinspectiondate) ScheduledInspectionDate,
-  ins.scheduledinspectiondate ScheduledInspectionDateField,
+  ins.createddate InspectionCreatedDate,
+  ins.scheduledinspectiondate ScheduledInspectionDate,
   ROUND(SYSDATE - ins.scheduledinspectiondate) DaysOverdue,
   (
   CASE
@@ -139,17 +121,8 @@ SELECT biz.address BusinessAddress,
   END ) InspectionOn,
   ins.inspectiontype InspectionType,
   ins.objectid InspectionObjectId,
-  Extract(MONTH FROM ins.createddate)
-  || '/'
-  ||Extract(DAY FROM ins.createddate)
-  || '/'
-  || Extract(YEAR FROM ins.createddate) InspectionCreatedDate,
-  Extract(MONTH FROM ins.scheduledinspectiondate)
-  || '/'
-  ||Extract(DAY FROM ins.scheduledinspectiondate)
-  || '/'
-  || Extract(YEAR FROM ins.scheduledinspectiondate) ScheduledInspectionDate,
-  ins.scheduledinspectiondate ScheduledInspectionDateField,
+  ins.createddate InspectionCreatedDate,
+  ins.scheduledinspectiondate ScheduledInspectionDate,
   ROUND(SYSDATE - ins.scheduledinspectiondate) DaysOverdue,
   (
   CASE
