@@ -168,10 +168,10 @@ PermitsAccelReview = SqlQuery(
     target_table = 'li_stat_permits_accelreview'
 )
 
-ImmDangInd = SqlQuery(
-    extract_query_file = 'ImmDangInd.sql',
+ImmDang = SqlQuery(
+    extract_query_file = 'imm_dang.sql',
     source_db = 'GISLNI',
-    target_table = 'li_stat_immdang_ind'
+    target_table = 'imm_dang'
 )
 
 Unsafes = SqlQuery(
@@ -221,7 +221,7 @@ queries = [
     PermitsFees,
     PermitsOTCvsReview,
     PermitsAccelReview,
-    ImmDangInd,
+    ImmDang,
     Unsafes,
     PublicDemos,
     UninspectedServiceRequests,
