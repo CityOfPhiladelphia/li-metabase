@@ -78,25 +78,25 @@ OverdueInspectionsBL = SqlQuery(
 )
 
 SLA_BL = SqlQuery(
-    extract_query_file = 'SLA_BL.sql',
+    extract_query_file = 'sla_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_sla_bl'
+    target_table = 'sla_bl'
 )
 
 SLA_BL_BUS_DAYS = SqlQuery(
-    extract_query_file = 'SLA_BL_BUS_DAYS.sql',
+    extract_query_file = 'sla_bl_bus_days.sql',
     source_db = 'GISLICLD',
     target_table = 'sla_bl_bus_days'
 )
 
 SLA_TL = SqlQuery(
-    extract_query_file = 'SLA_TL.sql',
+    extract_query_file = 'sla_tl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_sla_tl'
+    target_table = 'sla_tl'
 )
 
 SLA_TL_BUS_DAYS = SqlQuery(
-    extract_query_file = 'SLA_TL_BUS_DAYS.sql',
+    extract_query_file = 'sla_tl_bus_days.sql',
     source_db = 'GISLICLD',
     target_table = 'sla_tl_bus_days'
 )
