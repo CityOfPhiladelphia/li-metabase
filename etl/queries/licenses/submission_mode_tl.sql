@@ -48,7 +48,6 @@ FROM lmscorral.tl_tradelicensetypes lt,
 WHERE lt.licensecode = lic.licensecode (+)
 AND lic.objectid     = ap.tradelicenseobjectid (+)
 AND ap.jobtypeid     = jt.jobtypeid (+)
-AND ap.statusid LIKE '1036493'
 AND ap.externalfilenum LIKE 'TL%'
 AND ap.createddate >= '01-JAN-16'
 AND ap.createddate  < sysdate
@@ -105,7 +104,6 @@ WHERE lt.licensecode = lic.licensecode (+)
 AND lic.objectid     = arl.licenseid (+)
 AND arl.amendrenewid = ar.objectid (+)
 AND ar.jobtypeid     = jt.jobtypeid (+)
-AND ar.statusid LIKE '1036493'
 AND ar.externalfilenum LIKE 'TR%'
 AND ar.createddate >= '01-JAN-16'
 AND ar.createddate  < SYSDATE
