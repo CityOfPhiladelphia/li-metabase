@@ -2,8 +2,11 @@ SELECT sla.JOBID,
   sla.PROCESSID,
   sla.jobtype,
   sla.JOBCREATEDDATE,
-  bds1.BUSINESSDAYSSINCE BDSinceJobCreated,
   sla.PROCESSDATECOMPLETED,
+  sla.jobnumber,
+  sla.JOBSTATUS,
+  sla.joblink,
+  bds1.BUSINESSDAYSSINCE BDSinceJobCreated,
   (
   CASE
     WHEN sla.PROCESSDATECOMPLETED is not null
