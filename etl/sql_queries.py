@@ -138,18 +138,6 @@ LicenseTrendsBL = SqlQuery(
     target_table = 'li_stat_licensetrends_bl'
 )
 
-SubmittalVolumesBL = SqlQuery(
-    extract_query_file = 'licenses/slide4_submittal_volumes_BL.sql',
-    source_db = 'ECLIPSE_PROD',
-    target_table = 'li_stat_submittalvolumes_bl'
-)
-
-SubmittalVolumesTL = SqlQuery(
-    extract_query_file = 'licenses/slide4_submittal_volumes_TL.sql',
-    source_db = 'ECLIPSE_PROD',
-    target_table = 'li_stat_submittalvolumes_tl'
-)
-
 PermitsFees = SqlQuery(
     extract_query_file = 'permits/permits_and_fees.sql',
     source_db='LIDB',
@@ -230,7 +218,5 @@ queries = [
     LicensesIssuedTL,
     LicenseRevenueBL,
     LicenseRevenueTL,
-    LicenseTrendsBL,
-    SubmittalVolumesBL,
-    SubmittalVolumesTL,
+    LicenseTrendsBL
 ]
