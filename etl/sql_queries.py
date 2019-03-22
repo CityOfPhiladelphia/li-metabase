@@ -186,6 +186,12 @@ UninspectedServiceRequestsBusDays = SqlQuery(
     target_table = 'uninspectedservreq_busdays'
 )
 
+CaseInspections = SqlQuery(
+    extract_query_file = 'inspections/case_inspections.sql',
+    source_db = 'GISLNI',
+    target_table = 'case_inspections'
+)
+
 queries = [
     # LI Dash Queries
     IndividualWorkloads,
@@ -218,5 +224,6 @@ queries = [
     LicensesIssuedTL,
     LicenseRevenueBL,
     LicenseRevenueTL,
-    LicenseTrendsBL
+    LicenseTrendsBL,
+    CaseInspections,
 ]
