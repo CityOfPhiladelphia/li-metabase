@@ -1,23 +1,34 @@
-SELECT address,
-  ops_district OPSDistrict,
-  building_district BuildingDistrict,
-  casenumber,
-  violationdate,
-  caseresolutiondate,
-  caseresolutioncode,
-  mostrecentinsp,
-  violationdescription,
-  status,
-  casestatus,
-  casegroup,
-  prioritydesc casepriority,
-  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(geocode_x, geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
-  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(geocode_x, geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat
-FROM VIOLATIONS_MVW
-WHERE VIOLATIONDATE >= '01-JAN-16'
-AND VIOLATIONDATE    < TO_DATE(TO_CHAR(sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
-AND APTYPE LIKE 'CD ENFORCE'
-AND CASEGROUP IN ('CSU','CSUP')
-AND ((VIOLATIONTYPE LIKE 'PM-307%'
-OR VIOLATIONTYPE LIKE 'PM15-108.1%' )
-AND VIOLATIONTYPE != 'PM-307.1/20')
+SELECT
+    address,
+    unit,
+    ops_district opsdistrict,
+    building_district buildingdistrict,
+    casenumber,
+    violationdate,
+    caseresolutiondate,
+    caseresolutioncode,
+    mostrecentinsp,
+    violationdescription,
+    status,
+    casestatus,
+    casegroup,
+    prioritydesc casepriority,
+    sdo_cs.transform(sdo_geometry(2001,2272,sdo_point_type(geocode_x,geocode_y,NULL),NULL,NULL),4326).sdo_point.x lon,
+    sdo_cs.transform(sdo_geometry(2001,2272,sdo_point_type(geocode_x,geocode_y,NULL),NULL,NULL),4326).sdo_point.y lat
+FROM
+    violations_mvw
+WHERE
+    violationdate >= '01-JAN-16'
+    AND violationdate < TO_DATE(TO_CHAR(SYSDATE,'MM/DD/YYYY'),'MM/DD/YYYY')
+    AND aptype LIKE 'CD ENFORCE'
+    AND casegroup IN (
+        'CSU',
+        'CSUP'
+    )
+    AND (
+        (
+            violationtype LIKE 'PM-307%'
+            OR violationtype LIKE 'PM15-108.1%'
+        )
+        AND violationtype != 'PM-307.1/20'
+    )
