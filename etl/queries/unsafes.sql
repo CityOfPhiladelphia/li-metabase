@@ -33,3 +33,4 @@ WHERE
         )
         AND violationtype != 'PM-307.1/20'
     )
+;
