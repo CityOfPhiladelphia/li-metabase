@@ -192,6 +192,12 @@ CaseInspections = SqlQuery(
     target_table = 'case_inspections'
 )
 
+Violations = SqlQuery(
+    extract_query_file = 'violations/violations.sql',
+    source_db = 'GISLNI',
+    target_table = 'violations'
+
+)
 queries = [
     # LI Dash Queries
     IndividualWorkloads,
@@ -226,4 +232,5 @@ queries = [
     LicenseRevenueTL,
     LicenseTrendsBL,
     CaseInspections,
+    Violations
 ]
