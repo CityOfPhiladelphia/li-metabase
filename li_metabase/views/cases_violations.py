@@ -4,8 +4,9 @@ from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url, Da
 from li_metabase.auth import auth
 
 
-VIOLATIONS_DASHBOARDS = [
+CASES_VIOLATIONS_DASHBOARDS = [
     Dashboard('Violations by Type', 'violations-by-type', 116),
+    Dashboard('Overdue Case Violations', 'overdue-case-violations', 115),
     Dashboard('Unsafe Violations', 'unsafe-violations', 42),
     Dashboard('Imminently Dangerous Violations', 'imminently-dangerous-violations', 36),
     Dashboard('Current Imminently Dangerous Properties', 'current-imminently-dangerous-properties', 85)
@@ -13,12 +14,12 @@ VIOLATIONS_DASHBOARDS = [
 
 bp = Blueprint('violations', __name__)
 
-@bp.route('/violations/<dashboard_url>')
+@bp.route('/cases-violations/<dashboard_url>')
 @auth.login_required
-def violations(dashboard_url):
-    global VIOLATIONS_DASHBOARDS
+def cases_violations(dashboard_url):
+    global CASES_VIOLATIONS_DASHBOARDS
 
-    iframe_url = build_iframe_url_from_dashboard_url(dashboard_url, VIOLATIONS_DASHBOARDS)
+    iframe_url = build_iframe_url_from_dashboard_url(dashboard_url, CASES_VIOLATIONS_DASHBOARDS)
 
     return render_template('dashboard.html', iframe_url=iframe_url)
 
