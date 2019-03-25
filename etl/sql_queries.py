@@ -6,43 +6,43 @@ class SqlQuery():
 
 # LI Dash Queries
 IndividualWorkloads = SqlQuery(
-    extract_query_file = 'individual_workloads.sql',
+    extract_query_file = 'licenses/individual_workloads.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'li_dash_indworkloads'
 )
 
 IncompleteProcessesBL = SqlQuery(
-    extract_query_file = 'incomplete_processes_bl.sql',
+    extract_query_file = 'licenses/incomplete_processes_bl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'incompleteprocesses_bl'
 )
 
 IncompleteProcessesTL = SqlQuery(
-    extract_query_file = 'incomplete_processes_tl.sql',
+    extract_query_file = 'licenses/incomplete_processes_tl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'incompleteprocesses_tl'
 )
 
 ActiveJobsBL = SqlQuery(
-    extract_query_file = 'active_jobs_bl.sql',
+    extract_query_file = 'licenses/active_jobs_bl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'active_jobs_bl'
 )
 
 ActiveJobsTL = SqlQuery(
-    extract_query_file = 'active_jobs_tl.sql',
+    extract_query_file = 'licenses/active_jobs_tl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'active_jobs_tl'
 )
 
 ActiveProcessesBL = SqlQuery(
-    extract_query_file = 'active_processes_bl.sql',
+    extract_query_file = 'licenses/active_processes_bl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'active_processes_bl'
 )
 
 ActiveProcessesTL = SqlQuery(
-    extract_query_file = 'active_processes_tl.sql',
+    extract_query_file = 'licenses/active_processes_tl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'active_processes_tl'
 )
@@ -60,49 +60,49 @@ SubmissionModeTL = SqlQuery(
 )
 
 ExpiringLicensesBL = SqlQuery(
-    extract_query_file = 'expiring_licenses_bl.sql',
+    extract_query_file = 'licenses/expiring_licenses_bl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'expiring_licenses_bl'
 )
 
 ExpiringLicensesTL = SqlQuery(
-    extract_query_file = 'expiring_licenses_tl.sql',
+    extract_query_file = 'licenses/expiring_licenses_tl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'expiring_licenses_tl'
 )
 
 OverdueInspectionsBL = SqlQuery(
-    extract_query_file = 'overdue_inspections_bl.sql',
+    extract_query_file = 'licenses/overdue_inspections_bl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'overdue_inspections_bl'
 )
 
 SLA_BL = SqlQuery(
-    extract_query_file = 'sla_bl.sql',
+    extract_query_file = 'licenses/sla_bl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'sla_bl'
 )
 
 SLA_BL_BUS_DAYS = SqlQuery(
-    extract_query_file = 'sla_bl_bus_days.sql',
+    extract_query_file = 'licenses/sla_bl_bus_days.sql',
     source_db = 'GISLICLD',
     target_table = 'sla_bl_bus_days'
 )
 
 SLA_TL = SqlQuery(
-    extract_query_file = 'sla_tl.sql',
+    extract_query_file = 'licenses/sla_tl.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'sla_tl'
 )
 
 SLA_TL_BUS_DAYS = SqlQuery(
-    extract_query_file = 'sla_tl_bus_days.sql',
+    extract_query_file = 'licenses/sla_tl_bus_days.sql',
     source_db = 'GISLICLD',
     target_table = 'sla_tl_bus_days'
 )
 
 UninspectedBLsWithCompCheck = SqlQuery(
-    extract_query_file = 'uninsp_bl_comp_check.sql',
+    extract_query_file = 'licenses/uninsp_bl_comp_check.sql',
     source_db = 'ECLIPSE_PROD',
     target_table = 'uninsp_bl_comp_check'
 )
@@ -157,43 +157,43 @@ PermitsAccelReview = SqlQuery(
 )
 
 ImmDang = SqlQuery(
-    extract_query_file = 'imm_dang.sql',
+    extract_query_file = 'cases_violations/imm_dang.sql',
     source_db = 'GISLNI',
     target_table = 'imm_dang'
 )
 
 Unsafes = SqlQuery(
-    extract_query_file = 'unsafes.sql',
+    extract_query_file = 'cases_violations/unsafes.sql',
     source_db = 'GISLNI',
     target_table = 'unsafes'
 )
 
 PublicDemos = SqlQuery(
-    extract_query_file = 'public_demos.sql',
+    extract_query_file = 'misc/public_demos.sql',
     source_db = 'DataBridge',
     target_table = 'public_demos'
 )
 
 UninspectedServiceRequests = SqlQuery(
-    extract_query_file = 'UninspectedServiceRequests.sql',
+    extract_query_file = 'misc/UninspectedServiceRequests.sql',
     source_db = 'GISLNI',
     target_table = 'li_stat_uninspectedservreq'
 )
 
 UninspectedServiceRequestsBusDays = SqlQuery(
-    extract_query_file = 'UninspectedServiceRequestsBusDays.sql',
+    extract_query_file = 'misc/UninspectedServiceRequestsBusDays.sql',
     source_db = 'GISLICLD',
     target_table = 'uninspectedservreq_busdays'
 )
 
 CaseInspections = SqlQuery(
-    extract_query_file = 'inspections/case_inspections.sql',
+    extract_query_file = 'cases_violations/case_inspections.sql',
     source_db = 'GISLNI',
     target_table = 'case_inspections'
 )
 
 Violations = SqlQuery(
-    extract_query_file = 'violations/violations.sql',
+    extract_query_file = 'cases_violations/violations.sql',
     source_db = 'GISLNI',
     target_table = 'violations'
 
