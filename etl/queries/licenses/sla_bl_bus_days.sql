@@ -4,18 +4,22 @@ SELECT
   sla.jobtype,
   sla.JOBCREATEDDATE,
   sla.JOBSTATUS,
-  sla.CompletenessCheckStatus,
-  sla.CompletenessCheckCompleted,  
+  sla.FirstCompCheckCompleted,  
   sla.joblink,
   bds1.BUSINESSDAYSSINCE BDSinceJobCreated,
   (
   CASE
-    WHEN sla.CompletenessCheckCompleted is not null
+    WHEN sla.FirstCompCheckCompleted is not null
     THEN 1
     ELSE 0
   END ) ProcessCompleted,
   bds2.BUSINESSDAYSSINCE BDSinceCompletenessCheck,
-  bds2.BUSINESSDAYSSINCE - bds1.BUSINESSDAYSSINCE BDOpen,
+  (
+  CASE
+    WHEN sla.FirstCompCheckCompleted is not null
+    THEN bds2.BUSINESSDAYSSINCE - bds1.BUSINESSDAYSSINCE
+    ELSE bds1.BUSINESSDAYSSINCE
+  END ) BDOpen,
   (
   CASE
     WHEN bds2.BUSINESSDAYSSINCE - bds1.BUSINESSDAYSSINCE <= 2
@@ -28,6 +32,6 @@ FROM SLA_BL sla,
 WHERE TO_DATE(TO_CHAR(sla.JOBCREATEDDATE, 'mm')
   || TO_CHAR(sla.JOBCREATEDDATE, 'dd')
   || TO_CHAR(sla.JOBCREATEDDATE, 'yyyy'), 'MMDDYYYY') = bds1.DATEOFYEAR (+)
-AND TO_DATE(TO_CHAR(sla.CompletenessCheckCompleted, 'mm')
-  || TO_CHAR(sla.CompletenessCheckCompleted, 'dd')
-  || TO_CHAR(sla.CompletenessCheckCompleted, 'yyyy'), 'MMDDYYYY') = bds2.DATEOFYEAR (+)
+AND TO_DATE(TO_CHAR(sla.FirstCompCheckCompleted, 'mm')
+  || TO_CHAR(sla.FirstCompCheckCompleted, 'dd')
+  || TO_CHAR(sla.FirstCompCheckCompleted, 'yyyy'), 'MMDDYYYY') = bds2.DATEOFYEAR (+)
