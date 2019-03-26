@@ -31,7 +31,6 @@ AND j.statusid          = stat.statusid
 AND ap.createddate      > add_months(TRUNC(SYSDATE, 'MM'),-13)
 AND ap.createddate      < TO_DATE(TO_CHAR(sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
 AND pt.processtypeid LIKE '1239327'
-AND j.statusid        IN ( '1036493', '978102', '1038535', '1039336') -- Approved, Submitted, Distribute, or In Adjudication
 UNION
 SELECT DISTINCT 
   j.externalfilenum JobNumber,
@@ -66,4 +65,3 @@ AND j.statusid         = stat.statusid
 AND ar.createddate     > add_months(TRUNC(SYSDATE, 'MM'),-13)
 AND ar.createddate     < TO_DATE(TO_CHAR(sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
 AND pt.processtypeid LIKE '1239327'
-AND j.statusid IN ( '1036493', '978102', '1038535', '1039336') -- Approved, Submitted, Distribute, or In Adjudication
