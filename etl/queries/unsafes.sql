@@ -1,7 +1,5 @@
 SELECT
-    addresskey,
     address,
-    unit,
     ops_district opsdistrict,
     building_district buildingdistrict,
     casenumber,
@@ -16,6 +14,8 @@ SELECT
     prioritydesc casepriority,
     sdo_cs.transform(sdo_geometry(2001,2272,sdo_point_type(geocode_x,geocode_y,NULL),NULL,NULL),4326).sdo_point.x lon,
     sdo_cs.transform(sdo_geometry(2001,2272,sdo_point_type(geocode_x,geocode_y,NULL),NULL,NULL),4326).sdo_point.y lat
+    unit,
+    addresskey
 FROM
     violations_mvw
 WHERE
