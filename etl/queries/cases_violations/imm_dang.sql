@@ -8,7 +8,7 @@ SELECT address,
   CASE
     WHEN caseresolutioncode IS NOT NULL
     THEN caseresolutioncode
-    ELSE 'NONE'
+    ELSE '(none)'
   END ) caseresolutioncode,
   mostrecentinsp,
   violationdescription,
