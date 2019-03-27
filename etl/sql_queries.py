@@ -8,7 +8,7 @@ class SqlQuery():
 IndividualWorkloads = SqlQuery(
     extract_query_file = 'licenses/individual_workloads.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'li_dash_indworkloads'
+    target_table = 'individual_workloads'
 )
 
 IncompleteProcessesBL = SqlQuery(

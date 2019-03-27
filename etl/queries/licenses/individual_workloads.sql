@@ -10,17 +10,8 @@ SELECT proc.processid,
     ELSE '(none)'
   END ) LicenseType,
   INITCAP(u.name) Person,
-  Extract(MONTH FROM proc.scheduledstartdate)
-  || '/'
-  ||Extract(DAY FROM proc.scheduledstartdate)
-  || '/'
-  || Extract(YEAR FROM proc.scheduledstartdate) ScheduledStartDate,
-  Extract(MONTH FROM proc.datecompleted)
-  || '/'
-  ||Extract(DAY FROM proc.datecompleted)
-  || '/'
-  || Extract(YEAR FROM proc.datecompleted) DateCompleted,
-  proc.datecompleted DateCompletedField,
+  proc.scheduledstartdate,
+  proc.datecompleted,
   proc.datecompleted - proc.scheduledstartdate AS duration,
   (
   CASE
@@ -60,17 +51,8 @@ SELECT proc.processid,
     ELSE '(none)'
   END ) LicenseType,
   INITCAP(u.name) Person,
-  Extract(MONTH FROM proc.scheduledstartdate)
-  || '/'
-  ||Extract(DAY FROM proc.scheduledstartdate)
-  || '/'
-  || Extract(YEAR FROM proc.scheduledstartdate) ScheduledStartDate,
-  Extract(MONTH FROM proc.datecompleted)
-  || '/'
-  ||Extract(DAY FROM proc.datecompleted)
-  || '/'
-  || Extract(YEAR FROM proc.datecompleted) DateCompleted,
-  proc.datecompleted DateCompletedField,
+  proc.scheduledstartdate,
+  proc.datecompleted,
   proc.datecompleted - proc.scheduledstartdate AS duration,
   (
   CASE
@@ -110,17 +92,8 @@ SELECT proc.processid,
     ELSE '(none)'
   END ) LicenseType,
   INITCAP(u.name) Person,
-  Extract(MONTH FROM proc.scheduledstartdate)
-  || '/'
-  ||Extract(DAY FROM proc.scheduledstartdate)
-  || '/'
-  || Extract(YEAR FROM proc.scheduledstartdate) ScheduledStartDate,
-  Extract(MONTH FROM proc.datecompleted)
-  || '/'
-  ||Extract(DAY FROM proc.datecompleted)
-  || '/'
-  || Extract(YEAR FROM proc.datecompleted) DateCompleted,
-  proc.datecompleted DateCompletedField,
+  proc.scheduledstartdate,
+  proc.datecompleted,
   proc.datecompleted - proc.scheduledstartdate AS duration,
   (
   CASE
@@ -164,17 +137,8 @@ SELECT proc.processid,
     ELSE '(none)'
   END ) LicenseType,
   INITCAP(u.name) Person,
-  Extract(MONTH FROM proc.scheduledstartdate)
-  || '/'
-  ||Extract(DAY FROM proc.scheduledstartdate)
-  || '/'
-  || Extract(YEAR FROM proc.scheduledstartdate) ScheduledStartDate,
-  Extract(MONTH FROM proc.datecompleted)
-  || '/'
-  ||Extract(DAY FROM proc.datecompleted)
-  || '/'
-  || Extract(YEAR FROM proc.datecompleted) DateCompleted,
-  proc.datecompleted DateCompletedField,
+  proc.scheduledstartdate,
+  proc.datecompleted,
   proc.datecompleted - proc.scheduledstartdate AS duration,
   (
   CASE
