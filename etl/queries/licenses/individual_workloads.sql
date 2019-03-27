@@ -3,7 +3,12 @@ SELECT proc.processid,
   j.ExternalFileNum JobNumber,
   REPLACE(jt.description, 'Business License ', '') JobType,
   'Business' LicenseKind,
-  ap.licensetypesdisplayformat LicenseType,
+  (
+  CASE
+    WHEN ap.licensetypesdisplayformat IS NOT NULL
+    THEN ap.licensetypesdisplayformat
+    ELSE '(none)'
+  END ) LicenseType,
   INITCAP(u.name) Person,
   Extract(MONTH FROM proc.scheduledstartdate)
   || '/'
@@ -48,7 +53,12 @@ SELECT proc.processid,
   j.ExternalFileNum JobNumber,
   REPLACE(REPLACE(jt.description, 'Business License ', ''), 'Amendment/Renewal', 'Amend/Renew') JobType,
   'Business' LicenseKind,
-  ar.licensetypesdisplayformat LicenseType,
+  (
+  CASE
+    WHEN ar.licensetypesdisplayformat IS NOT NULL
+    THEN ar.licensetypesdisplayformat
+    ELSE '(none)'
+  END ) LicenseType,
   INITCAP(u.name) Person,
   Extract(MONTH FROM proc.scheduledstartdate)
   || '/'
@@ -93,7 +103,12 @@ SELECT proc.processid,
   j.ExternalFileNum JobNumber,
   REPLACE(jt.description, 'Trade License ', '') JobType,
   'Trade' LicenseKind,
-  lt.title LicenseType,
+  (
+  CASE
+    WHEN lt.title IS NOT NULL
+    THEN lt.title
+    ELSE '(none)'
+  END ) LicenseType,
   INITCAP(u.name) Person,
   Extract(MONTH FROM proc.scheduledstartdate)
   || '/'
@@ -142,7 +157,12 @@ SELECT proc.processid,
   j.ExternalFileNum JobNumber,
   REPLACE(jt.description, 'Trade License ', '') JobType,
   'Trade' LicenseKind,
-  lt.title LicenseType,
+  (
+  CASE
+    WHEN lt.title IS NOT NULL
+    THEN lt.title
+    ELSE '(none)'
+  END ) LicenseType,
   INITCAP(u.name) Person,
   Extract(MONTH FROM proc.scheduledstartdate)
   || '/'

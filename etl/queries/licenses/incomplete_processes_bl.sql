@@ -2,10 +2,15 @@ SELECT proc.processid,
   pt.description ProcessType,
   j.ExternalFileNum JobNumber,  
   REPLACE(jt.description, 'Business License ', '') JobType,
-  ap.licensetypesdisplayformat LicenseType,
+  (
+  CASE
+    WHEN ap.licensetypesdisplayformat IS NOT NULL
+    THEN ap.licensetypesdisplayformat
+    ELSE '(none)'
+  END ) LicenseType,
   (CASE
     WHEN proc.ASSIGNEDSTAFF IS NULL
-    THEN NULL
+    THEN '(none)'
     WHEN regexp_count(proc.ASSIGNEDSTAFF, ',') = 0
     THEN proc.ASSIGNEDSTAFF
     ELSE 'multiple'
@@ -40,10 +45,15 @@ SELECT proc.processid,
   pt.description ProcessType,
   j.ExternalFileNum JobNumber,  
   REPLACE(REPLACE(jt.description, 'Business License ', ''), 'Amendment/Renewal', 'Amend/Renew') JobType,
-  ar.licensetypesdisplayformat LicenseType,
+  (
+  CASE
+    WHEN ar.licensetypesdisplayformat IS NOT NULL
+    THEN ar.licensetypesdisplayformat
+    ELSE '(none)'
+  END ) LicenseType,
   (CASE
     WHEN proc.ASSIGNEDSTAFF IS NULL
-    THEN NULL
+    THEN '(none)'
     WHEN regexp_count(proc.ASSIGNEDSTAFF, ',') = 0
     THEN proc.ASSIGNEDSTAFF
     ELSE 'multiple'

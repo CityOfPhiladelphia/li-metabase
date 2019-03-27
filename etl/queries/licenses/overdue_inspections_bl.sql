@@ -1,6 +1,11 @@
 SELECT biz.address BusinessAddress,
   lic.externalfilenum LicenseNumber,
-  lic.licensetype LicenseType,
+  (
+  CASE
+    WHEN lic.licensetype IS NOT NULL
+    THEN lic.licensetype
+    ELSE '(none)'
+  END ) LicenseType,
   (
   CASE
     WHEN jt.name LIKE 'j_BL_Inspection'
@@ -30,10 +35,15 @@ SELECT biz.address BusinessAddress,
     THEN '31 - 365 days'
     ELSE 'More than a year'
   END) TimeOverdue,
-  ins.inspectorname Inspector,
+  (
+  CASE
+    WHEN ins.inspectorname IS NOT NULL
+    THEN ins.inspectorname
+    ELSE '(none)'
+  END ) Inspector,
   'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244842&objectHandle='
   || ins.objectid
-  || '&processHandle=' Link
+  || '&processHandle=' LINK
 FROM query.j_bl_inspection ins,
   query.r_bl_licenseinspection li,
   query.o_bl_license lic,
@@ -48,7 +58,12 @@ AND ins.completeddate          IS NULL
 UNION
 SELECT biz.address BusinessAddress,
   lic.externalfilenum LicenseNumber,
-  lic.licensetype LicenseType,
+  (
+  CASE
+    WHEN lic.licensetype IS NOT NULL
+    THEN lic.licensetype
+    ELSE '(none)'
+  END ) LicenseType,
   (
   CASE
     WHEN jt.name LIKE 'j_BL_Inspection'
@@ -80,10 +95,15 @@ SELECT biz.address BusinessAddress,
     THEN '31 - 365 days'
     ELSE 'More than a year'
   END) TimeOverdue,
-  ins.inspectorname Inspector,
+  (
+  CASE
+    WHEN ins.inspectorname IS NOT NULL
+    THEN ins.inspectorname
+    ELSE '(none)'
+  END ) Inspector,
   'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244842&objectHandle='
   || ins.objectid
-  || '&processHandle=' Link
+  || '&processHandle=' LINK
 FROM query.j_bl_inspection ins,
   query.r_bl_applicationinspection api,
   query.j_bl_application ap,
@@ -102,7 +122,12 @@ AND ins.completeddate          IS NULL
 UNION
 SELECT biz.address BusinessAddress,
   lic.externalfilenum LicenseNumber,
-  lic.licensetype LicenseType,
+  (
+  CASE
+    WHEN lic.licensetype IS NOT NULL
+    THEN lic.licensetype
+    ELSE '(none)'
+  END ) LicenseType,
   (
   CASE
     WHEN jt.name LIKE 'j_BL_Inspection'
@@ -134,10 +159,15 @@ SELECT biz.address BusinessAddress,
     THEN '31 - 365 days'
     ELSE 'More than a year'
   END) TimeOverdue,
-  ins.inspectorname Inspector,
+  (
+  CASE
+    WHEN ins.inspectorname IS NOT NULL
+    THEN ins.inspectorname
+    ELSE '(none)'
+  END ) Inspector,
   'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244842&objectHandle='
   || ins.objectid
-  || '&processHandle=' Link
+  || '&processHandle=' LINK
 FROM query.j_bl_inspection ins,
   query.r_bl_amendrenewinspection ari,
   query.j_bl_amendrenew ar,

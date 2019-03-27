@@ -8,7 +8,12 @@ SELECT distinct b.apno,
       THEN 'Outside SLA'
    END) SLACompliance,
   defn.apdesc PermitDescription,
-  b.worktype,
+  (
+  CASE
+    WHEN b.worktype IS NOT NULL
+    THEN b.worktype
+    ELSE '(none)'
+  END ) WorkType,
   act.ISSDTTM ReviewIssueDate,
   f.feedesc,
   f.amt, f.paiddttm, f.payord,

@@ -2,7 +2,12 @@ SELECT DISTINCT *
 FROM
   (SELECT j.ExternalFileNum JobNumber,
     REPLACE(jt.Description, 'Business License ', '') JobType,
-    ar.licensetypesdisplayformat LicenseType,
+    (
+    CASE
+      WHEN ar.licensetypesdisplayformat IS NOT NULL
+      THEN ar.licensetypesdisplayformat
+      ELSE '(none)'
+    END ) LicenseType,
     stat.Description JobStatus,
     proc.ProcessId ProcessID,
     pt.Description ProcessType,
@@ -54,7 +59,12 @@ FROM
   UNION
   SELECT j.ExternalFileNum JobNumber,
     REPLACE(jt.Description, 'Business License ', '') JobType,
-    ap.licensetypesdisplayformat LicenseType,
+    (
+    CASE
+      WHEN ap.licensetypesdisplayformat IS NOT NULL
+      THEN ap.licensetypesdisplayformat
+      ELSE '(none)'
+    END ) LicenseType,
     stat.Description JobStatus,
     proc.ProcessId ProcessID,
     pt.Description ProcessType,
