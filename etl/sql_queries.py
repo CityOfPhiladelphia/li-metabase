@@ -132,12 +132,6 @@ LicenseRevenueTL = SqlQuery(
     target_table = 'revenue_tl'
 )
 
-LicenseTrendsBL = SqlQuery(
-    extract_query_file = 'licenses/slide3_license_trends_BL.sql',
-    source_db = 'ECLIPSE_PROD',
-    target_table = 'li_stat_licensetrends_bl'
-)
-
 PermitsFees = SqlQuery(
     extract_query_file = 'permits/permits_and_fees.sql',
     source_db='LIDB',
@@ -199,7 +193,6 @@ Violations = SqlQuery(
 
 )
 queries = [
-    # LI Dash Queries
     IndividualWorkloads,
     IncompleteProcessesBL,
     IncompleteProcessesTL,
@@ -217,7 +210,6 @@ queries = [
     SLA_BL_BUS_DAYS,
     SLA_TL,
     SLA_TL_BUS_DAYS,
-    # LI Stat Queries
     PermitsFees,
     PermitsOTCvsReview,
     PermitsAccelReview,
@@ -230,7 +222,6 @@ queries = [
     LicensesIssuedTL,
     LicenseRevenueBL,
     LicenseRevenueTL,
-    LicenseTrendsBL,
     CaseInspections,
     Violations
 ]

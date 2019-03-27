@@ -13,7 +13,6 @@ BUSINESS_LICENSES_DASHBOARDS = [
     Dashboard('Business Licenses Overdue Inspections', 'overdue-inspections', 48),
     Dashboard('Business Licenses Revenue', 'revenue', 37),
     Dashboard('Business Licenses SLA', 'sla', 51),
-    Dashboard('Business Licenses Trends', 'trends', 80),
     Dashboard('Business Licenses Uninspected with Completed Completeness Checks', 'uninspected-with-completed-completeness-checks', 70),
     Dashboard('Business Licenses Issued', 'issued', 34),
 ]
