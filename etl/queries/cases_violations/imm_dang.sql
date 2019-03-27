@@ -4,10 +4,20 @@ SELECT address,
   casenumber,
   violationdate,
   caseresolutiondate,
-  caseresolutioncode,
+  (
+  CASE
+    WHEN caseresolutioncode IS NOT NULL
+    THEN caseresolutioncode
+    ELSE 'NONE'
+  END ) caseresolutioncode,
   mostrecentinsp,
   violationdescription,
-  status,
+  (
+  CASE
+    WHEN status IS NOT NULL
+    THEN status
+    ELSE 'OPEN'
+  END ) status,
   casestatus,
   casegroup,
   prioritydesc casepriority,
@@ -16,8 +26,7 @@ SELECT address,
   addresskey,
   unit
 FROM VIOLATIONS_MVW
-WHERE VIOLATIONDATE >= '01-JAN-16'
-AND VIOLATIONDATE    < SYSDATE
+WHERE VIOLATIONDATE < TO_DATE(TO_CHAR(SYSDATE,'MM/DD/YYYY'),'MM/DD/YYYY')
 AND ( violationtype LIKE 'PM-308%'
 OR violationtype   = 'PM15-110.1' )
 AND violationtype != 'PM-308.1/19'
