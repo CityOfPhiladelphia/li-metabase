@@ -14,13 +14,13 @@ IndividualWorkloads = SqlQuery(
 IncompleteProcessesBL = SqlQuery(
     extract_query_file = 'licenses/incomplete_processes_bl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'incompleteprocesses_bl'
+    target_table = 'incomplete_processes_bl'
 )
 
 IncompleteProcessesTL = SqlQuery(
     extract_query_file = 'licenses/incomplete_processes_tl.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'incompleteprocesses_tl'
+    target_table = 'incomplete_processes_tl'
 )
 
 ActiveJobsBL = SqlQuery(
@@ -139,15 +139,15 @@ PermitsFees = SqlQuery(
 )
 
 PermitsOTCvsReview = SqlQuery(
-    extract_query_file = 'permits/Slide3_all_count_monthly_permits.sql',
+    extract_query_file = 'permits/permits_otc_vs_review.sql',
     source_db = 'LIDB',
-    target_table = 'li_stat_permits_otcvsreview'
+    target_table = 'permits_otc_vs_review'
 )
 
 PermitsAccelReview = SqlQuery(
-    extract_query_file = 'permits/Slide5_accelerated_reviews.sql',
+    extract_query_file = 'permits/permits_accel_review.sql',
     source_db = 'LIDB',
-    target_table = 'li_stat_permits_accelreview'
+    target_table = 'permits_accel_review'
 )
 
 ImmDang = SqlQuery(
@@ -169,15 +169,15 @@ PublicDemos = SqlQuery(
 )
 
 UninspectedServiceRequests = SqlQuery(
-    extract_query_file = 'misc/UninspectedServiceRequests.sql',
+    extract_query_file = 'misc/uninspected_service_requests.sql',
     source_db = 'GISLNI',
-    target_table = 'li_stat_uninspectedservreq'
+    target_table = 'uninspected_serv_req'
 )
 
 UninspectedServiceRequestsBusDays = SqlQuery(
-    extract_query_file = 'misc/UninspectedServiceRequestsBusDays.sql',
+    extract_query_file = 'misc/uninspected_service_requests_bus_days.sql',
     source_db = 'GISLICLD',
-    target_table = 'uninspectedservreq_busdays'
+    target_table = 'uninspected_serv_req_bus_days'
 )
 
 CaseInspections = SqlQuery(
