@@ -6,8 +6,8 @@ SELECT job.externalfilenum jobnumber,
     WHEN jt.description LIKE 'Business License Application'
     THEN 'Application'
   END ) AS jobtype,
-  fee.latestpayment paymentdate, fee.FeeType, 
-  fee.paymenttotal AS amount
+  fee.latestpayment paymentdate,  
+  fee.paymenttotal AS amount, fee.FeeType
 FROM query.o_fn_fee fee,
   api.jobs job,
   api.jobtypes jt
