@@ -64,3 +64,6 @@ output_and_errors.txt
 
 # Pickle files
 *.p
+
+#Ignore squiggles  
+*.~sql
