@@ -1,12 +1,6 @@
-SELECT distinct b.apno,
+SELECT DISTINCT b.apno PermitNumber,
   b.APDTTM PermitApplicationDate,
   b.issdttm PermitIssueDate,
-  (CASE
-      WHEN b.issdttm - b.APDTTM <= 10
-      THEN 'Within SLA'
-      WHEN b.issdttm - b.APDTTM > 10
-      THEN 'Outside SLA'
-   END) SLACompliance,
   defn.apdesc PermitDescription,
   (
   CASE
@@ -14,20 +8,41 @@ SELECT distinct b.apno,
     THEN b.worktype
     ELSE '(none)'
   END ) WorkType,
-  act.ISSDTTM ReviewIssueDate,
-  f.feedesc,
-  f.amt, f.paiddttm, f.payord,
-  rec.hours
+  fee.TotalAccelReviewFeesPaidAmount,
+  fee.CountOfAccelReviewFeesPaid,
+  act.SumReviewActualTime,
+  act.SumReviewTimeDiff
 FROM imsv7.apbldg b,
-  imsv7.apact act,
   imsv7.apdefn defn,
-  imsv7.apfee f,
-  imsv7.aprec rec
+  (SELECT b.apkey,
+    SUM(f.amt) TotalAccelReviewFeesPaidAmount,
+    COUNT(f.apfeekey) CountOfAccelReviewFeesPaid
+  FROM imsv7.apbldg b,
+    imsv7.apfee f
+  WHERE b.APDTTM >= '01-JAN-2018'
+  AND b.APDTTM    < TO_DATE(TO_CHAR(SYSDATE,'MM/DD/YYYY'),'MM/DD/YYYY')
+  AND b.apkey     = f.apkey
+  AND f.stat      = 'P'
+  AND (f.feedesc LIKE '%ACCELERATED%'
+  OR f.FEEDESC LIKE '%ACCELARATED%')
+  GROUP BY b.apkey
+  ) fee,
+  (SELECT b.apkey,
+    SUM(a.actltm) SumReviewActualTime,
+    SUM(a.compdttm - a.startdttm) SumReviewTimeDiff
+  FROM imsv7.apbldg b,
+    imsv7.apact a
+  WHERE b.APDTTM >= '01-JAN-2018'
+  AND b.APDTTM    < TO_DATE(TO_CHAR(SYSDATE,'MM/DD/YYYY'),'MM/DD/YYYY')
+  AND b.apkey     = a.apkey
+  AND a.comp      = 'Y'
+  AND a.stat      = '1'
+  GROUP BY b.apkey
+  ) act
 WHERE b.apdefnkey = defn.apdefnkey
-AND b.APKEY       = act.APKEY (+)
-AND b.apkey       = f.apkey (+)
-AND b.apkey       = rec.apkey (+)
-AND b.APDTTM     >= '01-JAN-2016'
-AND b.issdttm IS NOT NULL
-AND f.stat        = 'P'
-AND (f.feedesc LIKE '%ACCELERATED%' OR f.FEEDESC LIKE '%ACCELARATED%')
+AND b.apkey       = fee.apkey
+AND b.apkey       = act.apkey (+)
+AND b.APDTTM     >= '01-JAN-2018'
+AND b.APDTTM      < TO_DATE(TO_CHAR(SYSDATE,'MM/DD/YYYY'),'MM/DD/YYYY')
+AND b.issdttm    IS NOT NULL
+ORDER BY permitnumber

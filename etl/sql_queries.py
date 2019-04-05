@@ -150,6 +150,12 @@ PermitsAccelReview = SqlQuery(
     target_table = 'permits_accel_review'
 )
 
+PermitsAccelReviewBusDays = SqlQuery(
+    extract_query_file = 'permits/permits_accel_review_bus_days.sql',
+    source_db = 'GISLICLD',
+    target_table = 'permits_accel_review_bus_days'
+)
+
 ImmDang = SqlQuery(
     extract_query_file = 'cases_violations/imm_dang.sql',
     source_db = 'GISLNI',
@@ -213,6 +219,7 @@ queries = [
     PermitsFees,
     PermitsOTCvsReview,
     PermitsAccelReview,
+    PermitsAccelReviewBusDays,
     ImmDang,
     Unsafes,
     PublicDemos,
