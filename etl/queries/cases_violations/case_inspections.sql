@@ -13,7 +13,12 @@ SELECT
 	i.apdesc,
 	i.inspectorfirstname,
 	i.inspectorlastname,
-	i.inspectorfirstname || ' ' || inspectorlastname inspectorname,
+  (
+  CASE
+    WHEN i.inspectorfirstname IS NULL AND i.inspectorlastname IS NULL
+    THEN '(none)'
+    ELSE i.inspectorfirstname || ' ' || i.inspectorlastname
+  END ) inspectorname,
 	i.inspectiontype,
 	i.inspectionscheduled,
 	i.inspectioncompleted,
