@@ -25,6 +25,5 @@ FROM
 	inspections_all_internal_mvw i
 LEFT OUTER JOIN imsv7.apcase@lidb_link c ON
 	i.apkey = c.apkey
-WHERE inspectionscheduled >= DATE '2017-1-1'
-AND inspectionscheduled < TO_DATE(TO_CHAR(SYSDATE,'MM/DD/YYYY'),'MM/DD/YYYY')
+WHERE (i.inspectioncompleted is null or i.inspectioncompleted  >= DATE '2018-1-1')
 AND aptype in ('CD ENFORCE','DANGEROUS','L_CLIP','L_DANGBLDG')

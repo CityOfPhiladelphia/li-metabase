@@ -12,7 +12,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8" />
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>L & I Dashboards</title>
+  <title>L&I Dashboards</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/phila-standards@0.11.2/dist/css/phila-app.min.css">
   <link rel="shortcut icon" type="image/x-icon" href="https://standards.phila.gov/img/favicon.png"> <meta name="twitter:card" content="summary">
@@ -34,7 +34,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div id="application">
   <!-- Begin header -->
   <nav class="navbar">
-    <p>City of Philadelphia | L & I Dashboards</p>
+    <p>City of Philadelphia | L&I Dashboards</p>
     <div class="dropdown">
       <button class="dropbtn">Miscellaneous</button>
       <div class="dropdown-content">
@@ -48,8 +48,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="dropbtn">Cases & Violations</button>
       <div class="dropdown-content">
         <a href="/cases-violations/violations">Violations</a>
-        <a href="/cases-violations/completed-case-inspections">Completed Case Inspections</a>
-		<a href="/cases-violations/outstanding-case-inspections">Outstanding Case Inspections</a>
+		<div class="sub-dropdown">
+		  <button class="sub-dropbtn">Case Inspections</button>
+          <div class="sub-dropdown-content">
+            <a href="/cases-violations/case-inspections/completed">Completed</a>
+		    <a href="/cases-violations/case-inspections/outstanding">Outstanding</a>
+		  </div>
+        </div>
         <a href="/cases-violations/unsafe-violations">Unsafe Violations</a>
         <a href="/cases-violations/imminently-dangerous-violations">Imminently Dangerous Violations</a>
         <a href="/cases-violations/current-imminently-dangerous-properties">Current Imminently Dangerous Properties</a>
