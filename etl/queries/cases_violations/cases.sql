@@ -1,17 +1,42 @@
 SELECT c.apno casenumber,
   c.adddttm caseaddeddate,
-  c.rescode caseresolutioncode,
+  (
+  CASE
+    WHEN c.rescodee IS NULL
+    THEN '(none)'
+    ELSE c.rescode
+  END ) caseresolutioncode,
   c.RESDTTM caseresolutiondate,
   c.casegrp casegroup,
   lci.compdttm LastCompletedInsp,
   DECODE(lci.stat, 0, 'None', 1, 'Passed', 2, 'Failed', 3, 'Cancelled', 4, 'HOLD', 5, 'Closed') LastCompletedInspStatus,
-  lci.inspectorname LastCompletedInspInspector,
+  (
+  CASE
+    WHEN lci.inspectorname IS NULL
+    THEN '(none)'
+    ELSE lci.inspectorname
+  END ) LastCompletedInspInspector,
   nsi.SCHEDDTTM NextScheduledInsp,
-  nsi.inspectorname NextScheduledInspInspector,
+  (
+  CASE
+    WHEN nsi.inspectorname IS NULL
+    THEN '(none)'
+    ELSE nsi.inspectorname
+  END ) NextScheduledInspInspector,  
   ovdi.SCHEDDTTM OverdueInspScheduledDate,
-  ovdi.inspectorname OverdueInspInspector,
+  (
+  CASE
+    WHEN ovdi.inspectorname IS NULL
+    THEN '(none)'
+    ELSE ovdi.inspectorname
+  END ) OverdueInspInspector,
   a.C_TRACT CensusTract,
-  a.zip,
+  (
+  CASE
+    WHEN a.zip IS NULL
+    THEN '(none)'
+    ELSE a.zip
+  END ) zip,
   a.council CouncilDistrict,
   lni_addr.OPS_DISTRICT OpsDistrict
 FROM imsv7.apcase@lidb_link c,
@@ -55,7 +80,7 @@ FROM imsv7.apcase@lidb_link c,
     FROM imsv7.apinsp@lidb_link i,
       imsv7.employee@lidb_link e
     WHERE i.assignto = e.empid (+)
-    AND i.SCHEDDTTM >= SYSDATE
+    AND i.SCHEDDTTM > SYSDATE
     )
   WHERE RankSchedDttm = 1
   ) nsi,
