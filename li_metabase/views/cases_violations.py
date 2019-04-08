@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template
+from flask import Blueprint, render_template, redirect
 
 from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url, DashboardNotFound
 from li_metabase.auth import auth
@@ -25,3 +25,14 @@ def cases_violations(dashboard_url):
 @bp.errorhandler(DashboardNotFound)
 def handle_error(error):
     return render_template('error.html')
+
+#Redirect old versions of URLs to new versions
+@bp.route('/cases-violations/completed-case-inspections')
+@auth.login_required
+def redirect_completed_case_inspections():
+    return redirect("/cases-violations/case-inspections/completed", code=301)
+
+@bp.route('/cases-violations/oustanding-case-inspections')
+@auth.login_required
+def redirect_outstanding_case_inspections():
+    return redirect("/cases-violations/case-inspections/outstanding", code=301)
