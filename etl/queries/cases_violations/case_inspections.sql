@@ -1,34 +1,36 @@
-SELECT
-	i.address,
-	i.zip,
-	i.census_tract_1990,
-	i.census_tract_2010,
-	i.council_district,
-	i.ops_district,
-	i.building_district,
-	i.ownername,
-	i.organization,
-	i.caseorpermitnumber casenumber,
-	i.aptype,
-	i.apdesc,
-	i.inspectorfirstname,
-	i.inspectorlastname,
+SELECT i.address,
+  i.zip,
+  i.census_tract_1990,
+  i.census_tract_2010,
+  i.council_district,
+  i.ops_district,
+  i.building_district,
+  i.ownername,
+  i.organization,
+  i.caseorpermitnumber casenumber,
+  i.aptype,
+  i.apdesc,
+  i.inspectorfirstname,
+  i.inspectorlastname,
   (
   CASE
-    WHEN i.inspectorfirstname IS NULL AND i.inspectorlastname IS NULL
+    WHEN i.inspectorfirstname IS NULL
+    AND i.inspectorlastname   IS NULL
     THEN '(none)'
-    ELSE i.inspectorfirstname || ' ' || i.inspectorlastname
+    ELSE i.inspectorfirstname
+      || ' '
+      || i.inspectorlastname
   END ) inspectorname,
-	i.inspectiontype,
-	i.inspectionscheduled,
-	i.inspectioncompleted,
-	i.inspectionstatus,
+  i.inspectiontype,
+  i.inspectionscheduled,
+  i.inspectioncompleted,
+  i.inspectionstatus,
   c.casegrp casegroup,
-	SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(i.geocode_x, i.geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
+  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(i.geocode_x, i.geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
   SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(i.geocode_x, i.geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat
-FROM
-	inspections_all_internal_mvw i
-LEFT OUTER JOIN imsv7.apcase@lidb_link c ON
-	i.apkey = c.apkey
-WHERE (i.inspectioncompleted is null or i.inspectioncompleted  >= DATE '2018-1-1')
-AND aptype in ('CD ENFORCE','DANGEROUS','L_CLIP','L_DANGBLDG')
+FROM inspections_all_internal_mvw i
+LEFT OUTER JOIN imsv7.apcase@lidb_link c
+ON i.apkey                    = c.apkey
+WHERE (i.inspectioncompleted IS NULL
+OR i.inspectioncompleted     >= DATE '2018-1-1')
+AND aptype                   IN ('CD ENFORCE','DANGEROUS','L_CLIP','L_DANGBLDG')

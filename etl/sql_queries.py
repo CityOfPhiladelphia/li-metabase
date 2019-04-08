@@ -192,6 +192,12 @@ CaseInspections = SqlQuery(
     target_table = 'case_inspections'
 )
 
+Cases = SqlQuery(
+    extract_query_file = 'cases_violations/cases.sql',
+    source_db = 'GISLNI',
+    target_table = 'cases'
+)
+
 Violations = SqlQuery(
     extract_query_file = 'cases_violations/violations.sql',
     source_db = 'GISLNI',
@@ -230,5 +236,6 @@ queries = [
     LicenseRevenueBL,
     LicenseRevenueTL,
     CaseInspections,
+    Cases,
     Violations
 ]
