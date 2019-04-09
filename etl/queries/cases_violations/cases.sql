@@ -2,7 +2,7 @@ SELECT c.apno casenumber,
   c.adddttm caseaddeddate,
   (
   CASE
-    WHEN c.rescodee IS NULL
+    WHEN c.rescode IS NULL
     THEN '(none)'
     ELSE c.rescode
   END ) caseresolutioncode,
