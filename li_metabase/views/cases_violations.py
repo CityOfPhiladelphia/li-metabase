@@ -39,5 +39,5 @@ def redirect_outstanding_case_inspections():
 
 @bp.route('/cases-violations/current-imminently-dangerous-properties')
 @auth.login_required
-def redirect_outstanding_case_inspections():
+def current_imminently_dangerous_properties():
     return redirect("/cases-violations/open-imminently-dangerous-cases", code=301)
