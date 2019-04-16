@@ -8,7 +8,7 @@ CASES_VIOLATIONS_DASHBOARDS = [
     Dashboard('Violations', 'violations', 116),
     Dashboard('Unsafe Violations', 'unsafe-violations', 42),
     Dashboard('Imminently Dangerous Violations', 'imminently-dangerous-violations', 36),
-    Dashboard('Open Imminently Dangerous Cases', 'open-imminently-dangerous-cases', 85)
+    Dashboard('Open Imminently Dangerous Cases', 'open-imminently-dangerous-cases', 153)
 ]
 
 bp = Blueprint('violations', __name__)
