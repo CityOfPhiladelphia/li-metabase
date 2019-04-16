@@ -162,6 +162,12 @@ ImmDang = SqlQuery(
     target_table = 'imm_dang'
 )
 
+ImmDangOpen = SqlQuery(
+    extract_query_file = 'cases_violations/imm_dang_open.sql',
+    source_db = 'GISLNI',
+    target_table = 'imm_dang_open'
+)
+
 Unsafes = SqlQuery(
     extract_query_file = 'cases_violations/unsafes.sql',
     source_db = 'GISLNI',
@@ -227,6 +233,7 @@ queries = [
     PermitsAccelReview,
     PermitsAccelReviewBusDays,
     ImmDang,
+    ImmDangOpen,
     Unsafes,
     PublicDemos,
     UninspectedServiceRequests,

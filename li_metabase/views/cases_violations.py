@@ -8,7 +8,7 @@ CASES_VIOLATIONS_DASHBOARDS = [
     Dashboard('Violations', 'violations', 116),
     Dashboard('Unsafe Violations', 'unsafe-violations', 42),
     Dashboard('Imminently Dangerous Violations', 'imminently-dangerous-violations', 36),
-    Dashboard('Current Imminently Dangerous Properties', 'current-imminently-dangerous-properties', 85)
+    Dashboard('Open Imminently Dangerous Cases', 'open-imminently-dangerous-cases', 85)
 ]
 
 bp = Blueprint('violations', __name__)
@@ -36,3 +36,8 @@ def redirect_completed_case_inspections():
 @auth.login_required
 def redirect_outstanding_case_inspections():
     return redirect("/cases-violations/case-inspections/outstanding", code=301)
+
+@bp.route('/cases-violations/current-imminently-dangerous-properties')
+@auth.login_required
+def redirect_outstanding_case_inspections():
+    return redirect("/cases-violations/open-imminently-dangerous-cases", code=301)
