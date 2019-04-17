@@ -6,6 +6,7 @@ from li_metabase.auth import auth
 
 CASES_VIOLATIONS_DASHBOARDS = [
     Dashboard('Violations', 'violations', 116),
+    Dashboard('Cases', 'cases', 152),
     Dashboard('Unsafe Violations', 'unsafe-violations', 42),
     Dashboard('Imminently Dangerous Violations', 'imminently-dangerous-violations', 36),
     Dashboard('Open Imminently Dangerous Cases', 'open-imminently-dangerous-cases', 153)

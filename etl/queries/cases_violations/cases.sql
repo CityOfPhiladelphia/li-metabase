@@ -22,7 +22,7 @@ SELECT c.apno casenumber,
     WHEN nsi.inspectorname IS NULL
     THEN '(none)'
     ELSE nsi.inspectorname
-  END ) NextScheduledInspInspector,  
+  END ) NextScheduledInspInspector,
   ovdi.SCHEDDTTM OverdueInspScheduledDate,
   (
   CASE
@@ -30,15 +30,22 @@ SELECT c.apno casenumber,
     THEN '(none)'
     ELSE ovdi.inspectorname
   END ) OverdueInspInspector,
-  a.C_TRACT CensusTract,
   (
   CASE
     WHEN a.zip IS NULL
+    OR a.zip    = ' '
     THEN '(none)'
     ELSE a.zip
   END ) zip,
   a.council CouncilDistrict,
-  lni_addr.OPS_DISTRICT OpsDistrict
+  lni_addr.OPS_DISTRICT OpsDistrict,
+  a.C_TRACT CensusTract,
+  (
+  CASE
+    WHEN c.RESDTTM IS NULL
+    THEN 'No'
+    ELSE 'Yes'
+  END ) caseresolutiondatehasvalue
 FROM imsv7.apcase@lidb_link c,
   (SELECT *
   FROM
@@ -80,7 +87,7 @@ FROM imsv7.apcase@lidb_link c,
     FROM imsv7.apinsp@lidb_link i,
       imsv7.employee@lidb_link e
     WHERE i.assignto = e.empid (+)
-    AND i.SCHEDDTTM > SYSDATE
+    AND i.SCHEDDTTM  > SYSDATE
     )
   WHERE RankSchedDttm = 1
   ) nsi,
