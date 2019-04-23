@@ -173,3 +173,12 @@
     right: 100%;
 	top: 0;
 }
+
+#footer-li {
+	width: 100%; 
+}
+
+#footer-li  a{
+	padding-left: 2%;
+	padding-right: 2%;	
+}
