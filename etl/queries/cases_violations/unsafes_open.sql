@@ -1,0 +1,15 @@
+SELECT DISTINCT addresskey,
+  OPA_ACCOUNT_NUM,
+  address,
+  CENSUS_TRACT_1990,
+  council_district,
+  ops_district,
+  casenumber,
+  caseaddeddate,
+  CASERESOLUTIONDATE,
+  CASERESOLUTIONCODE,
+  VIOLATIONDATE,
+  MOSTRECENTINSP,
+  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(geocode_x, geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
+  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(geocode_x, geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat
+FROM unsafe_mvw

@@ -174,6 +174,12 @@ Unsafes = SqlQuery(
     target_table = 'unsafes'
 )
 
+UnsafesOpen = SqlQuery(
+    extract_query_file = 'cases_violations/unsafes_open.sql',
+    source_db = 'GISLNI',
+    target_table = 'unsafes_open'
+)
+
 PublicDemos = SqlQuery(
     extract_query_file = 'misc/public_demos.sql',
     source_db = 'DataBridge',
@@ -235,6 +241,7 @@ queries = [
     ImmDang,
     ImmDangOpen,
     Unsafes,
+    UnsafesOpen,
     PublicDemos,
     UninspectedServiceRequests,
     UninspectedServiceRequestsBusDays,
