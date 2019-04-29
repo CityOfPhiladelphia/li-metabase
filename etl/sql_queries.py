@@ -198,6 +198,18 @@ UninspectedServiceRequestsBusDays = SqlQuery(
     target_table = 'uninspected_serv_req_bus_days'
 )
 
+ServiceRequests = SqlQuery(
+    extract_query_file = 'misc/service_requests.sql',
+    source_db = 'GISLNI',
+    target_table = 'service_requests'
+)
+
+ServiceRequestsBusDays = SqlQuery(
+    extract_query_file = 'misc/service_requests_bus_days.sql',
+    source_db = 'GISLICLD',
+    target_table = 'service_requests_bus_days'
+)
+
 CaseInspections = SqlQuery(
     extract_query_file = 'cases_violations/case_inspections.sql',
     source_db = 'GISLNI',
@@ -245,6 +257,8 @@ queries = [
     PublicDemos,
     UninspectedServiceRequests,
     UninspectedServiceRequestsBusDays,
+    ServiceRequests,
+    ServiceRequestsBusDays,
     LicensesIssuedBL,
     LicensesIssuedTL,
     LicenseRevenueBL,
