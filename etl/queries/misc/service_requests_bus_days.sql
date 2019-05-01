@@ -49,7 +49,12 @@ SELECT DISTINCT sr.servreqno,
   sr.inspectionstatus,
   sr.resolutiondate,
   sr.resolutionstatus,
-  sr.resolutiondescription,
+  (
+  CASE
+    WHEN sr.resolutiondescription IS NULL
+    THEN '(none)'
+    ELSE sr.resolutiondescription
+  END ) resolutiondescription,
   sr.unit,
   sr.district,
   sr.SLA,
