@@ -32,11 +32,13 @@ SELECT proc.processid,
       ||'&processHandle='
       ||proc.processid
       ||'&paneId=2854033_116'
-  END ) JobLink
+  END ) JobLink,
+  stat.description JobStatus
 FROM api.processes PROC,
   api.processtypes pt,
   api.jobs j,
   api.jobtypes jt,
+  api.statuses stat,
   query.j_tl_application ap,
   query.r_tllicensetype lrl,
   query.o_tl_licensetype lt
@@ -46,6 +48,7 @@ AND ap.tradelicenseobjectid = lrl.licenseobjectid (+)
 AND lrl.licensetypeobjectid = lt.objectid (+)
 AND proc.processtypeid      = pt.processtypeid
 AND j.jobtypeid             = jt.jobtypeid
+AND j.statusid              = stat.statusid
 AND proc.datecompleted     IS NULL
 UNION
 SELECT proc.processid,
@@ -82,11 +85,13 @@ SELECT proc.processid,
       ||'&processHandle='
       ||proc.processid
       ||'&paneId=2857688_87'
-  END ) JobLink
+  END ) JobLink,
+  stat.description JobStatus
 FROM api.processes PROC,
   api.processtypes pt,
   api.jobs j,
   api.jobtypes jt,
+  api.statuses stat,
   query.j_tl_amendrenew ar,
   query.r_tl_amendrenew_license arl,
   query.r_tllicensetype lrl,
@@ -98,4 +103,5 @@ AND arl.licenseid           = lrl.licenseobjectid (+)
 AND lrl.licensetypeobjectid = lt.objectid (+)
 AND proc.processtypeid      = pt.processtypeid
 AND j.jobtypeid             = jt.jobtypeid
+AND j.statusid              = stat.statusid
 AND proc.datecompleted     IS NULL
