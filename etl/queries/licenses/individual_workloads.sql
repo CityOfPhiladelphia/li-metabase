@@ -18,9 +18,7 @@ SELECT proc.processid,
     WHEN jt.description LIKE 'Business License Application'
     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1239699&objectHandle='
       ||j.jobid
-      ||'&processHandle='
-      ||proc.processid
-      ||'&paneId=1239699_151'
+      ||'&processHandle=&paneId=1239699_151'
   END ) JobLink
 FROM api.processes PROC,
   api.processtypes pt,
@@ -59,9 +57,7 @@ SELECT proc.processid,
     WHEN jt.description LIKE 'Amendment/Renewal'
     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1243107&objectHandle='
       ||j.jobid
-      ||'&processHandle='
-      ||proc.processid
-      ||'&paneId=1243107_175'
+      ||'&processHandle=&paneId=1243107_175'
   END ) JobLink
 FROM api.processes PROC,
   api.processtypes pt,
@@ -100,9 +96,7 @@ SELECT proc.processid,
     WHEN jt.description LIKE 'Trade License Application'
     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2854033&objectHandle='
       ||j.jobid
-      ||'&processHandle='
-      ||proc.processid
-      ||'&paneId=2854033_116'
+      ||'&processHandle=&paneId=2854033_140'
   END ) JobLink
 FROM api.processes PROC,
   api.processtypes pt,
@@ -145,9 +139,7 @@ SELECT proc.processid,
     WHEN jt.description LIKE 'Trade License Amend/Renew'
     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2857688&objectHandle='
       ||j.jobid
-      ||'&processHandle='
-      ||proc.processid
-      ||'&paneId=2857688_87'
+      ||'&processHandle=&paneId=2857688_106'
   END ) JobLink
 FROM api.processes PROC,
   api.processtypes pt,
