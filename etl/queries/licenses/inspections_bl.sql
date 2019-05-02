@@ -1,21 +1,16 @@
 SELECT ins.objectid InspectionObjectId,
   lic.externalfilenum LicenseNumber,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN ins.externalfilenum
-  END) JobNumber,
+  ins.externalfilenum JobNumber,
   ins.inspectiontype,
-  ins.INSPECTIONAGAINST,
   (
   CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
+    WHEN ins.INSPECTIONAGAINST LIKE 'Business License'
     THEN 'License'
-    WHEN jt.name LIKE 'j_BL_Application'
+    WHEN ins.INSPECTIONAGAINST LIKE 'Business License Application'
     THEN 'Application'
-    WHEN jt.name LIKE 'j_BL_AmendRenew'
-    THEN 'Renewal or Amend'
-  END ) InspectionOn,
+    WHEN ins.INSPECTIONAGAINST LIKE 'Amendment/Renewal'
+    THEN 'Amendment/Renewal'
+  END ) InspectionAgainst,
   (
   CASE
     WHEN lic.licensetype IS NOT NULL
@@ -28,8 +23,8 @@ SELECT ins.objectid InspectionObjectId,
     THEN ins.inspectorname
     ELSE '(none)'
   END ) Inspector,
-  ins.STATUSDESCRIPTION,
-  ins.createinsddate InspectionCreatedDate,
+  ins.STATUSDESCRIPTION Status,
+  ins.createddate InspectionCreatedDate,
   ins.scheduledinspectiondate ScheduledInspectionDate,
   (
   CASE
@@ -53,31 +48,25 @@ SELECT ins.objectid InspectionObjectId,
 FROM query.j_bl_inspection ins,
   query.r_bl_licenseinspection li,
   query.o_bl_license lic,
-  query.o_bl_business biz,
-  query.o_jobtypes jt
+  query.o_bl_business biz
 WHERE ins.objectid       = li.inspectionid
-AND ins.jobtypeid        = jt.jobtypeid
 AND li.licenseid         = lic.objectid
 AND lic.businessobjectid = biz.objectid
+AND ins.createddate >= '01-JAN-2016'
 UNION
 SELECT ins.objectid InspectionObjectId,
   lic.externalfilenum LicenseNumber,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN ins.externalfilenum
-  END) JobNumber,
+  ins.externalfilenum JobNumber,
   ins.inspectiontype,
-  ins.INSPECTIONAGAINST,
   (
   CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
+    WHEN ins.INSPECTIONAGAINST LIKE 'Business License'
     THEN 'License'
-    WHEN jt.name LIKE 'j_BL_Application'
+    WHEN ins.INSPECTIONAGAINST LIKE 'Business License Application'
     THEN 'Application'
-    WHEN jt.name LIKE 'j_BL_AmendRenew'
-    THEN 'Renewal or Amend'
-  END ) InspectionOn,
+    WHEN ins.INSPECTIONAGAINST LIKE 'Amendment/Renewal'
+    THEN 'Amendment/Renewal'
+  END ) InspectionAgainst,
   (
   CASE
     WHEN lic.licensetype IS NOT NULL
@@ -90,7 +79,7 @@ SELECT ins.objectid InspectionObjectId,
     THEN ins.inspectorname
     ELSE '(none)'
   END ) Inspector,
-  ins.STATUSDESCRIPTION,
+  ins.STATUSDESCRIPTION Status,
   ins.createddate InspectionCreatedDate,
   ins.scheduledinspectiondate ScheduledInspectionDate,
   (
@@ -115,35 +104,29 @@ SELECT ins.objectid InspectionObjectId,
 FROM query.j_bl_inspection ins,
   query.r_bl_applicationinspection api,
   query.j_bl_application ap,
-  query.o_jobtypes jt,
   query.r_bl_application_license apl,
   query.o_bl_license lic,
   query.o_bl_business biz
 WHERE ins.objectid       = api.inspectionid
 AND api.applicationid    = ap.objectid
-AND ap.jobtypeid         = jt.jobtypeid
 AND ap.objectid          = apl.applicationobjectid
 AND apl.licenseobjectid  = lic.objectid
 AND lic.businessobjectid = biz.objectid
+AND ins.createddate >= '01-JAN-2016'
 UNION
 SELECT ins.objectid InspectionObjectId,
   lic.externalfilenum LicenseNumber,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN ins.externalfilenum
-  END) JobNumber,
+  ins.externalfilenum JobNumber,
   ins.inspectiontype,
-  ins.INSPECTIONAGAINST,
   (
   CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
+    WHEN ins.INSPECTIONAGAINST LIKE 'Business License'
     THEN 'License'
-    WHEN jt.name LIKE 'j_BL_Application'
+    WHEN ins.INSPECTIONAGAINST LIKE 'Business License Application'
     THEN 'Application'
-    WHEN jt.name LIKE 'j_BL_AmendRenew'
-    THEN 'Renewal or Amend'
-  END ) InspectionOn,
+    WHEN ins.INSPECTIONAGAINST LIKE 'Amendment/Renewal'
+    THEN 'Amendment/Renewal'
+  END ) InspectionAgainst,
   (
   CASE
     WHEN lic.licensetype IS NOT NULL
@@ -156,7 +139,7 @@ SELECT ins.objectid InspectionObjectId,
     THEN ins.inspectorname
     ELSE '(none)'
   END ) Inspector,
-  ins.STATUSDESCRIPTION,
+  ins.STATUSDESCRIPTION Status,
   ins.createddate InspectionCreatedDate,
   ins.scheduledinspectiondate ScheduledInspectionDate,
   (
@@ -174,20 +157,24 @@ SELECT ins.objectid InspectionObjectId,
     WHEN ins.completeddate IS NULL
     THEN 'Incomplete'
   END) CompletedStatus,
-  biz.address BusinessAddress,
+  (
+  CASE
+    WHEN biz.address IS NOT NULL
+    THEN biz.address
+    ELSE '(none)'
+  END ) BusinessAddress,
   'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244842&objectHandle='
   || ins.objectid
   || '&processHandle=' LINK
 FROM query.j_bl_inspection ins,
   query.r_bl_amendrenewinspection ari,
   query.j_bl_amendrenew ar,
-  query.o_jobtypes jt,
   query.r_bl_amendrenew_license arl,
   query.o_bl_license lic,
   query.o_bl_business biz
 WHERE ins.objectid       = ari.inspectionid
 AND ari.amendrenewid     = ar.jobid
-AND ar.jobtypeid         = jt.jobtypeid
 AND ar.objectid          = arl.amendrenewid
 AND arl.licenseid        = lic.objectid
 AND lic.businessobjectid = biz.objectid
+AND ins.createddate >= '01-JAN-2016'
