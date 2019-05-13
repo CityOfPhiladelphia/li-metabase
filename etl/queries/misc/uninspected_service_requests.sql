@@ -14,7 +14,13 @@ SELECT DISTINCT sub.SERVNO servreqno,
   END) district,
   s.sla SLA,
   SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(addr.geocode_x, addr.geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
-  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(addr.geocode_x, addr.geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat
+  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(addr.geocode_x, addr.geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat,
+  (
+  CASE
+    WHEN sub.empfirst IS NOT NULL and sub.emplast IS NOT NULL
+    THEN sub.empfirst || ' ' || sub.emplast
+    ELSE '(none)'
+  END ) Inspector
 FROM
   (SELECT sr.SERVNO,
     sr.addresskey,
@@ -33,8 +39,14 @@ FROM
       WHEN sr.SR_PROBLEMCODE IN ('BD', 'BDH', 'BDO')
       THEN 'CSU'
       ELSE 'Other'
-    END) unit
-  FROM IMSV7.LI_ALLSERVICEREQUESTS@lidb_link sr
+    END) unit,
+    e.empfirst,
+    e.emplast
+  FROM IMSV7.LI_ALLSERVICEREQUESTS@lidb_link sr,
+  imsv7.custprob@lidb_link c,
+  imsv7.employee@lidb_link e
+  WHERE sr.SERVNO = c.SERVNO
+  AND c.inspectr = e.empid (+)
   ) sub,
   LNI_ADDR addr,
   sla_dictionary s
