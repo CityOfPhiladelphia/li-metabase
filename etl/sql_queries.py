@@ -247,7 +247,7 @@ queries = [
     ExpiringLicensesTL,
     PermitsFees,
     IndividualWorkloads,
-    Violations
+    Violations,
     IncompleteProcessesBL,
     IncompleteProcessesTL,
     OverdueInspectionsBL,

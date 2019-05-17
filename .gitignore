@@ -56,7 +56,7 @@ docs/_build/
 config.py
 
 # Log files
-etl/log.txt
+etl/*.txt
 output_and_errors.txt
 
 # Batch files
