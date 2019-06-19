@@ -1,10 +1,10 @@
-SELECT i.address,
+SELECT a.addr_base AS ADDRESS,
   i.zip,
-  i.census_tract_1990,
-  i.census_tract_2010,
-  i.council_district,
-  i.ops_district,
-  i.building_district,
+  a.census_tract_1990,
+  a.census_tract_2010,
+  a.council_district,
+  a.ops_district,
+  a.building_district,
   i.ownername,
   i.organization,
   i.caseorpermitnumber casenumber,
@@ -26,11 +26,13 @@ SELECT i.address,
   i.inspectioncompleted,
   i.inspectionstatus,
   c.casegrp casegroup,
-  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(i.geocode_x, i.geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
-  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(i.geocode_x, i.geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat
-FROM inspections_all_internal_mvw i
+  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(a.geocode_x, a.geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
+  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(a.geocode_x, a.geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat
+FROM IMSV7.LI_ALLINSP_INTERNAL@lidb_link i
 LEFT OUTER JOIN imsv7.apcase@lidb_link c
-ON i.apkey                    = c.apkey
+ON i.apkey = c.apkey
+LEFT OUTER JOIN lni_addr a
+ON i.addresskey               = a.addrkey
 WHERE (i.inspectioncompleted IS NULL
 OR i.inspectioncompleted     >= DATE '2018-1-1')
 AND aptype                   IN ('CD ENFORCE','DANGEROUS','L_CLIP','L_DANGBLDG')
