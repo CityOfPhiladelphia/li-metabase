@@ -238,8 +238,14 @@ Violations = SqlQuery(
     extract_query_file = 'cases_violations/violations.sql',
     source_db = 'GISLNI',
     target_table = 'violations'
-
 )
+
+InspectionsCompletedAll = SqlQuery(
+    extract_query_file = 'misc/inspections_completed_all.sql',
+    source_db = 'GISLNI',
+    target_table = 'inspections_completed_all'
+)
+
 queries = [
     ActiveJobsBL,
     ActiveJobsTL, 
@@ -279,5 +285,6 @@ queries = [
     PermitsAccelReview,
     PermitsAccelReviewBusDays,
     ServiceRequests,
-    ServiceRequestsBusDays
+    ServiceRequestsBusDays,
+    InspectionsCompletedAll
 ]
