@@ -45,7 +45,7 @@ def send_email(failed):
     from email.mime.text import MIMEText
     from phila_mail import server
 
-    recipientslist = ['dani.interrante@phila.gov', 
+    recipientslist = ['dani.interrante@phila.gov',
                       'philip.ribbens@phila.gov',
                       'shannon.holm@phila.gov']
     sender = 'ligisteam@phila.gov'
