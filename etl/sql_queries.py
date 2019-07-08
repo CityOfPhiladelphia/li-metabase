@@ -241,13 +241,13 @@ Violations = SqlQuery(
 )
 
 InspectionsCompletedAll = SqlQuery(
-    extract_query_file = 'misc/inspections_completed_all.sql',
+    extract_query_file = 'misc/insp_completed_all.sql',
     source_db = 'GISLNI',
     target_table = 'insp_completed_all'
 )
 
 InspectionsCompletedAllFuture = SqlQuery(
-    extract_query_file = 'misc/inspections_completed_all_future.sql',
+    extract_query_file = 'misc/insp_completed_all_future.sql',
     source_db = 'GISLICLD',
     target_table = 'insp_completed_all_future'
 )
