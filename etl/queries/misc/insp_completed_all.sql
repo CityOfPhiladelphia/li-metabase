@@ -6,8 +6,8 @@ SELECT DISTINCT addr.addr_parsed address,
     THEN INITCAP(addr.building_district)
     ELSE INITCAP(addr.ops_district)
   END ) district,
-  sub.CaseOrPermitOrLicenseNumber ,
-  sub.CaseOrPermitOrLicenseKey ,
+  sub.CasePermitLicenseServReqNumber ,
+  sub.CasePermitLicenseServReqKey ,
   sub.InspectionId ,
   sub.unit ,
   sub.InspectionType ,
@@ -24,8 +24,10 @@ FROM
   (SELECT * from insp_completed_case_bldg_mvw
   UNION
   SELECT * from insp_completed_bl
+  UNION
+  SELECT * from insp_completed_sr_mvw
   ) sub,
   lni_addr addr
 WHERE sub.addresskey = addr.addrkey (+)
-ORDER BY sub.CaseOrPermitOrLicenseKey DESC,
+ORDER BY sub.CasePermitLicenseServReqKey DESC,
   sub.inspectioncompleted ASC
