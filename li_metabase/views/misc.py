@@ -8,6 +8,7 @@ MISC_DASHBOARDS = [
     Dashboard('Individual Workloads', 'individual-workloads', 49),
     Dashboard('Expiring Licenses with Tax Issues', 'expiring-licenses-with-tax-issues', 72),
     Dashboard('Public Demos', 'public-demos', 76),
+    Dashboard('Service Requests', 'service-requests', 158),
     Dashboard('Uninspected Service Requests', 'uninspected-service-requests', 77),
 ]
 
