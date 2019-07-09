@@ -12,8 +12,8 @@ SELECT DISTINCT u.servreqno,
   (
   CASE
     WHEN bds2.BUSINESSDAYSSINCE - bds1.BUSINESSDAYSSINCE <= u.sla
-    THEN 1
-    ELSE 0
+    THEN 'Yes'
+    ELSE 'No'
   END ) WithinSLA,
     (
   CASE
