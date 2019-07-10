@@ -10,6 +10,7 @@ MISC_DASHBOARDS = [
     Dashboard('Public Demos', 'public-demos', 76),
     Dashboard('Service Requests', 'service-requests', 158),
     Dashboard('Uninspected Service Requests', 'uninspected-service-requests', 77),
+    Dashboard('Inspections Completed in Future', 'completed-inspections-future', 162)
 ]
 
 bp = Blueprint('misc', __name__)
