@@ -57,7 +57,7 @@ SELECT proc.processid,
     THEN ap.licensetypesdisplayformat
     ELSE '(none)'
   END ) LicenseType,
-  u.name ASSIGNEDSTAFF,
+  INITCAP(regexp_replace(REPLACE(u.name, '  ', ' '), '[0-9]', '')) ASSIGNEDSTAFF,
   1 NUMASSIGNEDSTAFF,
   proc.scheduledstartdate ScheduledStartDate,
   SYSDATE - proc.scheduledstartdate TimeSinceScheduledStartDate,
@@ -146,7 +146,7 @@ SELECT proc.processid,
     THEN ar.licensetypesdisplayformat
     ELSE '(none)'
   END ) LicenseType,
-  u.name ASSIGNEDSTAFF,
+  INITCAP(regexp_replace(REPLACE(u.name, '  ', ' '), '[0-9]', '')) ASSIGNEDSTAFF,
   1 NUMASSIGNEDSTAFF,
   proc.scheduledstartdate ScheduledStartDate,
   SYSDATE - proc.scheduledstartdate TimeSinceScheduledStartDate,
