@@ -252,6 +252,12 @@ InspectionsCompletedAllFuture = SqlQuery(
     target_table = 'insp_completed_all_future'
 )
 
+DumpsterMedallionIDLookup = SqlQuery(
+    extract_query_file = 'licenses/dumpster_licenses_medallion_id_lookup.sql',
+    source_db = 'ECLIPSE_PROD',
+    target_table = 'DUMPSTERLICENSESMEDALLIONID'
+)
+
 queries = [
     ActiveJobsBL,
     ActiveJobsTL, 
@@ -293,5 +299,6 @@ queries = [
     ServiceRequests,
     ServiceRequestsBusDays,
     InspectionsCompletedAll,
-    InspectionsCompletedAllFuture
+    InspectionsCompletedAllFuture,
+	DumpsterMedallionIDLookup
 ]
