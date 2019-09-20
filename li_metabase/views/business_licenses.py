@@ -15,6 +15,7 @@ BUSINESS_LICENSES_DASHBOARDS = [
     Dashboard('Business Licenses SLA', 'sla', 51),
     Dashboard('Business Licenses Uninspected with Completed Completeness Checks', 'uninspected-with-completed-completeness-checks', 70),
     Dashboard('Business Licenses Issued', 'issued', 34),
+	Dashboard('Business Licenses Dumpster Medallion Lookup', 'dumpster-medallions', 164),
 ]
 
 bp = Blueprint('business_licenses', __name__)
