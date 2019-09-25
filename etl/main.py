@@ -47,7 +47,8 @@ def send_email(failed):
 
     recipientslist = ['dani.interrante@phila.gov',
                       'philip.ribbens@phila.gov',
-                      'shannon.holm@phila.gov']
+                      'shannon.holm@phila.gov',
+                      'jessica.bradley@phila.gov']
     sender = 'ligisteam@phila.gov'
     body = 'AUTOMATIC EMAIL: \n' + '\n\nThe following tables failed to update:\n\n' + ', \n'.join(failed)  
     msg = MIMEText(body)
