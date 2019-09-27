@@ -270,6 +270,12 @@ CasesInspectors = SqlQuery(
     target_table = 'CASES_INSPECTORS'
 )
 
+TLPermitsFPPInsp = SqlQuery(
+    extract_query_file = 'misc/tl_permits_fpp_insp.sql',
+    source_db = 'GISLNI',
+    target_table = 'CONTLIC_PERMITS_FPP_INSP'
+)
+
 queries = [
     ActiveJobsBL,
     ActiveJobsTL, 
@@ -314,5 +320,6 @@ queries = [
     InspectionsCompletedAllFuture,
 	DumpsterMedallionIDLookup,
     CasesSupLogs,
-    CasesInspectors
+    CasesInspectors,
+    TLPermitsFPPInsp
 ]
