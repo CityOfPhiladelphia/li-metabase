@@ -67,3 +67,9 @@ output_and_errors.txt
 
 #Ignore squiggles  
 *.~sql
+
+*.ipynb
+*.ipynb_checkpoints/
+*.xls
+*.xlsx
+*.csv
