@@ -258,18 +258,6 @@ DumpsterMedallionIDLookup = SqlQuery(
     target_table = 'DUMPSTERLICENSESMEDALLIONID'
 )
 
-CasesSupLogs = SqlQuery(
-    extract_query_file = 'cases_violations/cases_sup_logs.sql',
-    source_db = 'GISLNI',
-    target_table = 'CASES_SUP_LOGS'
-)
-
-CasesInspectors = SqlQuery(
-    extract_query_file = 'cases_violations/cases_inspectors.sql',
-    source_db = 'GISLNI',
-    target_table = 'CASES_INSPECTORS'
-)
-
 TLPermitsFPPInsp = SqlQuery(
     extract_query_file = 'misc/tl_permits_fpp_insp.sql',
     source_db = 'GISLNI',
@@ -319,7 +307,5 @@ queries = [
     InspectionsCompletedAll,
     InspectionsCompletedAllFuture,
 	DumpsterMedallionIDLookup,
-    CasesSupLogs,
-    CasesInspectors,
     TLPermitsFPPInsp
 ]
