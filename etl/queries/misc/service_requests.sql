@@ -55,11 +55,18 @@ FROM
     sr.sr_resolutiondesc,
     (
     CASE
-      WHEN sr.SR_PROBLEMCODE IN ('BRH', 'DCC', 'DCR', 'DRGMR', 'FC', 'FR', 'HM', 'IR', 'LB', 'LR', 'LVCIP', 'MC', 'MR', 'NH', 'NPU', 'SMR', 'VC', 'VH', 'VRS', 'ZB', 'ZR')
-      THEN 'Ops'
-      WHEN sr.SR_PROBLEMCODE IN ('BC', 'BLK', 'COMP', 'EC', 'LC', 'PC', 'SPC', 'SR311', 'X', 'ZC', 'ZM')
-      THEN 'Building'
-      WHEN sr.SR_PROBLEMCODE IN ('BD', 'BDH', 'BDO')
+      WHEN sr.DEPTRESP = 'CLIP'
+      THEN 'CLIP'
+      WHEN sr.DEPTRESP = 'BU'
+      THEN 'Vending'
+      WHEN sr.DEPTRESP     IN ('CI', 'SO', 'BRU', 'HCEU')
+      OR sr.SR_PROBLEMCODE IN ('BRH', 'DCC', 'DCR', 'DRGMR', 'FC', 'FR', 'HM', 'IR', 'LR', 'LVCIP', 'MC', 'MR', 'NH', 'NPU', 'SMR', 'VC', 'VH', 'VRS', 'ZR', 'HCEU', 'DP02', 'DP03', 'DP22')
+      THEN 'Code Enforcement'
+      WHEN sr.DEPTRESP     IN ('DCC', 'DCV', 'DE', 'DN', 'DS', 'DW', 'CSTF', 'CCD')
+      OR sr.SR_PROBLEMCODE IN ('BC', 'BLK', 'COMP', 'EC', 'LC', 'PC', 'SPC', 'SR311', 'X', 'ZC', 'ZM', 'DP13')
+      THEN 'Construction Services'
+      WHEN sr.DEPTRESP      = 'CSU'
+      OR sr.SR_PROBLEMCODE IN ('BD', 'BDH', 'BDO', 'EMERG', 'TD', 'RSA', 'OD', 'DEMO', 'DP23')
       THEN 'CSU'
       ELSE 'Other'
     END) unit,
@@ -75,6 +82,5 @@ FROM
   sla_dictionary s
 WHERE sub.addresskey   = addr.addrkey
 AND sub.sr_calldate   >= ' 01-JAN-2016'
-AND sub.unit          != 'Other'
 AND sub.sr_problemcode = s.prob (+)
 ORDER BY sub.sr_calldate
