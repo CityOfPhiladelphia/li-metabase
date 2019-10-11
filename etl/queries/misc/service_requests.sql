@@ -28,7 +28,8 @@ SELECT DISTINCT sub.SERVNO servreqno,
       || ' '
       || sub.emplast
     ELSE '(none)'
-  END ) Inspector
+  END ) Inspector,
+  sub.source
 FROM
   (SELECT sr.SERVNO,
     sr.addresskey,
@@ -71,7 +72,13 @@ FROM
       ELSE 'Other'
     END) unit,
     e.empfirst,
-    e.emplast
+    e.emplast,
+    (
+    CASE
+      WHEN c.SFDC_CASEID IS NULL
+      THEN 'Internal'
+      ELSE '311'
+    END) source
   FROM IMSV7.LI_ALLSERVICEREQUESTS@lidb_link sr,
     imsv7.custprob@lidb_link c,
     imsv7.employee@lidb_link e

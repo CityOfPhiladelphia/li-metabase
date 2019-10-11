@@ -30,7 +30,8 @@ SELECT DISTINCT sr.servreqno,
     THEN NULL
     ELSE bds2.BUSINESSDAYSSINCE - bds1.BUSINESSDAYSSINCE - sr.sla
   END) BDOverdue,
-  sr.inspector
+  sr.inspector,
+  sr.source
 FROM SERVICE_REQUESTS sr,
   BUSINESS_DAYS_SINCE_2016 bds1,
   BUSINESS_DAYS_SINCE_2016 bds2
@@ -74,7 +75,8 @@ SELECT DISTINCT sr.servreqno,
     THEN NULL
     ELSE bds2.BUSINESSDAYSSINCE - bds1.BUSINESSDAYSSINCE - sr.sla
   END) BDOverdue,
-  sr.inspector
+  sr.inspector,
+  sr.source
 FROM SERVICE_REQUESTS sr,
   BUSINESS_DAYS_SINCE_2016 bds1,
   BUSINESS_DAYS_SINCE_2016 bds2
