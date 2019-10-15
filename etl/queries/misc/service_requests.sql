@@ -10,12 +10,13 @@ SELECT DISTINCT sub.SERVNO servreqno,
   sub.unit unit,
   (
   CASE
-    WHEN sub.unit = 'Ops'
+    WHEN sub.unit = 'Code Enforcement'
     THEN addr.ops_district
-    WHEN sub.unit = 'Building'
+    WHEN sub.unit = 'Construction Services'
     THEN addr.building_district
     WHEN sub.unit = 'CSU'
     THEN addr.ops_district
+    ELSE addr.ops_district
   END) district,
   s.sla SLA,
   SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(addr.geocode_x, addr.geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
