@@ -119,7 +119,6 @@ UninspectedBLsWithCompCheck = SqlQuery(
     target_table = 'uninsp_bl_comp_check'
 )
 
-# LI Stat Queries
 LicensesIssuedBL = SqlQuery(
     extract_query_file = 'licenses/licenses_issued_bl.sql',
     source_db = 'ECLIPSE_PROD',
@@ -255,13 +254,13 @@ InspectionsCompletedAllFuture = SqlQuery(
 DumpsterMedallionIDLookup = SqlQuery(
     extract_query_file = 'licenses/dumpster_licenses_medallion_id_lookup.sql',
     source_db = 'ECLIPSE_PROD',
-    target_table = 'DUMPSTERLICENSESMEDALLIONID'
+    target_table = 'dumpsterlicensesmedallionid'
 )
 
 TLPermitsFPPInsp = SqlQuery(
     extract_query_file = 'misc/tl_permits_fpp_insp.sql',
     source_db = 'GISLNI',
-    target_table = 'CONTLIC_PERMITS_FPP_INSP'
+    target_table = 'contlic_permits_fpp_insp'
 )
 
 queries = [
