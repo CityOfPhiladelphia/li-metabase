@@ -21,7 +21,8 @@ SELECT DISTINCT u.servreqno,
     THEN null
     ELSE bds2.BUSINESSDAYSSINCE - bds1.BUSINESSDAYSSINCE - u.sla
   END ) BDOverdue,
-  u.inspector
+  u.inspector,
+  u.source
 FROM UNINSPECTED_SERV_REQ u,
   BUSINESS_DAYS_SINCE_2016 bds1,
   BUSINESS_DAYS_SINCE_2016 bds2
