@@ -5,12 +5,13 @@ SELECT DISTINCT sub.SERVNO servreqno,
   sub.unit unit,
   (
   CASE
-    WHEN sub.unit = 'Ops'
+    WHEN sub.unit = 'Code Enforcement'
     THEN addr.ops_district
-    WHEN sub.unit = 'Building'
+    WHEN sub.unit = 'Construction Services'
     THEN addr.building_district
     WHEN sub.unit = 'CSU'
     THEN addr.ops_district
+    ELSE addr.ops_district
   END) district,
   s.sla SLA,
   SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(addr.geocode_x, addr.geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
@@ -20,7 +21,8 @@ SELECT DISTINCT sub.SERVNO servreqno,
     WHEN sub.empfirst IS NOT NULL and sub.emplast IS NOT NULL
     THEN sub.empfirst || ' ' || sub.emplast
     ELSE '(none)'
-  END ) Inspector
+  END ) Inspector,
+  sub.source
 FROM
   (SELECT sr.SERVNO,
     sr.addresskey,
@@ -32,16 +34,29 @@ FROM
     sr.sr_resolutiondate,
     (
     CASE
-      WHEN sr.SR_PROBLEMCODE IN ('BRH', 'DCC', 'DCR', 'DRGMR', 'FC', 'FR', 'HM', 'IR', 'LB', 'LR', 'LVCIP', 'MC', 'MR', 'NH', 'NPU', 'SMR', 'VC', 'VH', 'VRS', 'ZB', 'ZR')
-      THEN 'Ops'
-      WHEN sr.SR_PROBLEMCODE IN ('BC', 'BLK', 'COMP', 'EC', 'LC', 'PC', 'SPC', 'SR311', 'X', 'ZC', 'ZM')
-      THEN 'Building'
-      WHEN sr.SR_PROBLEMCODE IN ('BD', 'BDH', 'BDO')
+      WHEN sr.DEPTRESP = 'CLIP'
+      THEN 'CLIP'
+      WHEN sr.DEPTRESP = 'BU'
+      THEN 'Vending'
+      WHEN sr.DEPTRESP     IN ('CI', 'SO', 'BRU', 'HCEU')
+      OR sr.SR_PROBLEMCODE IN ('BRH', 'DCC', 'DCR', 'DRGMR', 'FC', 'FR', 'HM', 'IR', 'LR', 'LVCIP', 'MC', 'MR', 'NH', 'NPU', 'SMR', 'VC', 'VH', 'VRS', 'ZR', 'HCEU', 'DP02', 'DP03', 'DP22')
+      THEN 'Code Enforcement'
+      WHEN sr.DEPTRESP     IN ('DCC', 'DCV', 'DE', 'DN', 'DS', 'DW', 'CSTF', 'CCD')
+      OR sr.SR_PROBLEMCODE IN ('BC', 'BLK', 'COMP', 'EC', 'LC', 'PC', 'SPC', 'SR311', 'X', 'ZC', 'ZM', 'DP13')
+      THEN 'Construction Services'
+      WHEN sr.DEPTRESP      = 'CSU'
+      OR sr.SR_PROBLEMCODE IN ('BD', 'BDH', 'BDO', 'EMERG', 'TD', 'RSA', 'OD', 'DEMO', 'DP23')
       THEN 'CSU'
       ELSE 'Other'
     END) unit,
     e.empfirst,
-    e.emplast
+    e.emplast,
+    (
+    CASE
+      WHEN c.SFDC_CASEID IS NULL
+      THEN 'Internal'
+      ELSE '311'
+    END) source
   FROM IMSV7.LI_ALLSERVICEREQUESTS@lidb_link sr,
   imsv7.custprob@lidb_link c,
   imsv7.employee@lidb_link e
@@ -53,7 +68,6 @@ FROM
 WHERE sub.sr_inspectiondate IS NULL
 AND sub.sr_resolutiondate   IS NULL
 AND sub.addresskey           = addr.addrkey
-AND sub.unit                != 'Other'
 AND sub.sr_calldate         >= '01-JAN-2016'
 AND sub.sr_problemcode       = s.prob (+)
 ORDER BY sub.sr_calldate
