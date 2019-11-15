@@ -4,14 +4,14 @@ from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url, Da
 from li_metabase.auth import auth
 
 
-IMM_DANG_DASHBOARDS = [
+TL_INVESTIGATION_DASHBOARDS = [
     #Dashboard('Permits and Inspections', 'permits-and-inspections', 153),
     Dashboard('TL Investigation - Cases', 'cases', 173)
 ]
 
 bp = Blueprint('tl_investigation', __name__)
 
-@bp.route('/tl/tl-investigation/<dashboard_url>')
+@bp.route('/tl/investigations/<dashboard_url>')
 @auth.login_required
 def cases_violations(dashboard_url):
     global TL_INVESTIGATION_DASHBOARDS
