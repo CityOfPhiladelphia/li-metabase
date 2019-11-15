@@ -10,8 +10,7 @@ MISC_DASHBOARDS = [
     Dashboard('Public Demos', 'public-demos', 76),
     Dashboard('Service Requests', 'service-requests', 158),
     Dashboard('Uninspected Service Requests', 'uninspected-service-requests', 77),
-    Dashboard('Inspections Completed in Future', 'completed-inspections-future', 162),
-    Dashboard('Bad Behavior Lookup', 'bad-behavior-lookup', 167)
+    Dashboard('Inspections Completed in Future', 'completed-inspections-future', 162)
 ]
 
 bp = Blueprint('misc', __name__)
@@ -34,3 +33,8 @@ def handle_error(error):
 @auth.login_required
 def uninspected_service_requests():
     return redirect("/misc/uninspected-service-requests", code=301)
+
+@bp.route('/misc/bad-behavior-lookup')
+@auth.login_required
+def bad_behavior_lookup():
+    return redirect("/tl/investigations/permits-and-inspections", code=301)

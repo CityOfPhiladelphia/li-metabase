@@ -5,7 +5,7 @@ from li_metabase.auth import auth
 
 
 TL_INVESTIGATION_DASHBOARDS = [
-    #Dashboard('Permits and Inspections', 'permits-and-inspections', 153),
+    Dashboard('Permits and Inspections', 'permits-and-inspections', 167),
     Dashboard('TL Investigation - Cases', 'cases', 173)
 ]
 
