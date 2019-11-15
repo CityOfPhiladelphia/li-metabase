@@ -12,7 +12,7 @@ TRADE_LICENSES_DASHBOARDS = [
     Dashboard('Trade Licenses Jobs By Submission Mode', 'submission-mode', 84),
     Dashboard('Trade Licenses Revenue', 'revenue', 43),
     Dashboard('Trade Licenses SLA', 'sla', 79),
-    Dashboard('Trade Licenses Issued', 'issued', 35),
+    Dashboard('Trade Licenses Issued', 'issued', 35)
 ]
 
 bp = Blueprint('trade_licenses', __name__)
