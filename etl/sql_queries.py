@@ -269,6 +269,12 @@ TLCases = SqlQuery(
     target_table = 'tl_cases'
 )
 
+CaseContacts = SqlQuery(
+    extract_query_file = 'cases_violations/case_contacts.sql',
+    source_db = 'GISLNI',
+    target_table = 'case_contacts'
+)
+
 queries = [
     ActiveJobsBL,
     ActiveJobsTL, 
@@ -313,5 +319,6 @@ queries = [
     InspectionsCompletedAllFuture,
 	DumpsterMedallionIDLookup,
     TLPermitsFPPInsp,
-    TLCases
+    TLCases,
+    CaseContacts
 ]
