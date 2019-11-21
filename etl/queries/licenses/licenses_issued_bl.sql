@@ -11,7 +11,7 @@ WHERE lic.licensetypeobjectid     = lt.objectid
 AND lic.objectid            = apl.licenseid
 AND apl.applicationid = ap.jobid
 AND ap.statusdescription LIKE 'Approved'
-AND ap.issuedate      >= '01-JAN-16'
+AND ap.issuedate      >= '01-JAN-17'
 AND ap.IssueDate       < SYSDATE
 AND ap.applicationtype = 'Application'
 UNION
@@ -28,7 +28,7 @@ WHERE lic.licensetypeobjectid = lt.objectid
 AND lic.objectid        = rla.licenseobjectid
 AND rla.amendrenewjobid    = ar.jobid
 AND ar.statusdescription LIKE 'Approved'
-AND ar.issuedate >= '01-JAN-16'
+AND ar.issuedate >= '01-JAN-17'
 AND ar.issuedate  < SYSDATE
 AND ar.applicationtype LIKE 'Renewal'
 UNION
@@ -41,7 +41,7 @@ FROM lmscorral.bl_application ap,
   lmscorral.bl_license lic,
   lmscorral.bl_licensetype lt
 WHERE lic.licensetypeobjectid   = lt.objectid
-AND ap.issuedate >= '01-JAN-16'
+AND ap.issuedate >= '01-JAN-17'
 AND ap.issuedate  < SYSDATE
 AND lt.Name LIKE 'Activity'
 AND lic.ObjectId = ap.ActivityLicenseId
