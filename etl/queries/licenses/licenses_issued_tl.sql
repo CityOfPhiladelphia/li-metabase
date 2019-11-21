@@ -6,7 +6,7 @@ SELECT DISTINCT lic.licensetype LicenseType,
 FROM lmscorral.tl_tradelicenses lic,
   query.j_tl_application ap
 WHERE lic.objectid    = ap.tradelicenseobjectid (+)
-AND lic.LICENSEISSUEDATE >= '01-JAN-16'
+AND lic.LICENSEISSUEDATE >= '01-JAN-17'
 AND lic.LICENSEISSUEDATE  < SYSDATE
 AND ap.statusdescription LIKE 'Approved'
 UNION
@@ -20,7 +20,7 @@ FROM lmscorral.tl_tradelicenses lic,
   query.j_tl_amendrenew tar
 WHERE lic.objectid     = ar.licenseid (+)
 AND ar.amendrenewid    = tar.objectid (+)
-AND tar.completeddate >= '01-JAN-16'
+AND tar.completeddate >= '01-JAN-17'
 AND tar.completeddate  < SYSDATE
 AND tar.statusdescription LIKE 'Approved'
 AND tar.applicationtype LIKE 'Renewal'

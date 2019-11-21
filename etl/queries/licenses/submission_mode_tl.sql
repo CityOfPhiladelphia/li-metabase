@@ -49,7 +49,7 @@ WHERE lt.licensecode = lic.licensecode (+)
 AND lic.objectid     = ap.tradelicenseobjectid (+)
 AND ap.jobtypeid     = jt.jobtypeid (+)
 AND ap.externalfilenum LIKE 'TL%'
-AND ap.createddate >= '01-JAN-16'
+AND ap.createddate >= '01-JAN-17'
 AND ap.createddate  < sysdate
 UNION
 SELECT DISTINCT lic.licensenumber,
@@ -105,5 +105,5 @@ AND lic.objectid     = arl.licenseid (+)
 AND arl.amendrenewid = ar.objectid (+)
 AND ar.jobtypeid     = jt.jobtypeid (+)
 AND ar.externalfilenum LIKE 'TR%'
-AND ar.createddate >= '01-JAN-16'
+AND ar.createddate >= '01-JAN-17'
 AND ar.createddate  < SYSDATE

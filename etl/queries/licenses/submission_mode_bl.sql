@@ -50,7 +50,7 @@ WHERE lt.objectid           = lic.licensetypeobjectid (+)
 AND lic.objectid            = apl.licenseobjectid (+)
 AND apl.applicationobjectid = ap.objectid(+)
 AND ap.jobtypeid            = jt.jobtypeid (+)
-AND ap.createddate         >= '01-JAN-16'
+AND ap.createddate         >= '01-JAN-17'
 AND ap.createddate          < sysdate
 AND ap.externalfilenum LIKE 'BA%'
 UNION
@@ -106,6 +106,6 @@ WHERE lt.objectid    = lic.licensetypeobjectid (+)
 AND lic.objectid     = arl.licenseid (+)
 AND arl.amendrenewid = ar.objectid (+)
 AND ar.jobtypeid     = jt.jobtypeid (+)
-AND ar.createddate  >= '01-JAN-16'
+AND ar.createddate  >= '01-JAN-17'
 AND ar.createddate   < SYSDATE
 AND ar.externalfilenum LIKE 'BR%'
