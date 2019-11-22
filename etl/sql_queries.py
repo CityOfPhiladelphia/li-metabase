@@ -258,13 +258,13 @@ DumpsterMedallionIDLookup = SqlQuery(
 )
 
 TLPermitsFPPInsp = SqlQuery(
-    extract_query_file = 'misc/tl_permits_fpp_insp.sql',
+    extract_query_file = 'licenses/tl_permits_fpp_insp.sql',
     source_db = 'GISLNI',
     target_table = 'contlic_permits_fpp_insp'
 )
 
 TLCases = SqlQuery(
-    extract_query_file = 'misc/tl_cases.sql',
+    extract_query_file = 'licenses/tl_cases.sql',
     source_db = 'GISLNI',
     target_table = 'tl_cases'
 )
