@@ -92,7 +92,7 @@ SELECT lic.licensenumber LicenseNumber,
   CASE
     WHEN jt.description LIKE 'Trade License Amend/Renew'
     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2855291&objectHandle='
-      ||arl.amendrenewid
+      ||lic.objectid
       ||'&processHandle=&paneId=1243107_175'
   END ) JobLink
 FROM
