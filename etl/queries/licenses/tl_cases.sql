@@ -18,7 +18,8 @@ SELECT tl.LICENSENUMBER ,
   c.contactprimary,
   c.contactcapacity,
   c.contactname,
-  c.contactorganization
+  c.contactorganization,
+  c.address
 FROM TRADE_LICENSES_ALL_MVW tl,
   TL_CASES_MVW c
 WHERE tl.LICENSENUMBER = c.LICENSENUM (+)
