@@ -79,7 +79,7 @@ OverdueInspectionsBL = SqlQuery(
 
 OverdueInspectionsBLBusDays = SqlQuery(
     extract_query_file = 'licenses/overdue_inspections_bl_bus_days.sql',
-    source_db = 'GISLICLD',
+    source_db = 'GISLNIDB',
     target_table = 'overdue_insp_bl_bus_days'
 )
 
@@ -97,7 +97,7 @@ SLA_BL = SqlQuery(
 
 SLA_BL_BUS_DAYS = SqlQuery(
     extract_query_file = 'licenses/sla_bl_bus_days.sql',
-    source_db = 'GISLICLD',
+    source_db = 'GISLNIDB',
     target_table = 'sla_bl_bus_days'
 )
 
@@ -109,7 +109,7 @@ SLA_TL = SqlQuery(
 
 SLA_TL_BUS_DAYS = SqlQuery(
     extract_query_file = 'licenses/sla_tl_bus_days.sql',
-    source_db = 'GISLICLD',
+    source_db = 'GISLNIDB',
     target_table = 'sla_tl_bus_days'
 )
 
@@ -163,7 +163,7 @@ PermitsAccelReview = SqlQuery(
 
 PermitsAccelReviewBusDays = SqlQuery(
     extract_query_file = 'permits/permits_accel_review_bus_days.sql',
-    source_db = 'GISLICLD',
+    source_db = 'GISLNIDB',
     target_table = 'permits_accel_review_bus_days'
 )
 
@@ -205,7 +205,7 @@ UninspectedServiceRequests = SqlQuery(
 
 UninspectedServiceRequestsBusDays = SqlQuery(
     extract_query_file = 'misc/uninspected_service_requests_bus_days.sql',
-    source_db = 'GISLICLD',
+    source_db = 'GISLNIDB',
     target_table = 'uninspected_serv_req_bus_days'
 )
 
@@ -217,7 +217,7 @@ ServiceRequests = SqlQuery(
 
 ServiceRequestsBusDays = SqlQuery(
     extract_query_file = 'misc/service_requests_bus_days.sql',
-    source_db = 'GISLICLD',
+    source_db = 'GISLNIDB',
     target_table = 'service_requests_bus_days'
 )
 
@@ -247,7 +247,7 @@ InspectionsCompletedAll = SqlQuery(
 
 InspectionsCompletedAllFuture = SqlQuery(
     extract_query_file = 'misc/insp_completed_all_future.sql',
-    source_db = 'GISLICLD',
+    source_db = 'GISLNIDB',
     target_table = 'insp_completed_all_future'
 )
 
