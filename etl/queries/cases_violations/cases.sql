@@ -1,4 +1,4 @@
-SELECT c.apno casenumber,
+SELECT TRIM(c.apno) casenumber,
   c.adddttm caseaddeddate,
   (
   CASE
