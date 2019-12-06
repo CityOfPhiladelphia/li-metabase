@@ -30,7 +30,8 @@ SELECT DISTINCT sub.SERVNO servreqno,
       || sub.emplast
     ELSE '(none)'
   END ) Inspector,
-  sub.source
+  sub.source,
+  to_char(sub.sr_inspectiondate, 'DAY') inspectiondayofweek
 FROM
   (SELECT sr.SERVNO,
     sr.addresskey,
