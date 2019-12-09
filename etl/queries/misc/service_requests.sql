@@ -90,6 +90,6 @@ FROM
   LNI_ADDR addr,
   sla_dictionary s
 WHERE sub.addresskey   = addr.addrkey
-AND sub.sr_calldate   >= ' 01-JAN-2017'
+AND sub.sr_calldate   >= ' 01-JAN-2018'
 AND sub.sr_problemcode = s.prob (+)
 ORDER BY sub.sr_calldate
