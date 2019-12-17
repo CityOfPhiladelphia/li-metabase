@@ -63,7 +63,7 @@ SELECT TRIM(c.apno) casenumber,
 FROM imsv7.apcase@lidb_link c,
   (SELECT *
   FROM
-    (SELECT RANK() OVER (PARTITION BY i.apkey ORDER BY i.compdttm ASC NULLS LAST) AS RankCompDttm,
+    (SELECT RANK() OVER (PARTITION BY i.apkey ORDER BY i.compdttm ASC, i.apinspkey ASC NULLS LAST) AS RankCompDttm,
       i.apkey,
       i.SCHEDDTTM,
       i.compdttm,
@@ -86,7 +86,7 @@ FROM imsv7.apcase@lidb_link c,
   ) fci,
   (SELECT *
   FROM
-    (SELECT RANK() OVER (PARTITION BY i.apkey ORDER BY i.compdttm DESC NULLS LAST) AS RankCompDttm,
+    (SELECT RANK() OVER (PARTITION BY i.apkey ORDER BY i.compdttm DESC, i.apinspkey DESC NULLS LAST) AS RankCompDttm,
       i.apkey,
       i.SCHEDDTTM,
       i.compdttm,
@@ -109,7 +109,7 @@ FROM imsv7.apcase@lidb_link c,
   ) lci,
   (SELECT *
   FROM
-    (SELECT RANK() OVER (PARTITION BY i.apkey ORDER BY i.SCHEDDTTM ASC NULLS LAST) AS RankSchedDttm,
+    (SELECT RANK() OVER (PARTITION BY i.apkey ORDER BY i.SCHEDDTTM ASC, i.apinspkey ASC NULLS LAST) AS RankSchedDttm,
       i.apkey,
       i.SCHEDDTTM,
       (
@@ -130,7 +130,7 @@ FROM imsv7.apcase@lidb_link c,
   ) nsi,
   (SELECT *
   FROM
-    (SELECT RANK() OVER (PARTITION BY i.apkey ORDER BY i.SCHEDDTTM ASC NULLS LAST) AS RankSchedDttm,
+    (SELECT RANK() OVER (PARTITION BY i.apkey ORDER BY i.SCHEDDTTM ASC, i.apinspkey ASC NULLS LAST) AS RankSchedDttm,
       i.apkey,
       i.SCHEDDTTM,
       (
