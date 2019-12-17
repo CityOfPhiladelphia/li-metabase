@@ -146,12 +146,11 @@ FROM imsv7.apcase@lidb_link c,
   ) ovdi,
   imsv7.address@lidb_link a,
   lni_addr
-WHERE c.apkey   = fci.apkey (+)
-AND c.apkey     = lci.apkey (+)
-AND c.apkey     = nsi.apkey (+)
-AND c.apkey     = ovdi.apkey (+)
-AND c.addrkey   = a.addrkey
-AND c.addrkey   = lni_addr.addrkey (+)
-AND (c.RESDTTM IS NULL
-OR c.RESDTTM   >= DATE '2018-1-1')
-AND c.adddttm   < TO_DATE(TO_CHAR(SYSDATE,'MM/DD/YYYY'),'MM/DD/YYYY')
+WHERE c.apkey  = fci.apkey (+)
+AND c.apkey    = lci.apkey (+)
+AND c.apkey    = nsi.apkey (+)
+AND c.apkey    = ovdi.apkey (+)
+AND c.addrkey  = a.addrkey
+AND c.addrkey  = lni_addr.addrkey (+)
+AND c.adddttm >= add_months(TRUNC(SYSDATE, 'MM'),-60)
+AND c.adddttm  < TO_DATE(TO_CHAR(SYSDATE,'MM/DD/YYYY'),'MM/DD/YYYY')
