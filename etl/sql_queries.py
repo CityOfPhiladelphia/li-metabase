@@ -4,7 +4,6 @@ class SqlQuery():
         self.source_db = source_db
         self.target_table = target_table
 
-# LI Dash Queries
 IndividualWorkloads = SqlQuery(
     extract_query_file = 'licenses/individual_workloads.sql',
     source_db = 'ECLIPSE_PROD',
@@ -233,6 +232,12 @@ Cases = SqlQuery(
     target_table = 'cases'
 )
 
+OldUnresolvedCases = SqlQuery(
+    extract_query_file = 'cases_violations/old_unresolved_cases.sql',
+    source_db = 'GISLNI',
+    target_table = 'old_unresolved_cases'
+)
+
 Violations = SqlQuery(
     extract_query_file = 'cases_violations/violations.sql',
     source_db = 'GISLNI',
@@ -298,6 +303,7 @@ queries = [
     PublicDemos,
 	CaseInspections,
     Cases,
+    OldUnresolvedCases,
     LicensesIssuedBL,
     LicensesIssuedTL,
     LicenseRevenueBL,
