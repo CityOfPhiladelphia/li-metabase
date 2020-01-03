@@ -6,7 +6,6 @@ from li_metabase.auth import auth
 
 CASES_VIOLATIONS_DASHBOARDS = [
     Dashboard('Violations', 'violations', 116),
-    Dashboard('Cases', 'cases', 152),
     Dashboard('Case Contacts', 'case-contacts', 174)
 ]
 
@@ -40,3 +39,8 @@ def redirect_outstanding_case_inspections():
 @auth.login_required
 def current_imminently_dangerous_properties():
     return redirect("/cases-violations/open-imminently-dangerous-cases", code=301)
+
+@bp.route('/cases-violations/cases')
+@auth.login_required
+def cases():
+    return redirect("/cases-violations/cases/all-recent", code=301)
