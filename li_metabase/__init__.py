@@ -5,7 +5,7 @@ from li_metabase.auth import auth
 from li_metabase.views import (
     business_licenses, trade_licenses, permits,
     cases_violations, misc, case_inspections, unsafes, imm_dang, tl_investigations,
-    cases
+    cases, permit_inspections
 )
 from li_metabase.utils import build_iframe_url
 
@@ -26,6 +26,7 @@ def create_app():
     app.register_blueprint(imm_dang.bp)
     app.register_blueprint(tl_investigations.bp)
     app.register_blueprint(cases.bp)
+    app.register_blueprint(permit_inspections.bp)
 
     @app.route('/')
     @auth.login_required

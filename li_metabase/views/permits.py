@@ -8,7 +8,7 @@ PERMITS_DASHBOARDS = [
     Dashboard('Permit Volumes and Revenues', 'volume-and-revenues', 39),
     Dashboard('Permit Trends', 'trends', 78),
     Dashboard('Permits: OTC vs Reviewed', 'otc-vs-reviewed', 40),
-    Dashboard('Accelerated Review Permits', 'accelerated-review', 41),
+    Dashboard('Accelerated Review Permits', 'accelerated-review', 41)
 ]
 
 bp = Blueprint('permits', __name__)

@@ -280,6 +280,12 @@ CaseContacts = SqlQuery(
     target_table = 'case_contacts'
 )
 
+PermitInspectionsOutstanding = SqlQuery(
+    extract_query_file = 'permits/permit_inspections_outstanding.sql',
+    source_db = 'GISLNI',
+    target_table = 'permit_inspections_outstanding'
+)
+
 queries = [
     ActiveJobsBL,
     ActiveJobsTL, 
@@ -326,5 +332,6 @@ queries = [
 	DumpsterMedallionIDLookup,
     TLPermitsFPPInsp,
     TLCases,
-    CaseContacts
+    CaseContacts,
+    PermitInspectionsOutstanding
 ]
