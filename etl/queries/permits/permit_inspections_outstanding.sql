@@ -5,7 +5,6 @@ SELECT i.apinspkey,
   a.zip,
   la.census_tract_1990,
   la.council_district,
-  la.ops_district,
   la.building_district,
   (
   CASE
@@ -43,9 +42,9 @@ FROM imsv7.address@lidb_link a,
   imsv7.apdefn@lidb_link d,
   imsv7.employee@lidb_link e,
   lni_addr la
-WHERE a.addrkey  = b.addrkey
-AND b.apkey      = i.apkey
-AND a.addrkey = la.addrkey (+)
+WHERE a.addrkey = b.addrkey
+AND b.apkey     = i.apkey
+AND a.addrkey   = la.addrkey (+)
 AND i.insptype NOT LIKE 'CLIP%'
 AND i.insptype    = t250.code
 AND cntc.addrkey  = a.addrkey
@@ -53,5 +52,4 @@ AND cntc.cntctkey = o.cntctkey
 AND cntc.owner LIKE 'Y%'
 AND b.apdefnkey = d.apdefnkey
 AND i.assignto  = e.empid (+)
-AND i.compdttm IS NULL
-)
+AND i.compdttm IS NULL )
