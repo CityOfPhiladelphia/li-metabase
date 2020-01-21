@@ -1,13 +1,12 @@
 SELECT a.addr_base AS ADDRESS,
   i.zip,
-  a.census_tract_1990,
-  a.census_tract_2010,
+  a.census_tract_1990, 
   a.council_district,
   a.ops_district,
   a.building_district,
   i.ownername,
   i.organization,
-  i.caseorpermitnumber permitnumber,
+  i.permitnumber,
   i.aptype,
   i.apdesc,
   i.inspectorfirstname,
@@ -25,7 +24,6 @@ SELECT a.addr_base AS ADDRESS,
   i.inspectionscheduled,
   i.inspectioncompleted,
   i.inspectionstatus,
-  c.casegrp casegroup,
   SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(a.geocode_x, a.geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
   SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(a.geocode_x, a.geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat,
   i.apkey,
@@ -64,15 +62,15 @@ FROM
       ELSE trim(o.cntctlast)
     END) OwnerName,
     o.coname Organization,
-    trim(b.apno) CaseOrPermitNumber,
-    d.aptype APTYPE,
-    d.apdesc APDESC,
-    i.apinspkey APINSPKEY,
+    trim(b.apno) PermitNumber,
+    d.aptype,
+    d.apdesc,
+    i.apinspkey,
     i.insptype InspectionType,
     t250.descript InspectionDescription,
     i.scheddttm InspectionScheduled,
     i.compdttm InspectionCompleted,
-    i.apkey APKEY,
+    i.apkey,
     e.empfirst inspectorfirstname,
     e.emplast inspectorlastname,
     DECODE(i.stat, 0, 'None', 1, 'Passed', 2, 'Failed', 3, 'Cancelled', 4, 'HOLD', 5, 'Closed') InspectionStatus
@@ -95,7 +93,5 @@ FROM
   AND i.assignto  = e.empid (+)
   AND i.compdttm IS NULL
   ) i
-LEFT OUTER JOIN imsv7.apcase@lidb_link c
-ON i.apkey = c.apkey
 LEFT OUTER JOIN lni_addr a
 ON i.addresskey = a.addrkey
