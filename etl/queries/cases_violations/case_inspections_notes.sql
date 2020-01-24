@@ -1,10 +1,13 @@
 SELECT a.addr_base AS address,
        i.zip,
-       a.census_tract_1990,
+       a.census_tract_1990, --remove field now that we're only using the 2010 census tracts
+
        a.census_tract_2010,
        a.council_district,
-       a.ops_district,
-       a.building_district,
+       a.ops_district,  --rename field to just District?
+
+       a.building_district,  --remove field now that there's no distinction b/t ops and building districts
+
        i.ownername,
        i.organization,
        i.caseorpermitnumber casenumber,
@@ -46,7 +49,9 @@ SELECT a.addr_base AS address,
        ) reinspection
 FROM imsv7.li_allinsp_internal@lidb_link i
 LEFT OUTER JOIN imsv7.apcase@lidb_link c ON i.apkey = c.apkey
-LEFT OUTER JOIN lni_addr a ON i.addresskey = a.addrkey
+LEFT OUTER JOIN lni_addr a  --eclipse version a different name?
+
+ ON i.addresskey = a.addrkey
 LEFT OUTER JOIN (SELECT *
                  FROM (SELECT RANK () OVER (
                            PARTITION BY i.apkey
