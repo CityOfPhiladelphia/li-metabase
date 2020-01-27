@@ -4,16 +4,7 @@ SELECT ci.investigationprocessid,
        ci.investigationscheduled,
        ci.investigationcompleted,
        ci.investigationstatus,
-       ci.investigatorfirstname,
-       ci.investigatorlastname,
-       (
-           CASE
-               WHEN ci.investigatorfirstname IS NULL
-                    AND ci.investigatorlastname IS NULL
-               THEN '(none)'
-               ELSE ci.investigatorfirstname || ' ' || ci.investigatorlastname
-           END
-       ) inspectorname,
+       ci.investigatorname,
        (
            CASE
                WHEN reinv.rankcompdttm IS NOT NULL
@@ -32,8 +23,6 @@ SELECT ci.investigationprocessid,
        ci.casenumber,
        ci.casetype,
        ci.caseresponsibility,
-       ci.apdesc, --?
-
        a.streetaddress AS address,
        a.zip,
        a.census_tract,
@@ -46,7 +35,7 @@ SELECT ci.investigationprocessid,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (a.geocode_x, a.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
        y lat
 FROM g_vw_case_inv ci
-LEFT OUTER JOIN eclipse_lni_addr_table a ON ci.addressobjectid = a.addressobjectid
+LEFT OUTER JOIN eclipse_lni_addr_xy a ON ci.addressobjectid = a.addressobjectid
 LEFT OUTER JOIN (SELECT *
                  FROM (SELECT RANK () OVER (
                            PARTITION BY isub.jobid
@@ -55,7 +44,7 @@ LEFT OUTER JOIN (SELECT *
                               isub.processid,
                               isub.jobid,
                               isub.datecompleted
-                       FROM lmscorral.investigations@eclipse_link isub --?
+                       FROM lmscorral.performinvestigation@eclipse_link isub
                        WHERE isub.datecompleted IS NOT NULL
                       )
                  WHERE rankcompdate > 1
