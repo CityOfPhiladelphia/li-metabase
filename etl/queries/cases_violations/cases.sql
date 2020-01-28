@@ -1,23 +1,67 @@
 SELECT c.casenumber,
-       c.caseaddeddate,
-       c.caseresolutioncode,
-       c.caseresolutiondate,
-       c.casegroup,
-       c.lastcompletedinsp,
-       c.lastcompletedinspstatus,
-       c.lastcompletedinspinspector,
-       c.nextscheduledinsp,
-       c.nextscheduledinspinspector,
-       c.overdueinspscheduleddate,
-       c.overdueinspinspector,
-       c.zip,
-       c.councildistrict,
-       c.opsdistrict,
-       c.censustract,
-       c.caseresolutiondatehasvalue,
-       c.firstcompletedinsp,
-       c.firstcompletedinspstatus,
-       c.firstcompletedinspinspector,
+       c.casetype,
+       c.caseresponsibility,
+       c.createddate,
+       c.completeddate,
+       (
+           CASE
+               WHEN c.completeddate IS NULL
+               THEN 'No'
+               ELSE 'Yes'
+           END
+       ) casecompleteddatehasvalue,
+       (
+           CASE
+               WHEN c.casestatus IS NULL
+               THEN '(none)'
+               ELSE c.casestatus
+           END
+       ) casestatus,
+       c.lastcompletedinv,
+       c.lastcompletedinvstatus,
+       (
+           CASE
+               WHEN c.lastcompletedinvinvestigator IS NULL
+               THEN '(none)'
+               ELSE c.lastcompletedinvinvestigator
+           END
+       ) lastcompletedinvinvestigator,
+       c.nextscheduledinv,
+       (
+           CASE
+               WHEN c.nextscheduledinvinvestigator IS NULL
+               THEN '(none)'
+               ELSE c.nextscheduledinvinvestigator
+           END
+       ) nextscheduledinvinvestigator,
+       c.overdueinvscheduleddate,
+       (
+           CASE
+               WHEN c.overdueinvinvestigator IS NULL
+               THEN '(none)'
+               ELSE c.overdueinvinvestigator
+           END
+       ) overdueinvinvestigator,
+       c.firstcompletedinv,
+       c.firstcompletedinvstatus,
+       (
+           CASE
+               WHEN c.firstcompletedinvinvestigatore IS NULL
+               THEN '(none)'
+               ELSE c.firstcompletedinvinvestigator
+           END
+       ) firstcompletedinvinvestigator,
+       (
+           CASE
+               WHEN c.zip IS NULL
+                    OR c.zip = ' '
+               THEN '(none)'
+               ELSE c.zip
+           END
+       ) zip,
+       c.council_district,
+       c.li_district,
+       c.census_tract_2010,
        (
            CASE
                WHEN cases_with_only_license_vios.casenumber IS NOT NULL
@@ -55,5 +99,5 @@ FROM cases_mvw c,
             AND caseaddeddate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
      ) cases_with_only_license_vios
 WHERE c.casenumber = cases_with_only_license_vios.casenumber (+)
-      AND c.caseaddeddate >= add_months (trunc (sysdate, 'MM'), - 60)
-      AND c.caseaddeddate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
+      AND c.createddate >= add_months (trunc (sysdate, 'MM'), - 60)
+      AND c.createddate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
