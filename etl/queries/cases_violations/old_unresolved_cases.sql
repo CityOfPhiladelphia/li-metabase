@@ -1,6 +1,7 @@
 SELECT c.casenumber,
        c.casetype,
        c.caseresponsibility,
+       c.casepriority,
        c.createddate,
        c.completeddate,
        (

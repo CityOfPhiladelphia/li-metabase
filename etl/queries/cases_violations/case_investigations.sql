@@ -7,8 +7,8 @@ SELECT ci.investigationprocessid,
        ci.investigatorname,
        (
            CASE
-               WHEN reinv.rankcompdttm IS NOT NULL
-               THEN reinv.rankcompdttm
+               WHEN reinv.rankcompdate IS NOT NULL
+               THEN reinv.rankcompdate
                WHEN ci.investigationcompleted IS NOT NULL
                THEN 1
            END
@@ -23,6 +23,7 @@ SELECT ci.investigationprocessid,
        ci.casenumber,
        ci.casetype,
        ci.caseresponsibility,
+       ci.casepriority,
        a.streetaddress AS address,
        a.zip,
        a.census_tract,
