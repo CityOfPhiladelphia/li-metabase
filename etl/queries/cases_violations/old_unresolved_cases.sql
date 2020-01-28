@@ -1,24 +1,68 @@
 SELECT c.casenumber,
-       c.caseaddeddate,
-       c.casestatus,
-       c.completeddate,
+       c.casetype,
        c.caseresponsibility,
+       c.createddate,
+       c.completeddate,
+       (
+           CASE
+               WHEN c.completeddate IS NULL
+               THEN 'No'
+               ELSE 'Yes'
+           END
+       ) casecompleteddatehasvalue,
+       (
+           CASE
+               WHEN c.casestatus IS NULL
+               THEN '(none)'
+               ELSE c.casestatus
+           END
+       ) casestatus,
        c.lastcompletedinv,
        c.lastcompletedinvstatus,
-       c.lastcompletedinvinvestigator,
+       (
+           CASE
+               WHEN c.lastcompletedinvinvestigator IS NULL
+               THEN '(none)'
+               ELSE c.lastcompletedinvinvestigator
+           END
+       ) lastcompletedinvinvestigator,
        c.nextscheduledinv,
-       c.nextscheduledinvinvestigator,
+       (
+           CASE
+               WHEN c.nextscheduledinvinvestigator IS NULL
+               THEN '(none)'
+               ELSE c.nextscheduledinvinvestigator
+           END
+       ) nextscheduledinvinvestigator,
        c.overdueinvscheduleddate,
-       c.overdueinvinvestigator,
-       c.zip,
-       c.council_district,
-       c.li_district,
-       c.census_tract_2010,
-       c.casecompleteddatehasvalue,
+       (
+           CASE
+               WHEN c.overdueinvinvestigator IS NULL
+               THEN '(none)'
+               ELSE c.overdueinvinvestigator
+           END
+       ) overdueinvinvestigator,
        c.firstcompletedinv,
        c.firstcompletedinvstatus,
-       c.firstcompletedinvinvestigator
+       (
+           CASE
+               WHEN c.firstcompletedinvinvestigatore IS NULL
+               THEN '(none)'
+               ELSE c.firstcompletedinvinvestigator
+           END
+       ) firstcompletedinvinvestigator,
+       (
+           CASE
+               WHEN c.zip IS NULL
+                    OR c.zip = ' '
+               THEN '(none)'
+               ELSE c.zip
+           END
+       ) zip,
+       c.council_district,
+       c.li_district,
+       c.census_tract_2010
 FROM cases_mvw c
-WHERE c.caseaddeddate < add_months (trunc (sysdate, 'MM'), - 60)
+WHERE c.createddate < add_months (trunc (sysdate, 'MM'), - 60)
       AND (c.casestatus <> 'Closed'
            OR c.completeddate IS NULL)
