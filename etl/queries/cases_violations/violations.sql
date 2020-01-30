@@ -15,7 +15,7 @@ SELECT v.casenumber,
        nvl (substr (violationcode, 0, instr (violationcode, '-') - 1), violationcode) violationcategory,
        v.violationcode,
        v.violatoncodetitle,
-       lci.invcompleted mostrecentinv,
+       v.mostrecentinvestigation,
        (
            CASE
                WHEN v.violationstatus IS NOT NULL
@@ -52,20 +52,7 @@ SELECT v.casenumber,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (a.geocode_x, a.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
        y lat
 FROM g_mvw_violations_t v,
-     (SELECT *
-      FROM (SELECT RANK () OVER (
-                PARTITION BY ci.casejobid
-                ORDER BY ci.invcompleted DESC, ci.invprocessid ASC NULLS LAST
-            ) AS rankcompdate,
-                   ci.casejobid,
-                   ci.invcompleted
-            FROM g_mvw_case_inv_t ci
-            WHERE ci.invcompleted IS NOT NULL
-           )
-      WHERE rankcompdate = 1
-     ) lci,
      eclipse_lni_addr_xy a
-WHERE v.casefilejobid = lci.casejobid (+)
-      AND v.addressobjectid = a.addressobjectid (+)
+WHERE v.addressobjectid = a.addressobjectid (+)
       AND v.violationdate > add_months (trunc (sysdate, 'MM'), - 25)
       AND v.violationdate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
