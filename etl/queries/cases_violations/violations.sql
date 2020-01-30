@@ -1,70 +1,78 @@
-SELECT ADDRESSKEY ,
-  OPA_ACCOUNT_NUM ,
-  ADDRESS ,
-  UNIT ,
-  ZIP ,
-  CENSUSTRACT ,
-  CENSUS_TRACT_1990 ,
-  CENSUS_TRACT_2010 ,
-  COUNCIL_DISTRICT ,
-  (
-  CASE
-    WHEN OPS_DISTRICT IS NOT NULL
-    THEN OPS_DISTRICT
-    ELSE TO_NCHAR('(none)')
-  END ) OPS_DISTRICT ,
-  (
-  CASE
-    WHEN BUILDING_DISTRICT IS NOT NULL
-    THEN BUILDING_DISTRICT
-    ELSE TO_NCHAR('(none)')
-  END ) BUILDING_DISTRICT ,
-  OWNERNAME ,
-  ORGANIZATION ,
-  CASENUMBER ,
-  APTYPE ,
-  CASEADDEDDATE ,
-  CASERESOLUTIONDATE ,
-  (
-  CASE
-    WHEN CASERESOLUTIONCODE IS NOT NULL
-    THEN CASERESOLUTIONCODE
-    ELSE '(none)'
-  END ) CASERESOLUTIONCODE ,
-  APFAILKEY ,
-  VIOLATIONDATE ,
-  VIOLATIONTYPE ,
-  VIOLATIONDESCRIPTION ,
-  MOSTRECENTINSP ,
-  (
-  CASE
-    WHEN STATUS IS NOT NULL
-    THEN STATUS
-    ELSE 'OPEN'
-  END ) STATUS ,
-  CASESTATUS ,
-  (
-  CASE
-    WHEN CASEGROUP IS NOT NULL
-    THEN CASEGROUP
-    ELSE '(none)'
-  END ) CASEGROUP ,
-  (
-  CASE
-    WHEN CASEPRIORITY IS NOT NULL
-    THEN CASEPRIORITY
-    ELSE '(none)'
-  END ) CASEPRIORITY ,
-  (
-  CASE
-    WHEN PRIORITYDESC IS NOT NULL
-    THEN PRIORITYDESC
-    ELSE '(none)'
-  END ) PRIORITYDESC,
-  ADDRKEY_2 ,
-  ADDRKEY_3 ,
-  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(geocode_x, geocode_y,NULL),NULL,NULL), 4326).sdo_point.X lon,
-  SDO_CS.TRANSFORM(SDO_GEOMETRY(2001,2272,SDO_POINT_TYPE(geocode_x, geocode_y,NULL),NULL,NULL), 4326).sdo_point.Y lat
+SELECT addresskey,
+       opa_account_num,
+       address,
+       unit,
+       zip,
+       censustract,
+       census_tract_1990,
+       census_tract_2010,
+       council_district,
+       (
+           CASE
+               WHEN ops_district IS NOT NULL
+               THEN ops_district
+               ELSE to_nchar ('(none)')
+           END
+       ) ops_district,
+       (
+           CASE
+               WHEN building_district IS NOT NULL
+               THEN building_district
+               ELSE to_nchar ('(none)')
+           END
+       ) building_district,
+       ownername,
+       organization,
+       casenumber,
+       aptype,
+       caseaddeddate,
+       caseresolutiondate,
+       (
+           CASE
+               WHEN caseresolutioncode IS NOT NULL
+               THEN caseresolutioncode
+               ELSE '(none)'
+           END
+       ) caseresolutioncode,
+       apfailkey,
+       violationdate,
+       violationtype,
+       violationdescription,
+       mostrecentinsp,
+       (
+           CASE
+               WHEN status IS NOT NULL
+               THEN status
+               ELSE 'OPEN'
+           END
+       ) status,
+       casestatus,
+       (
+           CASE
+               WHEN casegroup IS NOT NULL
+               THEN casegroup
+               ELSE '(none)'
+           END
+       ) casegroup,
+       (
+           CASE
+               WHEN casepriority IS NOT NULL
+               THEN casepriority
+               ELSE '(none)'
+           END
+       ) casepriority,
+       (
+           CASE
+               WHEN prioritydesc IS NOT NULL
+               THEN prioritydesc
+               ELSE '(none)'
+           END
+       ) prioritydesc,
+       addrkey_2,
+       addrkey_3,
+       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (geocode_x, geocode_y, NULL), NULL, NULL), 4326).sdo_point.x lon
+       ,
+       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (geocode_x, geocode_y, NULL), NULL, NULL), 4326).sdo_point.y lat
 FROM violations_mvw
-WHERE VIOLATIONDATE > add_months(TRUNC(SYSDATE, 'MM'),-25)
-AND VIOLATIONDATE   < TO_DATE(TO_CHAR(sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
+WHERE violationdate > add_months (trunc (sysdate, 'MM'), - 25)
+      AND violationdate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
