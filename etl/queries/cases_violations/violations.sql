@@ -1,78 +1,71 @@
-SELECT addresskey,
-       opa_account_num,
-       address,
-       unit,
-       zip,
-       censustract,
-       census_tract_1990,
-       census_tract_2010,
-       council_district,
-       (
-           CASE
-               WHEN ops_district IS NOT NULL
-               THEN ops_district
-               ELSE to_nchar ('(none)')
-           END
-       ) ops_district,
-       (
-           CASE
-               WHEN building_district IS NOT NULL
-               THEN building_district
-               ELSE to_nchar ('(none)')
-           END
-       ) building_district,
-       ownername,
-       organization,
-       casenumber,
-       aptype,
-       caseaddeddate,
-       caseresolutiondate,
-       (
+SELECT v.casenumber,
+       v.casetype, --used to be aptype
+       v.casecreateddate, --used to be caseaddeddate
+       v.casecompleteddate, --used to be caseresolutiondate,
+/* No real equivalent in Eclipse
+      (
            CASE
                WHEN caseresolutioncode IS NOT NULL
                THEN caseresolutioncode
                ELSE '(none)'
            END
-       ) caseresolutioncode,
-       apfailkey,
-       violationdate,
-       violationtype,
-       violationdescription,
-       mostrecentinsp,
+       ) caseresolutioncode, */
+       v.objectid,
+       v.violationdate,
+       nvl (substr (violationcode, 0, instr (violationcode, '-') - 1), violationcode) violationcategory,
+       v.violationcode,
+       v.violatoncodetitle,
+       lci.invcompleted mostrecentinv,
        (
            CASE
-               WHEN status IS NOT NULL
-               THEN status
+               WHEN v.violationstatus IS NOT NULL
+               THEN v.violationstatus
                ELSE 'OPEN'
            END
-       ) status,
-       casestatus,
+       ) violationstatus,
+       v.casestatus,
        (
            CASE
-               WHEN casegroup IS NOT NULL
-               THEN casegroup
+               WHEN v.caseresponsibility IS NOT NULL
+               THEN v.caseresponsibility
                ELSE '(none)'
            END
-       ) casegroup,
+       ) caseresponsibility,
        (
            CASE
-               WHEN casepriority IS NOT NULL
-               THEN casepriority
+               WHEN v.casepriority IS NOT NULL
+               THEN v.casepriority
                ELSE '(none)'
            END
        ) casepriority,
-       (
-           CASE
-               WHEN prioritydesc IS NOT NULL
-               THEN prioritydesc
-               ELSE '(none)'
-           END
-       ) prioritydesc,
-       addrkey_2,
-       addrkey_3,
-       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (geocode_x, geocode_y, NULL), NULL, NULL), 4326).sdo_point.x lon
-       ,
-       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (geocode_x, geocode_y, NULL), NULL, NULL), 4326).sdo_point.y lat
-FROM violations_mvw
-WHERE violationdate > add_months (trunc (sysdate, 'MM'), - 25)
-      AND violationdate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
+       a.opa_account_num,
+       a.base_address address,
+       a.unit,
+       a.zip_code,
+       a.census_tract_2010,
+      -- a.owner,
+      -- a.organization,
+       a.council_district,
+       a.li_district,
+       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (a.geocode_x, a.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
+       x lon,
+       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (a.geocode_x, a.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
+       y lat
+FROM g_mvw_violations_t v,
+     (SELECT *
+      FROM (SELECT RANK () OVER (
+                PARTITION BY ci.casejobid
+                ORDER BY ci.invcompleted DESC, ci.invprocessid ASC NULLS LAST
+            ) AS rankcompdate,
+                   ci.casejobid,
+                   ci.invcompleted
+            FROM g_mvw_case_inv_t ci
+            WHERE ci.invcompleted IS NOT NULL
+           )
+      WHERE rankcompdate = 1
+     ) lci,
+     eclipse_lni_addr_xy a
+WHERE v.casefilejobid = lci.casejobid (+)
+      AND v.addressobjectid = a.addressobjectid (+)
+      AND v.violationdate > add_months (trunc (sysdate, 'MM'), - 25)
+      AND v.violationdate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
