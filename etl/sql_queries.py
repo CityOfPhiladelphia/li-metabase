@@ -286,6 +286,12 @@ PermitInspectionsOutstanding = SqlQuery(
     target_table = 'permit_inspections_outstanding'
 )
 
+Notices = SqlQuery(
+    extract_query_file = 'misc/notices.sql',
+    source_db = 'GISLNI',
+    target_table = 'notices'
+)
+
 queries = [
     ActiveJobsBL,
     ActiveJobsTL, 
@@ -333,5 +339,6 @@ queries = [
     TLPermitsFPPInsp,
     TLCases,
     CaseContacts,
-    PermitInspectionsOutstanding
+    PermitInspectionsOutstanding,
+    Notices
 ]
