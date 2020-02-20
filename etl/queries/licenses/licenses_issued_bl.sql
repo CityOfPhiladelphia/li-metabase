@@ -2,7 +2,13 @@ SELECT DISTINCT lt.name licensetype,
   lic.licensenumber,
   ap.ExternalFileNum jobnumber,
   ap.applicationtype jobtype,
-  ap.issuedate issuedate
+  ap.issuedate issuedate,
+    (
+  CASE
+    WHEN ap.applicationtype LIKE 'Application'
+    THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1239699&objectHandle='
+      ||ap.jobid
+  END ) JobLink
 FROM lmscorral.bl_application ap,
   LMSCORRAL.BL_APPLICATIONLICENSEXREF apl,
   lmscorral.bl_license lic,
@@ -19,7 +25,13 @@ SELECT DISTINCT lt.name licensetype,
   lic.licensenumber,
   ar.ExternalFileNum jobnumber,
   ar.applicationtype jobtype,
-  ar.issuedate issuedate
+  ar.issuedate issuedate,
+      (
+  CASE
+    WHEN ar.applicationtype LIKE 'Renewal'
+    THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1243107&objectHandle='
+      ||ar.jobid
+  END ) JobLink
 FROM lmscorral.bl_amendmentrenewal ar,
   LMSCORRAL.AMENDRENEWLICENSEXREF rla,
   lmscorral.bl_license lic,
@@ -36,7 +48,13 @@ SELECT DISTINCT lt.name licensetype,
   lic.licensenumber,
   ap.ExternalFileNum jobnumber,
   ap.applicationtype jobtype,
-  ap.issuedate
+  ap.issuedate,
+    (
+  CASE
+    WHEN ap.applicationtype LIKE 'Application'
+    THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1239699&objectHandle='
+      ||ap.jobid
+  END ) JobLink  
 FROM lmscorral.bl_application ap,
   lmscorral.bl_license lic,
   lmscorral.bl_licensetype lt
