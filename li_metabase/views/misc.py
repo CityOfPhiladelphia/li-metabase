@@ -5,7 +5,7 @@ from li_metabase.auth import auth
 
 
 MISC_DASHBOARDS = [
-    Dashboard('Individual Workloads', 'individual-workloads', 49),
+    Dashboard('Individual Workloads', 'individual-workloads', 180),
     Dashboard('Expiring Licenses with Tax Issues', 'expiring-licenses-with-tax-issues', 72),
     Dashboard('Public Demos', 'public-demos', 76),
     Dashboard('Service Requests', 'service-requests', 158),
