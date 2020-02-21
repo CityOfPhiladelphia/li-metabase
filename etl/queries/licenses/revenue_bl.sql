@@ -23,4 +23,4 @@ WHERE j.objectdefdescription IN (
       AND fee.objectid    = pd.feeobjectid
       AND pd.objectid     = fnpx.paydistid (+)
       AND fnpx.paymentid  = fnp.paymentid (+)
-      AND fnp.receiveddate >= '01-JAN-17'
+      AND fnp.receiveddate >= add_months(TRUNC(SYSDATE, 'MM'),-25)
