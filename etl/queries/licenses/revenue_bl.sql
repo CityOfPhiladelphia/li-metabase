@@ -7,8 +7,8 @@ SELECT distinct j.externalfilenum jobnumber,
                THEN 'Application'
            END
        ) AS jobtype,
-       fee.baseamount amount,
        fnp.receiveddate paymentdate,
+       fee.baseamount amount,
        fee.description feetype
 FROM lmscorral.bl_alljobs j,
      lmscorral.fee fee,
