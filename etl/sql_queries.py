@@ -148,24 +148,6 @@ PermitsFees = SqlQuery(
     target_table = 'permits_fees'
 )
 
-PermitsOTCvsReview = SqlQuery(
-    extract_query_file = 'permits/permits_otc_vs_review.sql',
-    source_db = 'LIDB',
-    target_table = 'permits_otc_vs_review'
-)
-
-PermitsAccelReview = SqlQuery(
-    extract_query_file = 'permits/permits_accel_review.sql',
-    source_db = 'LIDB',
-    target_table = 'permits_accel_review'
-)
-
-PermitsAccelReviewBusDays = SqlQuery(
-    extract_query_file = 'permits/permits_accel_review_bus_days.sql',
-    source_db = 'GISLNIDB',
-    target_table = 'permits_accel_review_bus_days'
-)
-
 ImmDang = SqlQuery(
     extract_query_file = 'cases_violations/imm_dang.sql',
     source_db = 'GISLNI',
@@ -328,9 +310,6 @@ queries = [
     SLA_BL_BUS_DAYS,
     SLA_TL,
     SLA_TL_BUS_DAYS,
-    PermitsOTCvsReview,
-    PermitsAccelReview,
-    PermitsAccelReviewBusDays,
     ServiceRequests,
     ServiceRequestsBusDays,
     InspectionsCompletedAll,
