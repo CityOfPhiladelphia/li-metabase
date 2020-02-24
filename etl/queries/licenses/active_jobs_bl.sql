@@ -6,7 +6,7 @@ SELECT DISTINCT allj.jobnumber,
                 proc.objectdefdescription processtype,
                 proc.datecompleted jobaccepteddate,
                 proc.processstatus,
-                proc.staffassigned,
+                proc.staffassigned assignedstaff,
                 (
                     CASE
                         WHEN round (sysdate - proc.scheduledstartdate) <= 1
