@@ -5,7 +5,7 @@ import os
 import petl as etl
 
 from li_dbs import (
-    ECLIPSE_PROD, LIDB, GISLNI, DataBridge, GISLICLD, GISLNIDB
+    ECLIPSE_PROD, LIDB, GISLNI, DataBridge, GISLICLD, GISLNIDB, GISLNIDBX
 )
 from sql_queries import queries
 
@@ -73,6 +73,8 @@ def get_source_db(query):
         return GISLICLD.GISLICLD
     elif query.source_db == 'GISLNIDB':
         return GISLNIDB.GISLNIDB
+    elif query.source_db == 'GISLNIDBX':
+        return GISLNIDBX.GISLNIDBX
 
 def get_extract_query(query):
     with open(query.extract_query_file) as sql:
@@ -86,7 +88,7 @@ def etl_(query):
         etl.fromdb(source, extract_query) \
            .topickle(f'temp/{query.target_table}.p')
 
-    with GISLNIDB.GISLNIDB() as target:
+    with GISLNIDBX.GISLNIDBX() as target:
         etl.frompickle(f'temp/{query.target_table}.p') \
            .todb(get_cursor(target), query.target_table.upper())
 
@@ -102,7 +104,7 @@ def etl_process(queries):
             etl_(query)
             logger.info(f'{query.target_table} successfully updated.')
         except:
-            logger.error(f'ETL Process into GISLNIDB.{query.target_table} failed.', exc_info=True)
+            logger.error(f'ETL Process into GISLNIDBX.{query.target_table} failed.', exc_info=True)
             failed.append(query.target_table)
 
     logger.info('ETL process ended: ' + str(datetime.datetime.now()))
