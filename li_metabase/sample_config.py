@@ -4,3 +4,5 @@ SECRET_KEY = ''
 # Metabase Secrets
 METABASE_SITE_URL = ''
 METABASE_SECRET_KEY = ''
+
+# Pulse Test
