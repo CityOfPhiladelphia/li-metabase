@@ -5,7 +5,7 @@ import os
 import petl as etl
 
 from li_dbs import (
-    ECLIPSE_PROD, LIDB, GISLNI, DataBridge, GISLICLD, GISLNIDB, GISLNIDBX
+    ECLIPSE_REPORTS, LIDB, GISLNI, DataBridge, GISLICLD, GISLNIDB, GISLNIDBX
 )
 from sql_queries import queries
 
@@ -61,8 +61,8 @@ def send_email(failed):
     server.server.quit()
 
 def get_source_db(query):
-    if query.source_db == 'ECLIPSE_PROD':
-        return ECLIPSE_PROD.ECLIPSE_PROD
+    if query.source_db == 'ECLIPSE_REPORTS':
+        return ECLIPSE_REPORTS.ECLIPSE_REPORTS
     elif query.source_db == 'LIDB':
         return LIDB.LIDB
     elif query.source_db == 'GISLNI':
