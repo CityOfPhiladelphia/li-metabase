@@ -57,6 +57,8 @@ config.py
 
 # Log files
 etl/*.txt
+etl/RefreshMVWs/*.txt
+etl/UpdateTables/*.txt
 output_and_errors.txt
 
 # Batch files

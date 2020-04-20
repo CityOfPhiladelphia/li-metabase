@@ -291,6 +291,5 @@ queries = [
     LicenseRevenueTL,
     LicensesIssuedBL,
     LicensesIssuedTL,
-    UninspectedBLsWithCompCheck,
-    InspectionsBL
+    UninspectedBLsWithCompCheck
 ]
