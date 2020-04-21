@@ -34,6 +34,12 @@ ActiveJobsTL = SqlQuery(
     target_table = 'active_jobs_tl'
 )
 
+ActiveJobsTLTest = SqlQuery(
+    extract_query_file = 'licenses/active_jobs_tl_test.sql',
+    source_db = 'ECLIPSE_REPORTS',
+    target_table = 'active_jobs_tl_test'
+)
+
 ActiveProcessesBL = SqlQuery(
     extract_query_file = 'licenses/active_processes_bl.sql',
     source_db = 'ECLIPSE_REPORTS',
@@ -283,6 +289,7 @@ Notices = SqlQuery(
 queries = [
     ActiveJobsBL,
     ActiveJobsTL,
+    ActiveJobsTLTest,
     ActiveProcessesBL,
     ActiveProcessesTL,
     ExpiringLicensesBL,

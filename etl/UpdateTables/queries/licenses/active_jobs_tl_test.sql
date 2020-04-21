@@ -1,12 +1,13 @@
-SELECT DISTINCT j.externalfilenum jobnumber,
-                replace (jt.description, 'Trade License ', '') jobtype,
-                nvl (lt.title, apl.licensetype) licensetype,
-                stat.description jobstatus,
-                proc.processid processid,
+SELECT DISTINCT allj.jobnumber,
+                allj.jobtype,
+                allj.completeddate,
+                allj.licensetype,
+                allj.jobstatus,
+                proc.processid,
                 pt.description processtype,
                 proc.datecompleted jobaccepteddate,
                 proc.processstatus processstatus,
-                proc.assignedstaff assignedstaff,
+                proc.assignedstaff,
                 (
                     CASE
                         WHEN round (sysdate - proc.scheduledstartdate) <= 1
@@ -22,35 +23,44 @@ SELECT DISTINCT j.externalfilenum jobnumber,
                 ) timesincescheduledstartdate,
                 (
                     CASE
-                        WHEN jt.description LIKE 'Trade License Application'
+                        WHEN allj.jobtype LIKE 'Application'
                         THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2854033&objectHandle='
-                        || j.jobid || '&processHandle=&paneId=2854033_116'
-                        WHEN jt.description LIKE 'Trade License Amend/Renew'
+                        || allj.jobid || '&processHandle=&paneId=2854033_116'
+                        WHEN allj.jobtype LIKE 'Amendment'
+                             OR allj.jobtype LIKE 'Renewal'
                         THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2857688&objectHandle='
-                        || j.jobid || '&processHandle=&paneId=2857688_87'
+                        || allj.jobid || '&processHandle=&paneId=2857688_87'
                     END
                 ) joblink
-FROM api.jobs j,
-     api.jobtypes jt,
-     api.statuses stat,
+FROM (SELECT ar.objectid jobid,
+             ar.externalfilenum jobnumber,
+             ar.applicationtype jobtype,
+             tl.licensetype,
+             ar.statusdescription jobstatus,
+             ar.completeddate
+      FROM lmscorral.tl_tradelicenses tl,
+           lmscorral.tl_amendmentrenewal ar
+      WHERE ar.licenseobjectid = tl.objectid
+      UNION
+      SELECT ap.jobid,
+             ap.externalfilenum jobnumber,
+             ap.applicationtype jobtype,
+             lt.licensecodedescription licensetype,
+             ap.statusdescription jobstatus,
+             ap.completeddate
+      FROM lmscorral.tl_application ap,
+           lmscorral.tl_tradelicensetypes lt
+      WHERE ap.licensetypeobjectid = lt.objectid
+) allj,
      api.processes proc,
-     api.processtypes pt,
-     query.j_tl_amendrenew ar,
-     query.r_tl_amendrenew_license arl,
-     query.r_tllicensetype lrl,
-     query.o_tl_licensetype lt,
-     query.j_tl_application apl
-WHERE j.jobid = proc.jobid
-      AND proc.processtypeid       = pt.processtypeid
-      AND j.externalfilenum        = ar.externalfilenum (+)
-      AND ar.objectid              = arl.amendrenewid (+)
-      AND arl.licenseid            = lrl.licenseobjectid (+)
-      AND lrl.licensetypeobjectid  = lt.objectid (+)
-      AND j.jobid                  = apl.objectid (+)
-      AND j.externalfilenum LIKE 'T%'
+     api.processtypes pt
+WHERE allj.jobid = proc.jobid
+      AND proc.processtypeid = pt.processtypeid
+      AND allj.jobnumber LIKE 'T%'
+      AND allj.completeddate IS NULL
 -- Only include these process types: "Renewal Review Application", "Issue License", "Renew License", "Amend License", 
 --    "Generate License", "Completeness Check", "Review Application", or "Amendment or Renewal
-      AND pt.processtypeid IN (
+      AND proc.processtypeid IN (
     '2851903',
     '2854108',
     '2852692',
@@ -61,19 +71,11 @@ WHERE j.jobid = proc.jobid
     '2855079'
 )
       AND proc.datecompleted IS NOT NULL
-      AND j.jobtypeid              = jt.jobtypeid
-      AND j.statusid               = stat.statusid
-      AND j.completeddate IS NULL
--- "Trade License Amend/Renew" and "Trade License Application" jobs
-      AND j.jobtypeid IN (
-    '2853921',
-    '2857525'
-)
 -- don't have a status of "More Information Required", "Payment Pending", "Application Incomplete", or "Draft"
-      AND j.statusid NOT IN (
-    '1014809',
-    '978845',
-    '964970',
-    '967394'
+      AND initcap (allj.jobstatus) NOT IN (
+    'More Information Required',
+    'Payment Pending',
+    'Application Incomplete',
+    'Draft'
 )
-ORDER BY j.externalfilenum
+--ORDER BY allj.jobnumber
