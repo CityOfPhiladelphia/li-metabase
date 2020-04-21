@@ -226,6 +226,12 @@ Violations = SqlQuery(
     target_table = 'violations'
 )
 
+EclViolations = SqlQuery(
+    extract_query_file = 'cases_violations/ecl_violations.sql',
+    source_db = 'GISLNI',
+    target_table = 'ecl_violations'
+)
+
 InspectionsCompletedAll = SqlQuery(
     extract_query_file = 'misc/insp_completed_all.sql',
     source_db = 'GISLNI',
@@ -291,5 +297,6 @@ queries = [
     LicenseRevenueTL,
     LicensesIssuedBL,
     LicensesIssuedTL,
-    UninspectedBLsWithCompCheck
+    UninspectedBLsWithCompCheck,
+    EclViolations
 ]
