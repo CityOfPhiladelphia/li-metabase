@@ -1,6 +1,5 @@
 SELECT DISTINCT allj.jobnumber,
                 allj.jobtype,
-                allj.completeddate,
                 allj.licensetype,
                 allj.jobstatus,
                 proc.processid,
