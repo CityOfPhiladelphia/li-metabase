@@ -289,7 +289,6 @@ Notices = SqlQuery(
 queries = [
     ActiveJobsBL,
     ActiveJobsTL,
-    ActiveJobsTLTest,
     ActiveProcessesBL,
     ActiveProcessesTL,
     ExpiringLicensesBL,
