@@ -166,6 +166,12 @@ LicenseRevenueTL = SqlQuery(
     target_table = 'revenue_tl'
 )
 
+LicenseRevenueTLTest = SqlQuery(
+    extract_query_file = 'licenses/revenue_tl_test.sql',
+    source_db = 'ECLIPSE_REPORTS',
+    target_table = 'revenue_tl_test'
+)
+
 PermitsFees = SqlQuery(
     extract_query_file = 'permits/permits_and_fees.sql',
     source_db='LIDB',
@@ -322,6 +328,7 @@ queries = [
     OverdueInspectionsBLBusDays,
     LicenseRevenueBL,
     LicenseRevenueTL,
+    LicenseRevenueTLTest,
     LicensesIssuedBL,
     LicensesIssuedTL,
     UninspectedBLsWithCompCheck,
