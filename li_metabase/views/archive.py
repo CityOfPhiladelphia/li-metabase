@@ -8,7 +8,7 @@ ARCHIVE_DASHBOARDS = [
     Dashboard('Violations', 'violations', 116)
 ]
 
-bp = Blueprint('violations', __name__)
+bp = Blueprint('archive', __name__)
 
 @bp.route('/archive/<dashboard_url>')
 @auth.login_required
