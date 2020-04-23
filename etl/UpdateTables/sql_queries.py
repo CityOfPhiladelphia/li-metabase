@@ -168,7 +168,7 @@ LicenseRevenueTL = SqlQuery(
 
 LicenseRevenueTLTest = SqlQuery(
     extract_query_file = 'licenses/revenue_tl_test.sql',
-    source_db = 'ECLIPSE_REPORTS',
+    source_db = 'GISLNI',
     target_table = 'revenue_tl_test'
 )
 
