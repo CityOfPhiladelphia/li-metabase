@@ -6,8 +6,7 @@ SELECT j.jobnumber,
 FROM g_mvw_tl_jobs j,
      g_mvw_fee_payment fp
 WHERE j.jobid = fp.referencedobjectid
-      --AND fp.receiveddate >= add_months (trunc (sysdate, 'MM'), - 25)
-      AND fp.paymentreceiveddate >= '01-JAN-2017'
+      AND fp.paymentreceiveddate >= add_months (trunc (sysdate, 'MM'), - 25)
       AND j.jobtype IN (
     'Amendment',
     'Application',
