@@ -42,7 +42,8 @@ SELECT DISTINCT j.licensenumber,
                     END
                 ) joblink
 FROM g_mvw_bl_jobs j
-WHERE j.jobcreateddate >= '01-JAN-17'
+WHERE j.licensenumber IS NOT NULL
+      AND j.jobcreateddate >= '01-JAN-17'
       AND j.jobcreateddate < sysdate
       AND (j.jobnumber LIKE 'BA%'
            OR j.jobnumber LIKE 'BR%')
