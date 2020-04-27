@@ -24,14 +24,8 @@ IncompleteProcessesTL = SqlQuery(
 
 ActiveJobsBL = SqlQuery(
     extract_query_file = 'licenses/active_jobs_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'active_jobs_bl'
-)
-
-ActiveJobsBLTest = SqlQuery(
-    extract_query_file = 'licenses/active_jobs_bl_test.sql',
     source_db = 'GISLNI',
-    target_table = 'active_jobs_bl_test'
+    target_table = 'active_jobs_bl'
 )
 
 ActiveJobsTL = SqlQuery(
@@ -48,14 +42,8 @@ ActiveJobsTLTest = SqlQuery(
 
 ActiveProcessesBL = SqlQuery(
     extract_query_file = 'licenses/active_processes_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'active_processes_bl'
-)
-
-ActiveProcessesBLTest = SqlQuery(
-    extract_query_file = 'licenses/active_processes_bl_test.sql',
     source_db = 'GISLNI',
-    target_table = 'active_processes_bl_test'
+    target_table = 'active_processes_bl'
 )
 
 ActiveProcessesTL = SqlQuery(
@@ -66,14 +54,8 @@ ActiveProcessesTL = SqlQuery(
 
 SubmissionModeBL = SqlQuery(
     extract_query_file = 'licenses/submission_mode_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'submission_mode_bl'
-)
-
-SubmissionModeBLTest = SqlQuery(
-    extract_query_file = 'licenses/submission_mode_bl_test.sql',
     source_db = 'GISLNI',
-    target_table = 'submission_mode_bl_test'
+    target_table = 'submission_mode_bl'
 )
 
 SubmissionModeTL = SqlQuery(
@@ -312,17 +294,14 @@ Notices = SqlQuery(
 
 queries = [
     ActiveJobsBL,
-    ActiveJobsBLTest,
     ActiveJobsTL,
     ActiveProcessesBL,
-    ActiveProcessesBLTest,
     ActiveProcessesTL,
     ExpiringLicensesBL,
     ExpiringLicensesTL,
     IncompleteProcessesBL,
     IncompleteProcessesTL,
     SubmissionModeBL,
-    SubmissionModeBLTest,
     SubmissionModeTL,
     OverdueInspectionsBL,
     OverdueInspectionsBLBusDays,
