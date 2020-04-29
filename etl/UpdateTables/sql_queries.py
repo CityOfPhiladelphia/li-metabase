@@ -262,6 +262,18 @@ TLPermitsFPPInsp = SqlQuery(
     target_table = 'contlic_permits_fpp_insp'
 )
 
+EclTLPermitsFPPInsp1 = SqlQuery(
+    extract_query_file = 'licenses/ecl_tl_permits_fpp_insp1.sql',
+    source_db = 'GISLNI',
+    target_table = 'ecl_tl_permits_fpp_insp1'
+)
+
+EclTLPermitsFPPInsp2 = SqlQuery(
+    extract_query_file = 'licenses/ecl_tl_permits_fpp_insp2.sql',
+    source_db = 'GISLNI',
+    target_table = 'ecl_tl_permits_fpp_insp2'
+)
+
 TLCases = SqlQuery(
     extract_query_file = 'licenses/tl_cases.sql',
     source_db = 'GISLNI',
@@ -304,5 +316,7 @@ queries = [
     LicensesIssuedBL,
     LicensesIssuedTL,
     UninspectedBLsWithCompCheck,
-    EclViolations
+    EclViolations,
+EclTLPermitsFPPInsp1,
+EclTLPermitsFPPInsp2
 ]
