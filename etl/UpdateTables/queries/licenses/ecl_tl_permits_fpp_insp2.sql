@@ -24,7 +24,6 @@ SELECT tl.licensenumber,
        i.inspectionprocessid,
        tl.soleproprietor
 FROM g_mvw_trade_licenses tl,
-     lmscorral.tlcontractorxref@eclipse_link x1,
      g_mvw_contractor c,
      (SELECT jobid,
              addressobjectid,
@@ -61,10 +60,9 @@ FROM g_mvw_trade_licenses tl,
       )
      ) i,
      eclipse_lni_addr a
-WHERE tl.objectid = x1.tradelicenseobjectid (+)
-      AND x1.contractorobjectid  = c.objectid (+)
-      AND c.objectid             = p.contractorid (+)
-      AND p.jobid               = i.jobid (+)
-      AND p.addressobjectid     = a.addressobjectid (+)
+WHERE tl.contractorobjectid = c.objectid (+)
+      AND c.objectid         = p.contractorid (+)
+      AND p.jobid            = i.jobid (+)
+      AND p.addressobjectid  = a.addressobjectid (+)
 ORDER BY tl.licensenumber,
          p.permitnumber

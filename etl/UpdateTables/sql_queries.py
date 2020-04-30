@@ -317,6 +317,6 @@ queries = [
     LicensesIssuedTL,
     UninspectedBLsWithCompCheck,
     EclViolations,
-EclTLPermitsFPPInsp1,
-EclTLPermitsFPPInsp2
+    EclTLPermitsFPPInsp1,
+    EclTLPermitsFPPInsp2
 ]

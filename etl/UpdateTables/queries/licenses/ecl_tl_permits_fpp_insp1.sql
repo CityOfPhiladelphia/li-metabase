@@ -5,7 +5,8 @@ SELECT tl.licensenumber,
        upper (tl.status) licensestatus,
        upper (tl.contactname) contactname,
        upper (tl.companyname) companyname,
-       'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2855291&objectHandle=' || tl.objectid AS licenselink,
+       'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2855291&objectHandle=' || tl.objectid AS licenselink
+       ,
        p2.permitnumber,
        p2.permittype,
        p2.permitdescription,
@@ -30,7 +31,6 @@ SELECT tl.licensenumber,
        ) vioswhileopen,
        tl.soleproprietor
 FROM g_mvw_trade_licenses tl,
-     lmscorral.tlcontractorxref@eclipse_link x1,
      g_mvw_contractor c,
      (SELECT p1.jobid,
              p1.addressobjectid,
@@ -71,10 +71,9 @@ FROM g_mvw_trade_licenses tl,
       )
      ) i,
      eclipse_lni_addr a
-WHERE tl.objectid = x1.tradelicenseobjectid (+)
-      AND x1.contractorobjectid  = c.objectid (+)
-      AND c.objectid             = p2.contractorid (+)
-      AND p2.jobid               = i.jobid (+)
-      AND p2.addressobjectid     = a.addressobjectid (+)
+WHERE tl.contractorobjectid = c.objectid (+)
+      AND c.objectid          = p2.contractorid (+)
+      AND p2.jobid            = i.jobid (+)
+      AND p2.addressobjectid  = a.addressobjectid (+)
 ORDER BY tl.licensenumber,
          p2.permitnumber
