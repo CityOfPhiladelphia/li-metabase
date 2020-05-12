@@ -45,7 +45,16 @@ SELECT licensenumber,
        inspectiondescription inspectiontype,
        inspectionscheduled inspectionscheduledstartdate,
        inspectioncompleted inspectioncompleteddate,
-       inspectionstatus inspectionoutcome,
+       (
+           CASE
+               WHEN inspectionstatus = 'Failed'
+               THEN inspectionstatus
+               WHEN inspectionstatus IS NULL
+               THEN inspectionstatus
+               WHEN inspectionstatus = 'Partial Passed'
+               THEN 'Partially Passed'
+           END
+       ) inspectionoutcome,
        inspectorname,
        address,
        apinspkey inspectionprocessid,
