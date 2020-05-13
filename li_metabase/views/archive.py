@@ -5,7 +5,8 @@ from li_metabase.auth import auth
 
 
 ARCHIVE_DASHBOARDS = [
-    Dashboard('Violations', 'violations', 116)
+    Dashboard('Violations', 'violations', 116),
+    Dashboard('Permits and Inspections', 'tl-investigations-permits-and-inspections', 167),
 ]
 
 bp = Blueprint('archive', __name__)
