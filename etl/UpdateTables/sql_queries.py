@@ -154,10 +154,16 @@ PermitsFees = SqlQuery(
     target_table = 'permits_fees'
 )
 
-EclPermitsFees = SqlQuery(
-    extract_query_file = 'permits/ecl_permits_fees.sql',
+PermitsFeesDates = SqlQuery(
+    extract_query_file = 'permits/permits_fees_dates.sql',
+    source_db='LIDB',
+    target_table = 'permits_fees_dates'
+)
+
+EclPermitsFeesDates = SqlQuery(
+    extract_query_file = 'permits/ecl_permits_fees_dates.sql',
     source_db = 'GISLNI',
-    target_table = 'ecl_permits_fees'
+    target_table = 'ecl_permits_fees_dates'
 )
 
 ImmDang = SqlQuery(
@@ -322,5 +328,5 @@ queries = [
     UninspectedBLsWithCompCheck,
     EclViolations,
     EclTLPermitsFPPInsp1,
-    EclPermitsFees
+    EclPermitsFeesDates
 ]
