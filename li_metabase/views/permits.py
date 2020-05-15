@@ -5,7 +5,7 @@ from li_metabase.auth import auth
 
 
 PERMITS_DASHBOARDS = [
-    Dashboard('Permit Volumes and Revenues', 'volume-and-revenues', 39)
+    Dashboard('Permit Volumes and Revenues', 'volume-and-revenues', 189)
 ]
 
 bp = Blueprint('permits', __name__)
