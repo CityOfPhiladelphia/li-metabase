@@ -274,10 +274,10 @@ TLPermitsFPPInsp = SqlQuery(
     target_table = 'contlic_permits_fpp_insp'
 )
 
-EclTLPermitsFPPInsp1 = SqlQuery(
-    extract_query_file = 'licenses/ecl_tl_permits_fpp_insp1.sql',
+EclTLPermitsFPPInsp = SqlQuery(
+    extract_query_file = 'licenses/ecl_tl_permits_fpp_insp.sql',
     source_db = 'GISLNI',
-    target_table = 'ecl_tl_permits_fpp_insp1'
+    target_table = 'ecl_tl_permits_fpp_insp'
 )
 
 TLCases = SqlQuery(
@@ -327,6 +327,6 @@ queries = [
     SLA_TL_BUS_DAYS,
     UninspectedBLsWithCompCheck,
     EclViolations,
-    EclTLPermitsFPPInsp1,
+    EclTLPermitsFPPInsp,
     EclPermitsFeesDates
 ]
