@@ -10,14 +10,13 @@ SELECT v.violationnumber,
            END
        ) violationstatus,
        v.violationresolutiondate,
-       v.violationresolutioncode,
        (
            CASE
                WHEN v.violationresolutioncode IS NOT NULL
                THEN v.violationresolutioncode
                ELSE '(none)'
            END
-       ) violationresolutioncode2,
+       ) violationresolutioncode,
        v.casenumber,
        v.casecreateddate,
        v.casecompleteddate,
