@@ -6,7 +6,7 @@ from li_metabase.auth import auth
 
 UNSAFES_DASHBOARDS = [
     Dashboard('Open Cases', 'open-cases', 154),
-    Dashboard('Historical Violations', 'historical-violations', 42)
+    Dashboard('Historical Violations', 'historical-violations', 191)
 ]
 
 bp = Blueprint('unsafes', __name__)

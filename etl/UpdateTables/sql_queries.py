@@ -172,10 +172,10 @@ ImmDangOpen = SqlQuery(
     target_table = 'imm_dang_open'
 )
 
-Unsafes = SqlQuery(
-    extract_query_file = 'cases_violations/unsafes.sql',
+EclUnsafes = SqlQuery(
+    extract_query_file = 'cases_violations/ecl_unsafes.sql',
     source_db = 'GISLNI',
-    target_table = 'unsafes'
+    target_table = 'ecl_unsafes'
 )
 
 UnsafesOpen = SqlQuery(
@@ -323,5 +323,6 @@ queries = [
     EclViolations,
     EclTLPermitsFPPInsp,
     EclPermitsFeesDates,
-    EclImmDang
+    EclImmDang,
+    EclUnsafes
 ]
