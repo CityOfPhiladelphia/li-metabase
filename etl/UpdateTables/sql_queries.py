@@ -34,12 +34,6 @@ ActiveJobsTL = SqlQuery(
     target_table = 'active_jobs_tl'
 )
 
-ActiveJobsTLTest = SqlQuery(
-    extract_query_file = 'licenses/active_jobs_tl_test.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'active_jobs_tl_test'
-)
-
 ActiveProcessesBL = SqlQuery(
     extract_query_file = 'licenses/active_processes_bl.sql',
     source_db = 'GISLNI',
@@ -166,10 +160,10 @@ EclPermitsFeesDates = SqlQuery(
     target_table = 'ecl_permits_fees_dates'
 )
 
-ImmDang = SqlQuery(
-    extract_query_file = 'cases_violations/imm_dang.sql',
+EclImmDang = SqlQuery(
+    extract_query_file = 'cases_violations/ecl_imm_dang.sql',
     source_db = 'GISLNI',
-    target_table = 'imm_dang'
+    target_table = 'ecl_imm_dang'
 )
 
 ImmDangOpen = SqlQuery(
@@ -328,5 +322,6 @@ queries = [
     UninspectedBLsWithCompCheck,
     EclViolations,
     EclTLPermitsFPPInsp,
-    EclPermitsFeesDates
+    EclPermitsFeesDates,
+    EclImmDang
 ]
