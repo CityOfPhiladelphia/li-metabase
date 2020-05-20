@@ -324,5 +324,6 @@ queries = [
     EclTLPermitsFPPInsp,
     EclPermitsFeesDates,
     EclImmDang,
-    EclUnsafes
+    EclUnsafes,
+    PublicDemos
 ]
