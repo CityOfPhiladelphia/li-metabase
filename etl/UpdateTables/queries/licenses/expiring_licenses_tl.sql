@@ -1,117 +1,64 @@
-SELECT lic.licensenumber licensenumber,
-       lic.licensetype licensetype,
-       to_date (lic.licenseexpirydate) expirationdate,
-       (
-           CASE
-               WHEN ap.createdby LIKE '%2%'
-               THEN 'Online'
-               WHEN ap.createdby LIKE '%3%'
-               THEN 'Online'
-               WHEN ap.createdby LIKE '%4%'
-               THEN 'Online'
-               WHEN ap.createdby LIKE '%5%'
-               THEN 'Online'
-               WHEN ap.createdby LIKE '%6%'
-               THEN 'Online'
-               WHEN ap.createdby LIKE '%7%'
-               THEN 'Online'
-               WHEN ap.createdby LIKE '%8%'
-               THEN 'Online'
-               WHEN ap.createdby LIKE '%9%'
-               THEN 'Online'
-               WHEN ap.createdby = 'PPG User'
-               THEN 'Online'
-               WHEN ap.createdby = 'POSSE system power user'
-               THEN 'Revenue'
-               ELSE 'Staff'
-           END
-       ) createdbytype,
-       ap.externalfilenum jobnumber,
-       replace (jt.name, 'j_TL_', '') jobtype,
-       ap.createddate jobcreateddate,
-       ap.completeddate jobcompleteddate,
-       NULL licenserenewedondate,
-       (
-           CASE
-               WHEN jt.description LIKE 'Trade License Application'
-               THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2855291&objectHandle=' || lic
-               .objectid || '&processHandle='
-           END
-       ) joblink
-FROM (SELECT licensenumber,
-             licensetype,
-             licensecode,
-             licenseexpirydate,
-             objectid,
-             licenseissuedate
-      FROM lmscorral.tl_tradelicenses
-      WHERE licenseexpirydate >= add_months (trunc (sysdate, 'MM'), - 13)
-     ) lic,
-     query.j_tl_application ap,
-     query.o_jobtypes jt
-WHERE lic.objectid = ap.tradelicenseobjectid (+)
-      AND ap.jobtypeid = jt.jobtypeid (+)
-      AND lic.licenseissuedate BETWEEN (ap.completeddate - 1) AND (ap.completeddate + 1)
-      AND ap.statusid LIKE '1036493'
-      AND ap.externalfilenum LIKE 'TL%'
-      AND lic.licenseexpirydate IS NOT NULL
-UNION
-SELECT lic.licensenumber licensenumber,
-       lic.licensetype licensetype,
-       to_date (lic.licenseexpirydate) expirationdate,
-       (
-           CASE
-               WHEN ar.createdby LIKE '%2%'
-               THEN 'Online'
-               WHEN ar.createdby LIKE '%3%'
-               THEN 'Online'
-               WHEN ar.createdby LIKE '%4%'
-               THEN 'Online'
-               WHEN ar.createdby LIKE '%5%'
-               THEN 'Online'
-               WHEN ar.createdby LIKE '%6%'
-               THEN 'Online'
-               WHEN ar.createdby LIKE '%7%'
-               THEN 'Online'
-               WHEN ar.createdby LIKE '%8%'
-               THEN 'Online'
-               WHEN ar.createdby LIKE '%9%'
-               THEN 'Online'
-               WHEN ar.createdby = 'PPG User'
-               THEN 'Online'
-               WHEN ar.createdby = 'POSSE system power user'
-               THEN 'Revenue'
-               ELSE 'Staff'
-           END
-       ) createdbytype,
-       ar.externalfilenum jobnumber,
-       replace (jt.name, 'j_TL_', '') jobtype,
-       ar.createddate jobcreateddate,
-       NULL jobcompleteddate,
-       ar.licenserenewedondate licenserenewedondate,
-       (
-           CASE
-               WHEN jt.description LIKE 'Trade License Amend/Renew'
-               THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2855291&objectHandle=' || lic
-               .objectid || '&processHandle=&paneId=1243107_175'
-           END
-       ) joblink
-FROM (SELECT licensenumber,
-             licensetype,
-             licensecode,
-             licenseexpirydate,
-             objectid,
-             licenseissuedate
-      FROM lmscorral.tl_tradelicenses
-      WHERE licenseexpirydate >= add_months (trunc (sysdate, 'MM'), - 13)
-     ) lic,
-     query.r_tl_amendrenew_license arl,
-     query.j_tl_amendrenew ar,
-     query.o_jobtypes jt
-WHERE lic.objectid = arl.licenseid (+)
-      AND arl.amendrenewid  = ar.objectid (+)
-      AND ar.jobtypeid      = jt.jobtypeid (+)
-      AND ar.licenserenewedondate BETWEEN (ar.completeddate - 1) AND (ar.completeddate + 1)
-      AND ar.statusid LIKE '1036493'
-      AND ar.externalfilenum LIKE 'TR%'
-      AND lic.licenseexpirydate IS NOT NULL
+SELECT DISTINCT lic.licensenumber,
+                lic.licensetype,
+                lic.issuedate,
+                lic.expirationdate,
+                mri.jobnumber mostrecentjobnumber,
+                mri.jobtype mostrecentjobtype,
+                mri.completeddate mostrecentissuancedate,
+                (
+                    CASE
+                        WHEN mri.createdby LIKE '%2%'
+                        THEN 'Online'
+                        WHEN mri.createdby LIKE '%3%'
+                        THEN 'Online'
+                        WHEN mri.createdby LIKE '%4%'
+                        THEN 'Online'
+                        WHEN mri.createdby LIKE '%5%'
+                        THEN 'Online'
+                        WHEN mri.createdby LIKE '%6%'
+                        THEN 'Online'
+                        WHEN mri.createdby LIKE '%7%'
+                        THEN 'Online'
+                        WHEN mri.createdby LIKE '%8%'
+                        THEN 'Online'
+                        WHEN mri.createdby LIKE '%9%'
+                        THEN 'Online'
+                        WHEN mri.createdby = 'PPG User'
+                        THEN 'Online'
+                        WHEN mri.createdby = 'POSSE system power user'
+                        THEN 'Revenue'
+                        ELSE 'Staff'
+                    END
+                ) mostrecentjobcreatedbytype,
+                'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=2855291&objectHandle=' || lic.objectid
+                AS licenselink
+FROM g_mvw_trade_licenses lic,
+     (SELECT licensenumber,
+             createdby,
+             jobnumber,
+             jobtype,
+             createddate,
+             completeddate
+      FROM (SELECT sub.*,
+                   ROW_NUMBER () OVER (
+                       PARTITION BY licensenumber
+                       ORDER BY completeddate DESC NULLS LAST
+                   ) seq_no
+            FROM (SELECT licensenumber,
+                         createdby,
+                         jobnumber,
+                         jobtype,
+                         createddate,
+                         completeddate
+                  FROM g_mvw_tl_jobs
+                  WHERE jobtype IN (
+                      'Application',
+                      'Renewal'
+                  )
+                        AND jobstatus = 'Approved'
+                 ) sub
+           )
+      WHERE seq_no = 1
+     ) mri   -- "most recent issuance"
+WHERE lic.licensenumber = mri.licensenumber (+)
+      AND lic.expirationdate >= add_months (trunc (sysdate, 'MM'), - 13)

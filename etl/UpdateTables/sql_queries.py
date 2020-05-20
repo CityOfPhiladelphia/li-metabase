@@ -66,7 +66,7 @@ ExpiringLicensesBL = SqlQuery(
 
 ExpiringLicensesTL = SqlQuery(
     extract_query_file = 'licenses/expiring_licenses_tl.sql',
-    source_db = 'ECLIPSE_REPORTS',
+    source_db = 'GISLNI',
     target_table = 'expiring_licenses_tl'
 )
 
