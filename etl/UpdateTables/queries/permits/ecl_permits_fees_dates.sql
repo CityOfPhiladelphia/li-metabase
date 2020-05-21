@@ -4,7 +4,7 @@ SELECT p.permitnumber,
        p.issuedate,
        p.completeddate,
        p.permitstatus,
-       fp.paymentamount paidfees,
+       fp.paymentdistamount paidfees,
        fp.paymentreceiveddate paiddate
 FROM g_mvw_permits p,
      g_mvw_fee_payment fp

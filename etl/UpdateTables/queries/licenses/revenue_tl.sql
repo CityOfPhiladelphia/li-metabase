@@ -1,7 +1,7 @@
 SELECT j.jobnumber,
        j.jobtype,
        fp.paymentreceiveddate paymentdate,
-       fp.paymentamount amount,
+       fp.paymentdistamount amount,
        fp.feetype
 FROM g_mvw_tl_jobs j,
      g_mvw_fee_payment fp
