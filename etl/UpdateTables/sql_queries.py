@@ -54,7 +54,7 @@ SubmissionModeBL = SqlQuery(
 
 SubmissionModeTL = SqlQuery(
     extract_query_file = 'licenses/submission_mode_tl.sql',
-    source_db = 'ECLIPSE_REPORTS',
+    source_db = 'GISLNI',
     target_table = 'submission_mode_tl'
 )
 
