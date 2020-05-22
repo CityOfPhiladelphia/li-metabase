@@ -1,14 +1,16 @@
-SELECT p.permitnumber,
-       p.permitdescription permittype,
-       p.createddate,
-       p.issuedate,
-       p.completeddate,
-       p.permitstatus,
-       fp.paymentdistamount paidfees,
-       fp.paymentreceiveddate paiddate
-FROM g_mvw_permits p,
-     g_mvw_fee_payment fp
-WHERE p.jobid = fp.referencedobjectid (+)
-      AND p.issuedate >= '01-JAN-16'
-      AND fp.paymentreceiveddate IS NOT NULL
-      AND p.permittype <> 'Property Certificate'
+SELECT perm.permitnumber,
+       perm.permitdescription permittype,
+       perm.createddate,
+       perm.issuedate,
+       perm.completeddate,
+       perm.permitstatus,
+       pay.paymentdistamount paidfees,
+       pay.paymentreceiveddate paiddate
+FROM g_mvw_permits perm,
+     g_mvw_fee fee,
+     g_mvw_payment pay
+WHERE perm.jobid = fee.referencedobjectid (+)
+      AND fee.feeobjectid = pay.feeobjectid (+)
+      AND perm.issuedate >= '01-JAN-16'
+      AND pay.paymentreceiveddate IS NOT NULL
+      AND perm.permittype <> 'Property Certificate'
