@@ -1,26 +1,11 @@
-SELECT distinct j.externalfilenum jobnumber,
-       (
-           CASE
-               WHEN j.objectdefdescription LIKE 'Amendment/Renewal'
-               THEN 'Amend/Renew'
-               WHEN j.objectdefdescription LIKE 'Business License Application'
-               THEN 'Application'
-           END
-       ) AS jobtype,
-       fnp.receiveddate paymentdate,
-       fee.baseamount amount,
-       fee.description feetype
-FROM lmscorral.bl_alljobs j,
-     lmscorral.fee fee,
-     lmscorral.paymentdistribution pd,
-     lmscorral.fn_paymenttopaydist fnpx,
-     lmscorral.fn_payment fnp
-WHERE j.objectdefdescription IN (
-    'Amendment/Renewal',
-    'Business License Application'
-)
-      AND j.jobid         = fee.referencedobjectid
-      AND fee.objectid    = pd.feeobjectid
-      AND pd.objectid     = fnpx.paydistid (+)
-      AND fnpx.paymentid  = fnp.paymentid (+)
-      AND fnp.receiveddate >= add_months(TRUNC(SYSDATE, 'MM'),-25)
+SELECT DISTINCT j.jobnumber,
+                j.jobtype,
+                pay.paymentreceiveddate paymentdate,
+                fee.feebaseamount amount,
+                fee.feetype
+FROM g_mvw_bl_jobs j,
+     g_mvw_fee fee,
+     g_mvw_payment pay
+WHERE j.jobid = fee.referencedobjectid
+      AND fee.feeobjectid = pay.feeobjectid
+      AND pay.paymentreceiveddate >= add_months (trunc (sysdate, 'MM'), - 25)
