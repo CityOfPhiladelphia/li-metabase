@@ -1,12 +1,14 @@
 SELECT j.jobnumber,
        j.jobtype,
-       fp.paymentreceiveddate paymentdate,
-       fp.paymentdistamount amount,
-       fp.feetype
+       pay.paymentreceiveddate paymentdate,
+       pay.paymentdistamount amount,
+       fee.feetype
 FROM g_mvw_tl_jobs j,
-     g_mvw_fee_payment fp
-WHERE j.jobid = fp.referencedobjectid
-      AND fp.paymentreceiveddate >= add_months (trunc (sysdate, 'MM'), - 25)
+     g_mvw_fee fee,
+     g_mvw_payment pay
+WHERE j.jobid = fee.referencedobjectid
+      AND fee.feeobjectid = pay.feeobjectid
+      AND pay.paymentreceiveddate >= add_months (trunc (sysdate, 'MM'), - 25)
       AND j.jobtype IN (
     'Amendment',
     'Application',
