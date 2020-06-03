@@ -7,6 +7,7 @@ import petl as etl
 from li_dbs import (
     ECLIPSE_REPORTS, LIDB, GISLNI, DataBridge, GISLICLD, GISLNIDB, GISLNIDBX
 )
+from li_utils import li_utils
 from sql_queries import queries
 
 
@@ -20,45 +21,10 @@ class CursorProxy(object):
     def __getattr__(self, item):
         return getattr(self._cursor, item)
 
+
 def get_cursor(conn):
     return CursorProxy(conn.cursor())
 
-def get_logger():
-    import logging
-    
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.INFO)
-
-    # Create a file handler
-    handler = logging.FileHandler('log.txt')
-    handler.setLevel(logging.INFO)
-
-    # Create a logging format
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-    handler.setFormatter(formatter)
-    
-    logger.addHandler(handler)
-
-    return logger
-
-def send_email(failed):
-    from email.mime.text import MIMEText
-    from phila_mail import server
-
-    recipientslist = ['dani.interrante@phila.gov',
-                      'philip.ribbens@phila.gov',
-                      'shannon.holm@phila.gov',
-                      'jessica.bradley@phila.gov']
-    sender = 'ligisteam@phila.gov'
-    body = 'AUTOMATIC EMAIL: \n' + '\n\nThe following tables failed to update:\n\n' + ', \n'.join(failed)  
-    msg = MIMEText(body)
-    msg['To'] =  ', '.join(recipientslist)
-    msg['From'] = sender
-    msg['X-Priority'] = '2'
-    msg['Subject'] = 'Dashboards ETL Failure'
-       
-    server.server.sendmail(sender, recipientslist, msg.as_string())
-    server.server.quit()
 
 def get_source_db(query):
     if query.source_db == 'ECLIPSE_REPORTS':
@@ -76,9 +42,11 @@ def get_source_db(query):
     elif query.source_db == 'GISLNIDBX':
         return GISLNIDBX.GISLNIDBX
 
+
 def get_extract_query(query):
     with open(query.extract_query_file) as sql:
         return sql.read()
+
 
 def etl_(query):
     source_db = get_source_db(query)
@@ -92,8 +60,9 @@ def etl_(query):
         etl.frompickle(f'temp/{query.target_table}.p') \
            .todb(get_cursor(target), query.target_table.upper())
 
+
 def etl_process(queries):
-    logger = get_logger()
+    logger = li_utils.get_logger(log_file_path='log.txt')
     logger.info('---------------------------------')
     logger.info('ETL process initialized: ' + str(datetime.datetime.now()))
     
@@ -110,11 +79,15 @@ def etl_process(queries):
     logger.info('ETL process ended: ' + str(datetime.datetime.now()))
 
     if len(failed) > 0:
-        send_email(failed)
+        subject = 'Dashboards ETL Failure'
+        body = 'AUTOMATIC EMAIL: \n' + '\n\nThe following tables failed to update:\n\n' + ', \n'.join(failed)
+        li_utils.send_email(subject=subject, body=body, priority=2)
+
 
 def main():
     global queries
     etl_process(queries)
+
 
 if __name__ == '__main__':
     main()
