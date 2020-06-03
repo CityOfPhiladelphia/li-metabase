@@ -32,15 +32,19 @@ def refresh_mvw(mvw_list_filename, logger):
             # Add it to the failed list for a descriptive email
             failed.append(mvw)
 
-    # Send an email if any refreshed failed.
+    # Send an email if any refreshes failed.
     if len(failed) > 0:
-        utils.send_email(failed)
+        logger.info('Sending email')
+        subject = 'Materialized Views Update Failure'
+        body = 'AUTOMATIC EMAIL: \n' + '\n\nThe following MVWs on GISLNIDBX failed to update:\n\n' + ', \n'.join(failed)
+        li_utils.send_email(subject=subject, body=body, priority=2)
+        logger.info('Email sent')
 
 if __name__ == '__main__':
-    import utils
+    from li_utils import li_utils
     import sys
     # Set up logging
-    logger = utils.get_logger('log.txt')
+    logger = li_utils.get_logger('log.txt')
 
     mvw_list_filename = sys.argv[1]
     refresh_mvw(mvw_list_filename, logger)
