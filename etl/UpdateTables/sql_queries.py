@@ -94,6 +94,12 @@ SLA_BL = SqlQuery(
     target_table = 'sla_bl'
 )
 
+SLA_BL_REV = SqlQuery(
+    extract_query_file = 'licenses/sla_bl_rev.sql',
+    source_db = 'GISLNI',
+    target_table = 'sla_bl_rev'
+)
+
 SLA_BL_BUS_DAYS = SqlQuery(
     extract_query_file = 'licenses/sla_bl_bus_days.sql',
     source_db = 'GISLNIDBX',
@@ -315,6 +321,7 @@ queries = [
     LicenseRevenueTL,
     LicensesIssuedBL,
     LicensesIssuedTL,
+    SLA_BL_REV,
     SLA_BL,
     SLA_BL_BUS_DAYS,
     SLA_TL,
