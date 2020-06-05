@@ -76,6 +76,12 @@ OverdueInspectionsBL = SqlQuery(
     target_table = 'overdue_inspections_bl'
 )
 
+OverdueInspectionsBLRev = SqlQuery(
+    extract_query_file = 'licenses/overdue_inspections_bl_rev.sql',
+    source_db = 'GISLNI',
+    target_table = 'overdue_inspections_bl_rev'
+)
+
 OverdueInspectionsBLBusDays = SqlQuery(
     extract_query_file = 'licenses/overdue_inspections_bl_bus_days.sql',
     source_db = 'GISLNIDBX',
@@ -319,6 +325,8 @@ queries = [
     LicenseRevenueTL,
     LicensesIssuedBL,
     LicensesIssuedTL,
+    OverdueInspectionsBLRev,
+    OverdueInspectionsBL,
     SLA_BL_REV,
     SLA_BL,
     SLA_BL_BUS_DAYS,
