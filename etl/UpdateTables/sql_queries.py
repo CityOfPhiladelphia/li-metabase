@@ -96,14 +96,8 @@ InspectionsBL = SqlQuery(
 
 SLA_BL = SqlQuery(
     extract_query_file = 'licenses/sla_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'sla_bl'
-)
-
-SLA_BL_REV = SqlQuery(
-    extract_query_file = 'licenses/sla_bl_rev.sql',
     source_db = 'GISLNI',
-    target_table = 'sla_bl_rev'
+    target_table = 'sla_bl'
 )
 
 SLA_BL_BUS_DAYS = SqlQuery(
@@ -327,7 +321,6 @@ queries = [
     LicensesIssuedTL,
     OverdueInspectionsBLRev,
     OverdueInspectionsBL,
-    SLA_BL_REV,
     SLA_BL,
     SLA_BL_BUS_DAYS,
     EclViolations,
