@@ -1,185 +1,75 @@
-SELECT biz.address BusinessAddress,
-  lic.externalfilenum LicenseNumber,
-  (
-  CASE
-    WHEN lic.licensetype IS NOT NULL
-    THEN lic.licensetype
-    ELSE '(none)'
-  END ) LicenseType,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN ins.externalfilenum
-  END) JobNumber,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN 'License'
-    WHEN jt.name LIKE 'j_BL_Application'
-    THEN 'Application'
-    WHEN jt.name LIKE 'j_BL_AmendRenew'
-    THEN 'Renewal or Amend'
-  END ) InspectionOn,
-  ins.inspectiontype InspectionType,
-  ins.objectid InspectionObjectId,
-  ins.createddate InspectionCreatedDate,
-  ins.scheduledinspectiondate ScheduledInspectionDate,
-  ROUND(SYSDATE - ins.scheduledinspectiondate) DaysOverdue,
-  (
-  CASE
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) < 7
-    THEN 'Less than a week'
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) BETWEEN 7 AND 30
-    THEN '7-30 days'
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) BETWEEN 31 AND 365
-    THEN '31 - 365 days'
-    ELSE 'More than a year'
-  END) TimeOverdue,
-  (
-  CASE
-    WHEN ins.inspectorname IS NOT NULL
-    THEN ins.inspectorname
-    ELSE '(none)'
-  END ) Inspector,
-  'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244842&objectHandle='
-  || ins.objectid
-  || '&processHandle=' LINK
-FROM query.j_bl_inspection ins,
-  query.r_bl_licenseinspection li,
-  query.o_bl_license lic,
-  query.o_bl_business biz,
-  query.o_jobtypes jt
-WHERE ins.objectid              = li.inspectionid
-AND ins.jobtypeid               = jt.jobtypeid
-AND li.licenseid                = lic.objectid
-AND lic.businessobjectid        = biz.objectid
-AND ins.scheduledinspectiondate < SYSDATE
-AND ins.completeddate          IS NULL
-UNION
-SELECT biz.address BusinessAddress,
-  lic.externalfilenum LicenseNumber,
-  (
-  CASE
-    WHEN lic.licensetype IS NOT NULL
-    THEN lic.licensetype
-    ELSE '(none)'
-  END ) LicenseType,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN ins.externalfilenum
-    WHEN jt.name LIKE 'j_BL_Application'
-    THEN ap.externalfilenum
-  END ) JobNumber,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN 'License'
-    WHEN jt.name LIKE 'j_BL_Application'
-    THEN 'Application'
-    WHEN jt.name LIKE 'j_BL_AmendRenew'
-    THEN 'Renewal or Amend'
-  END ) InspectionOn,
-  ins.inspectiontype InspectionType,
-  ins.objectid InspectionObjectId,
-  ins.createddate InspectionCreatedDate,
-  ins.scheduledinspectiondate ScheduledInspectionDate,
-  ROUND(SYSDATE - ins.scheduledinspectiondate) DaysOverdue,
-  (
-  CASE
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) < 7
-    THEN 'Less than a week'
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) BETWEEN 7 AND 30
-    THEN '7-30 days'
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) BETWEEN 31 AND 365
-    THEN '31 - 365 days'
-    ELSE 'More than a year'
-  END) TimeOverdue,
-  (
-  CASE
-    WHEN ins.inspectorname IS NOT NULL
-    THEN ins.inspectorname
-    ELSE '(none)'
-  END ) Inspector,
-  'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244842&objectHandle='
-  || ins.objectid
-  || '&processHandle=' LINK
-FROM query.j_bl_inspection ins,
-  query.r_bl_applicationinspection api,
-  query.j_bl_application ap,
-  query.o_jobtypes jt,
-  query.r_bl_application_license apl,
-  query.o_bl_license lic,
-  query.o_bl_business biz
-WHERE ins.objectid              = api.inspectionid
-AND api.applicationid           = ap.objectid
-AND ap.jobtypeid                = jt.jobtypeid
-AND ap.objectid                 = apl.applicationobjectid
-AND apl.licenseobjectid         = lic.objectid
-AND lic.businessobjectid        = biz.objectid
-AND ins.scheduledinspectiondate < SYSDATE
-AND ins.completeddate          IS NULL
-UNION
-SELECT biz.address BusinessAddress,
-  lic.externalfilenum LicenseNumber,
-  (
-  CASE
-    WHEN lic.licensetype IS NOT NULL
-    THEN lic.licensetype
-    ELSE '(none)'
-  END ) LicenseType,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN ins.externalfilenum
-    WHEN jt.name LIKE 'j_BL_AmendRenew'
-    THEN ar.externalfilenum
-  END ) JobNumber,
-  (
-  CASE
-    WHEN jt.name LIKE 'j_BL_Inspection'
-    THEN 'License'
-    WHEN jt.name LIKE 'j_BL_Application'
-    THEN 'Application'
-    WHEN jt.name LIKE 'j_BL_AmendRenew'
-    THEN 'Renewal or Amend'
-  END ) InspectionOn,
-  ins.inspectiontype InspectionType,
-  ins.objectid InspectionObjectId,
-  ins.createddate InspectionCreatedDate,
-  ins.scheduledinspectiondate ScheduledInspectionDate,
-  ROUND(SYSDATE - ins.scheduledinspectiondate) DaysOverdue,
-  (
-  CASE
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) < 7
-    THEN 'Less than a week'
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) BETWEEN 7 AND 30
-    THEN '7-30 days'
-    WHEN ROUND(SYSDATE - ins.scheduledinspectiondate) BETWEEN 31 AND 365
-    THEN '31 - 365 days'
-    ELSE 'More than a year'
-  END) TimeOverdue,
-  (
-  CASE
-    WHEN ins.inspectorname IS NOT NULL
-    THEN ins.inspectorname
-    ELSE '(none)'
-  END ) Inspector,
-  'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244842&objectHandle='
-  || ins.objectid
-  || '&processHandle=' LINK
-FROM query.j_bl_inspection ins,
-  query.r_bl_amendrenewinspection ari,
-  query.j_bl_amendrenew ar,
-  query.o_jobtypes jt,
-  query.r_bl_amendrenew_license arl,
-  query.o_bl_license lic,
-  query.o_bl_business biz
-WHERE ins.objectid              = ari.inspectionid
-AND ari.amendrenewid            = ar.jobid
-AND ar.jobtypeid                = jt.jobtypeid
-AND ar.objectid                 = arl.amendrenewid
-AND arl.licenseid               = lic.objectid
-AND lic.businessobjectid        = biz.objectid
-AND ins.scheduledinspectiondate < SYSDATE
-AND ins.completeddate          IS NULL
+SELECT coalesce (a.base_address, j1.base_address, j2.base_address) businessaddress,
+       coalesce (ins.licensenumber, j1.licensenumber, j2.licensenumber) licensenumber,
+       (
+           CASE
+               WHEN lic.licensetype IS NOT NULL
+               THEN lic.licensetype
+               WHEN j1.licensetype IS NOT NULL
+               THEN j1.licensetype
+               WHEN j2.licensetype IS NOT NULL
+               THEN j2.licensetype
+               ELSE '(none)'
+           END
+       ) licensetype,
+       coalesce (ins.amendrenewjobnumber, ins.applicationjobnumber) jobnumber,
+       ins.inspectionnumber,
+       ins.inspectionagainst,
+       ins.inspectiontype,
+       ins.inspectionobjectid,
+       ins.createddate inspectioncreateddate,
+       ins.scheduledinspectiondate,
+       round (sysdate - ins.scheduledinspectiondate) daysoverdue,
+       (
+           CASE
+               WHEN round (sysdate - ins.scheduledinspectiondate) < 7
+               THEN 'Less than a week'
+               WHEN round (sysdate - ins.scheduledinspectiondate) BETWEEN 7 AND 30
+               THEN '7-30 days'
+               WHEN round (sysdate - ins.scheduledinspectiondate) BETWEEN 31 AND 365
+               THEN '31 - 365 days'
+               ELSE 'More than a year'
+           END
+       ) timeoverdue,
+       (
+           CASE
+               WHEN ins.inspectorname IS NOT NULL
+               THEN upper (ins.inspectorname)
+               ELSE '(none)'
+           END
+       ) inspector,
+       'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244842&objectHandle=' || ins.inspectionobjectid
+       || '&processHandle=' link
+FROM g_mvw_bl_inspections ins,
+     (SELECT j.jobid,
+             j.licensenumber,
+             j.licensetype,
+             a.base_address
+      FROM g_mvw_bl_jobs j,
+           g_mvw_business_licenses lic,
+           eclipse_lni_addr a
+      WHERE j.licensenumber = lic.licensenumber
+            AND lic.addressobjectid = a.addressobjectid (+)
+     ) j1,
+     (SELECT j.jobid,
+             j.licensenumber,
+             j.licensetype,
+             a.base_address
+      FROM g_mvw_bl_jobs j,
+           g_mvw_business_licenses lic,
+           eclipse_lni_addr a
+      WHERE j.licensenumber = lic.licensenumber
+            AND lic.addressobjectid = a.addressobjectid (+)
+     ) j2,
+     g_mvw_business_licenses lic,
+     eclipse_lni_addr a
+WHERE ins.amendrenewobjectid = j1.jobid (+)
+      AND ins.applicationobjectid  = j2.jobid (+)
+      AND ins.licenseobjectid      = lic.licenseobjectid (+)
+      AND lic.addressobjectid      = a.addressobjectid (+)
+      AND ins.scheduledinspectiondate < sysdate
+      AND ins.completeddate IS NULL
+      AND ins.inspectionagainst IN (
+    'Amendment/Renewal',
+    'Business License Application',
+    'Business License'
+)

@@ -72,14 +72,8 @@ ExpiringLicensesTL = SqlQuery(
 
 OverdueInspectionsBL = SqlQuery(
     extract_query_file = 'licenses/overdue_inspections_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'overdue_inspections_bl'
-)
-
-OverdueInspectionsBLRev = SqlQuery(
-    extract_query_file = 'licenses/overdue_inspections_bl_rev.sql',
     source_db = 'GISLNI',
-    target_table = 'overdue_inspections_bl_rev'
+    target_table = 'overdue_inspections_bl'
 )
 
 OverdueInspectionsBLBusDays = SqlQuery(
@@ -319,8 +313,8 @@ queries = [
     LicenseRevenueTL,
     LicensesIssuedBL,
     LicensesIssuedTL,
-    OverdueInspectionsBLRev,
     OverdueInspectionsBL,
+    OverdueInspectionsBLBusDays,
     SLA_BL,
     SLA_BL_BUS_DAYS,
     EclViolations,
