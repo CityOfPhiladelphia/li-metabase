@@ -1,4 +1,4 @@
-SELECT tl.licensenumber,
+SELECT distinct tl.licensenumber,
        tl.licensetype,
        tl.issuedate licenseissuedate,
        tl.expirationdate licenseexpirationdate,
@@ -51,6 +51,7 @@ FROM g_mvw_trade_licenses tl,
                  END
              ) vioswhileopen
       FROM g_mvw_trade_licenses tl,
+           lmscorral.tradelicensecontractorxref@eclipse_link tlcx,
            g_mvw_contractor c,
            (SELECT p1.jobid,
                    p1.addressobjectid,
@@ -90,12 +91,14 @@ FROM g_mvw_trade_licenses tl,
                 'Partially Passed',
                 'Failed'
             )
+         
            ) i,
            eclipse_lni_addr a
-      WHERE tl.contractorobjectid = c.objectid (+)
-            AND c.objectid          = p2.contractorid (+)
-            AND p2.jobid            = i.jobid (+)
-            AND p2.addressobjectid  = a.addressobjectid (+)
+      WHERE tl.objectid = tlcx.tradelicenseobjectid (+)
+            AND tlcx.contractorobjectid  = c.objectid (+)
+            AND c.objectid               = p2.contractorid (+)
+            AND p2.jobid                 = i.jobid (+)
+            AND p2.addressobjectid       = a.addressobjectid (+)
             -- only want permits issued while the license was active.
             AND p2.issuedate >= tl.issuedate
             AND (p2.issuedate <= tl.expirationdate
