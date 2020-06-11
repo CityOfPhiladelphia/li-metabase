@@ -25,7 +25,7 @@ SELECT sub.complaintjobid,
        .x lon,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (addr.geocode_x, addr.geocode_y, NULL), NULL, NULL), 4326).sdo_point
        .y lat
-FROM (SELECT compl.jobid compljobid,
+FROM (SELECT compl.jobid complaintjobid,
              compl.complaintnumber,
              compl.addressobjectid,
              compl.complaintcode,
