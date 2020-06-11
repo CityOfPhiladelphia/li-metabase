@@ -190,28 +190,10 @@ PublicDemos = SqlQuery(
     target_table = 'public_demos'
 )
 
-UninspectedServiceRequests = SqlQuery(
-    extract_query_file = 'misc/uninspected_service_requests.sql',
+EclComplaints = SqlQuery(
+    extract_query_file = 'misc/ecl_complaints.sql',
     source_db = 'GISLNI',
-    target_table = 'uninspected_serv_req'
-)
-
-UninspectedServiceRequestsBusDays = SqlQuery(
-    extract_query_file = 'misc/uninspected_service_requests_bus_days.sql',
-    source_db = 'GISLNIDBX',
-    target_table = 'uninspected_serv_req_bus_days'
-)
-
-ServiceRequests = SqlQuery(
-    extract_query_file = 'misc/service_requests.sql',
-    source_db = 'GISLNI',
-    target_table = 'service_requests'
-)
-
-ServiceRequestsBusDays = SqlQuery(
-    extract_query_file = 'misc/service_requests_bus_days.sql',
-    source_db = 'GISLNIDBX',
-    target_table = 'service_requests_bus_days'
+    target_table = 'ecl_complaints'
 )
 
 CaseInspections = SqlQuery(
@@ -322,5 +304,6 @@ queries = [
     EclPermitsFeesDates,
     EclImmDang,
     EclUnsafes,
+    EclComplaints,
     PublicDemos
 ]

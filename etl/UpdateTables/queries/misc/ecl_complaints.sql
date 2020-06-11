@@ -1,4 +1,4 @@
-SELECT sub.compljobid,
+SELECT sub.complaintjobid,
        sub.complaintnumber,
        addr.base_address address,
        sub.complaintcode,
