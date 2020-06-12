@@ -14,7 +14,13 @@ SELECT compl.jobid complaintjobid,
                THEN 'Incomplete'
            END
        ) reviewcomplaint_status,
-       reviewcomplaint.staffassigned reviewcomplaint_assignedto,
+       (
+           CASE
+               WHEN reviewcomplaint.staffassigned IS NOT NULL
+               THEN reviewcomplaint.staffassigned
+               ELSE '(none)'
+           END
+       ) reviewcomplaint_assignedto,
        (
            CASE
                WHEN reviewcomplaint.outcome IS NOT NULL
@@ -34,7 +40,13 @@ SELECT compl.jobid complaintjobid,
                THEN 'Uninvestigated'
            END
        ) mostrecentinv_status,
-       mostrecentinv.staffassigned mostrecentinv_assignedto,
+       (
+           CASE
+               WHEN mostrecentinv.staffassigned IS NOT NULL
+               THEN mostrecentinv.staffassigned
+               ELSE '(none)'
+           END
+       ) mostrecentinv_assignedto,
        (
            CASE
                WHEN mostrecentinv.investigationoutcome IS NOT NULL
@@ -52,7 +64,13 @@ SELECT compl.jobid complaintjobid,
            END
        ) resolutionstatus,
        compl.inspectiondiscipline,
-       compl.origintype,
+       (
+           CASE
+               WHEN compl.origintype IS NOT NULL
+               THEN compl.origintype
+               ELSE '(none)'
+           END
+       ) origintype,
        addr.li_district district,
        sla.sla,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (addr.geocode_x, addr.geocode_y, NULL), NULL, NULL), 4326).sdo_point
