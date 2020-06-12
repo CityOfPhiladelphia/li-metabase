@@ -15,7 +15,13 @@ SELECT compl.jobid complaintjobid,
            END
        ) reviewcomplaint_status,
        reviewcomplaint.staffassigned reviewcomplaint_assignedto,
-       reviewcomplaint.outcome reviewcomplaint_outcome,
+       (
+           CASE
+               WHEN reviewcomplaint.outcome IS NOT NULL
+               THEN reviewcomplaint.outcome
+               ELSE '(none - no completed review)'
+           END
+       ) reviewcomplaint_outcome,
        cases.casenumber,
        firstinv.investigationcompleted firstinv_date,
        mostrecentinv.investigationcompleted mostrecentinv_date,
@@ -29,7 +35,13 @@ SELECT compl.jobid complaintjobid,
            END
        ) mostrecentinv_status,
        mostrecentinv.staffassigned mostrecentinv_assignedto,
-       mostrecentinv.investigationoutcome mostrecentinv_outcome,
+       (
+           CASE
+               WHEN mostrecentinv.investigationoutcome IS NOT NULL
+               THEN mostrecentinv.investigationoutcome
+               ELSE '(none - no completed investigation)'
+           END
+       ) mostrecentinv_outcome,
        compl.complaint_resolutiondate,
        (
            CASE
