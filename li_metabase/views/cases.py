@@ -11,9 +11,9 @@ CASES_DASHBOARDS = [
 
 bp = Blueprint('cases', __name__)
 
-@bp.route('/cases-violations/cases/<dashboard_url>')
+@bp.route('/compliance-enforcement/cases/<dashboard_url>')
 @auth.login_required
-def cases_violations(dashboard_url):
+def cases(dashboard_url):
     global CASES_DASHBOARDS
 
     iframe_url = build_iframe_url_from_dashboard_url(dashboard_url, CASES_DASHBOARDS)

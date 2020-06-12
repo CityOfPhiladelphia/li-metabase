@@ -11,9 +11,9 @@ IMM_DANG_DASHBOARDS = [
 
 bp = Blueprint('imminently_dangerous', __name__)
 
-@bp.route('/cases-violations/imminently-dangerous/<dashboard_url>')
+@bp.route('/compliance-enforcement/imminently-dangerous/<dashboard_url>')
 @auth.login_required
-def cases_violations(dashboard_url):
+def imm_dang(dashboard_url):
     global IMM_DANG_DASHBOARDS
 
     iframe_url = build_iframe_url_from_dashboard_url(dashboard_url, IMM_DANG_DASHBOARDS)

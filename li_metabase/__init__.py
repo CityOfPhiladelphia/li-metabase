@@ -3,8 +3,8 @@ from flask import Flask, render_template
 from li_metabase.config import SECRET_KEY
 from li_metabase.auth import auth
 from li_metabase.views import (
-    business_licenses, trade_licenses, permits,
-    cases_violations, misc, case_inspections, unsafes, imm_dang, tl_investigations,
+    business_licensing, trade_licensing, permits,
+    compliance_enforcement, misc, case_inspections, unsafes, imm_dang, tl_investigations,
     cases, archive
 )
 from li_metabase.utils import build_iframe_url
@@ -16,10 +16,10 @@ def create_app():
     app = Flask(__name__)
     app.secret_key = SECRET_KEY
 
-    app.register_blueprint(business_licenses.bp)
-    app.register_blueprint(trade_licenses.bp)
+    app.register_blueprint(business_licensing.bp)
+    app.register_blueprint(trade_licensing.bp)
     app.register_blueprint(permits.bp)
-    app.register_blueprint(cases_violations.bp)
+    app.register_blueprint(compliance_enforcement.bp)
     app.register_blueprint(misc.bp)
     app.register_blueprint(case_inspections.bp)
     app.register_blueprint(unsafes.bp)
