@@ -191,9 +191,15 @@ PublicDemos = SqlQuery(
 )
 
 EclComplaints = SqlQuery(
-    extract_query_file = 'misc/ecl_complaints.sql',
+    extract_query_file = 'compliance_enforcement/ecl_complaints.sql',
     source_db = 'GISLNI',
     target_table = 'ecl_complaints'
+)
+
+EclComplaintsBusDays = SqlQuery(
+    extract_query_file = 'compliance_enforcement/ecl_complaints_bus_days.sql',
+    source_db = 'GISLNIDBX',
+    target_table = 'ecl_complaints_bus_days'
 )
 
 CaseInspections = SqlQuery(
@@ -305,5 +311,6 @@ queries = [
     EclImmDang,
     EclUnsafes,
     EclComplaints,
+    EclComplaintsBusDays,
     PublicDemos
 ]
