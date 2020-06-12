@@ -179,7 +179,7 @@ EclUnsafes = SqlQuery(
 )
 
 UnsafesOpen = SqlQuery(
-    extract_query_file = 'cases_violations/unsafes_open.sql',
+    extract_query_file = 'compliance_enforcement/unsafes_open.sql',
     source_db = 'GISLNI',
     target_table = 'unsafes_open'
 )
@@ -197,31 +197,31 @@ EclComplaints = SqlQuery(
 )
 
 CaseInspections = SqlQuery(
-    extract_query_file = 'cases_violations/case_inspections.sql',
+    extract_query_file = 'compliance_enforcement/case_inspections.sql',
     source_db = 'GISLNI',
     target_table = 'case_inspections'
 )
 
 Cases = SqlQuery(
-    extract_query_file = 'cases_violations/cases.sql',
+    extract_query_file = 'compliance_enforcement/cases.sql',
     source_db = 'GISLNI',
     target_table = 'cases'
 )
 
 OldUnresolvedCases = SqlQuery(
-    extract_query_file = 'cases_violations/old_unresolved_cases.sql',
+    extract_query_file = 'compliance_enforcement/old_unresolved_cases.sql',
     source_db = 'GISLNI',
     target_table = 'old_unresolved_cases'
 )
 
 Violations = SqlQuery(
-    extract_query_file = 'cases_violations/violations.sql',
+    extract_query_file = 'compliance_enforcement/violations.sql',
     source_db = 'GISLNI',
     target_table = 'violations'
 )
 
 EclViolations = SqlQuery(
-    extract_query_file = 'cases_violations/ecl_violations.sql',
+    extract_query_file = 'compliance_enforcement/ecl_violations.sql',
     source_db = 'GISLNI',
     target_table = 'ecl_violations'
 )
@@ -263,7 +263,7 @@ TLCases = SqlQuery(
 )
 
 CaseContacts = SqlQuery(
-    extract_query_file = 'cases_violations/case_contacts.sql',
+    extract_query_file = 'compliance_enforcement/case_contacts.sql',
     source_db = 'GISLNI',
     target_table = 'case_contacts'
 )
