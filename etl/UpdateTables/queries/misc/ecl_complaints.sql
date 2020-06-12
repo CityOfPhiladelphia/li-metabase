@@ -18,7 +18,7 @@ SELECT compl.jobid complaintjobid,
        reviewcomplaint.outcome reviewcomplaint_outcome,
        cases.casenumber,
        mostrecentinv.investigationcompleted mostrecentinv_date,
-       to_char (mostrecentinv.investigationcompleted, 'DAY') mostrecentcaseinv_dayofweek,
+       to_char (mostrecentinv.investigationcompleted, 'DAY') mostrecentinv_dayofweek,
        (
            CASE
                WHEN mostrecentinv.investigationcompleted IS NOT NULL
@@ -108,6 +108,5 @@ WHERE compl.casefilejobid = cases.jobid (+)
       AND compl.jobid            = reviewcomplaint.jobid (+)
       AND cases.jobid            = mostrecentinv.casejobid (+)
       AND compl.addressobjectid  = addr.addressobjectid (+)
-      AND compl.complaintdate >= ' 01-JAN-2018'
       AND compl.complaintcode    = s.prob (+)
 ORDER BY compl.complaintnumber
