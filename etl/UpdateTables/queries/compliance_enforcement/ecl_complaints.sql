@@ -17,6 +17,7 @@ SELECT compl.jobid complaintjobid,
        reviewcomplaint.staffassigned reviewcomplaint_assignedto,
        reviewcomplaint.outcome reviewcomplaint_outcome,
        cases.casenumber,
+       firstinv.investigationcompleted firstinv_date,
        mostrecentinv.investigationcompleted mostrecentinv_date,
        to_char (mostrecentinv.investigationcompleted, 'DAY') mostrecentinv_dayofweek,
        (
@@ -41,7 +42,7 @@ SELECT compl.jobid complaintjobid,
        compl.inspectiondiscipline,
        compl.origintype,
        addr.li_district district,
-       s.sla sla,
+       sla.sla,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (addr.geocode_x, addr.geocode_y, NULL), NULL, NULL), 4326).sdo_point
        .x lon,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (addr.geocode_x, addr.geocode_y, NULL), NULL, NULL), 4326).sdo_point
@@ -82,6 +83,33 @@ FROM g_mvw_complaints compl,
       FROM (SELECT sub.*,
                    ROW_NUMBER () OVER (
                        PARTITION BY casejobid
+                       ORDER BY investigationcompleted ASC NULLS LAST
+                   ) seq_no
+            FROM (SELECT casejobid,
+                         investigationcompleted,
+                         (
+                             CASE
+                                 WHEN staffassigned IS NULL
+                                 THEN '(none)'
+                                 WHEN regexp_count (staffassigned, ',') > 0
+                                 THEN 'multiple'
+                                 ELSE upper (regexp_replace (replace (staffassigned, '  ', ' '), '[0-9]', ''))
+                             END
+                         ) staffassigned,
+                         investigationoutcome
+                  FROM g_mvw_case_inv
+                  WHERE investigationcompleted IS NOT NULL
+                 ) sub
+           )
+      WHERE seq_no = 1
+     ) firstinv,
+     (SELECT casejobid,
+             investigationcompleted,
+             staffassigned,
+             investigationoutcome
+      FROM (SELECT sub.*,
+                   ROW_NUMBER () OVER (
+                       PARTITION BY casejobid
                        ORDER BY investigationcompleted DESC NULLS LAST
                    ) seq_no
             FROM (SELECT casejobid,
@@ -103,10 +131,14 @@ FROM g_mvw_complaints compl,
       WHERE seq_no = 1
      ) mostrecentinv,
      eclipse_lni_addr addr,
-     sla_dictionary s
+     (SELECT DISTINCT prob,
+                      sla
+      FROM sla_dictionary
+     ) sla
 WHERE compl.casefilejobid = cases.jobid (+)
       AND compl.jobid            = reviewcomplaint.jobid (+)
+      AND cases.jobid            = firstinv.casejobid (+)
       AND cases.jobid            = mostrecentinv.casejobid (+)
       AND compl.addressobjectid  = addr.addressobjectid (+)
-      AND compl.complaintcode    = s.prob (+)
+      AND compl.complaintcode    = sla.prob (+)
 ORDER BY compl.complaintnumber
