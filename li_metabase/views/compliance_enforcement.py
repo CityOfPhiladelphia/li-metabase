@@ -5,6 +5,7 @@ from li_metabase.auth import auth
 
 
 COMPLIANCE_ENFORCEMENT_DASHBOARDS = [
+    Dashboard('Complaints', 'complaints', 192),
     Dashboard('Violations', 'violations', 185),
     Dashboard('Case Contacts', 'case-contacts', 174)
 ]
