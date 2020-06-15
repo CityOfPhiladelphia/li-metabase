@@ -161,19 +161,19 @@ EclPermitsFeesDates = SqlQuery(
 )
 
 EclImmDang = SqlQuery(
-    extract_query_file = 'cases_violations/ecl_imm_dang.sql',
+    extract_query_file = 'compliance_enforcement/ecl_imm_dang.sql',
     source_db = 'GISLNI',
     target_table = 'ecl_imm_dang'
 )
 
 ImmDangOpen = SqlQuery(
-    extract_query_file = 'cases_violations/imm_dang_open.sql',
+    extract_query_file = 'compliance_enforcement/imm_dang_open.sql',
     source_db = 'GISLNI',
     target_table = 'imm_dang_open'
 )
 
 EclUnsafes = SqlQuery(
-    extract_query_file = 'cases_violations/ecl_unsafes.sql',
+    extract_query_file = 'compliance_enforcement/ecl_unsafes.sql',
     source_db = 'GISLNI',
     target_table = 'ecl_unsafes'
 )
