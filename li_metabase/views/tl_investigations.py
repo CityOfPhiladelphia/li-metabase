@@ -6,7 +6,7 @@ from li_metabase.auth import auth
 
 TL_INVESTIGATION_DASHBOARDS = [
     Dashboard('Permits and Inspections', 'permits-and-inspections', 188),
-    Dashboard('TL Investigation - Cases', 'cases', 173)
+    Dashboard('Cases', 'cases', 193)
 ]
 
 bp = Blueprint('tl_investigation', __name__)
