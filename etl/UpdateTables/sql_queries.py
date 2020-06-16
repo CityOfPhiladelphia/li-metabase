@@ -268,6 +268,12 @@ TLCases = SqlQuery(
     target_table = 'tl_cases'
 )
 
+EclTLCases = SqlQuery(
+    extract_query_file = 'licenses/ecl_tl_cases.sql',
+    source_db = 'GISLNI',
+    target_table = 'ecl_tl_cases'
+)
+
 CaseContacts = SqlQuery(
     extract_query_file = 'compliance_enforcement/case_contacts.sql',
     source_db = 'GISLNI',
@@ -307,6 +313,7 @@ queries = [
     SLA_BL_BUS_DAYS,
     EclViolations,
     EclTLPermitsFPPInsp,
+    EclTLCases,
     EclPermitsFeesDates,
     EclImmDang,
     EclUnsafes,
