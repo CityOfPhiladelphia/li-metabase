@@ -31,7 +31,7 @@ SELECT compl.jobid complaintjobid,
        cases.casenumber,
        firstinv.investigationcompleted firstinv_date,
        mostrecentinv.investigationcompleted mostrecentinv_date,
-       to_char (mostrecentinv.investigationcompleted, 'DAY') mostrecentinv_dayofweek,
+       initcap (to_char (mostrecentinv.investigationcompleted, 'DAY')) mostrecentinv_dayofweek,
        (
            CASE
                WHEN mostrecentinv.investigationcompleted IS NOT NULL
