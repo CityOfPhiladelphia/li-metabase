@@ -60,7 +60,7 @@ SubmissionModeTL = SqlQuery(
 
 ExpiringLicensesBL = SqlQuery(
     extract_query_file = 'licenses/expiring_licenses_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
+    source_db = 'GISLNI',
     target_table = 'expiring_licenses_bl'
 )
 

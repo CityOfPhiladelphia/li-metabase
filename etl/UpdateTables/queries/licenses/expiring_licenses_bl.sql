@@ -1,71 +1,68 @@
-SELECT lic.licensenumber licensenumber,
-       lt.name licensetype,
-       to_date (lg.expirationdate) expirationdate,
-       NULL AS createdbytype,
-       ap.externalfilenum jobnumber,
-       ap.applicationtype jobtype,
-       ap.createddate jobcreateddate,
-       allj.completeddate jobcompleteddate,
-       'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244067&objectHandle=' || lic.objectid licenselink
-FROM lmscorral.bl_licensetype lt,
+SELECT DISTINCT lic.licensenumber,
+                lic.licensetype,
+                lic.expirationdate,
+                mri.jobnumber mostrecentjobnumber,
+                (
+                    CASE
+                        WHEN mri.jobtype IS NOT NULL
+                        THEN mri.jobtype
+                        ELSE '(none)'
+                    END
+                ) mostrecentjobtype,
+                mri.jobcreateddate mostrecentjobcreateddate,
+                mri.jobcompleteddate mostrecentjobcompleteddate,
+                (
+                    CASE
+                        WHEN mri.createdbyusername LIKE '%2%'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername LIKE '%3%'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername LIKE '%4%'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername LIKE '%5%'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername LIKE '%6%'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername LIKE '%7%'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername LIKE '%8%'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername LIKE '%9%'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername = 'PPG User'
+                        THEN 'Online'
+                        WHEN mri.createdbyusername = 'POSSE system power user'
+                        THEN 'Revenue'
+                        WHEN mri.createdbyusername IS NOT NULL
+                        THEN 'Staff'
+                        ELSE '(none)'
+                    END
+                ) mostrecentjobcreatedbytype,
+                'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244067&objectHandle=' || lic.licenseobjectid
+                licenselink
+FROM g_mvw_business_licenses lic,
      (SELECT licensenumber,
-             licensetypeobjectid,
-             licensegroupobjectid,
-             objectid,
-             mostrecentissuedate
-      FROM lmscorral.bl_license
-     ) lic,
-     (SELECT expirationdate,
-             objectid
-      FROM lmscorral.bl_licensegroup
-      WHERE expirationdate >= add_months (trunc (sysdate, 'MM'), - 13)
-     ) lg,
-     lmscorral.bl_applicationlicensexref aplx,
-     lmscorral.bl_application ap,
-     lmscorral.bl_alljobs allj
-WHERE lt.objectid = lic.licensetypeobjectid (+)
-      AND lic.licensegroupobjectid  = lg.objectid (+)
-      AND lic.objectid              = aplx.licenseid (+)
-      AND aplx.applicationid        = ap.jobid (+)
-      AND ap.jobid                  = allj.jobid (+)
-      AND lic.mostrecentissuedate BETWEEN (allj.completeddate - 1) AND (allj.completeddate + 1)
-      AND ap.statusdescription      = 'Approved'
-      AND ap.externalfilenum LIKE 'BA%'
-      AND lt.name != 'Activity'
-      AND lg.expirationdate IS NOT NULL
-UNION
-SELECT lic.licensenumber licensenumber,
-       lt.name licensetype,
-       to_date (lg.expirationdate) expirationdate,
-       NULL AS createdbytype,
-       ar.externalfilenum jobnumber,
-       ar.applicationtype jobtype,
-       ar.createddate jobcreateddate,
-       allj.completeddate jobcompleteddate,
-       'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1244067&objectHandle=' || lic.objectid licenselink
-FROM lmscorral.bl_licensetype lt,
-     (SELECT licensenumber,
-             licensetypeobjectid,
-             licensegroupobjectid,
-             objectid,
-             mostrecentissuedate
-      FROM lmscorral.bl_license
-     ) lic,
-     (SELECT expirationdate,
-             objectid
-      FROM lmscorral.bl_licensegroup
-      WHERE expirationdate >= add_months (trunc (sysdate, 'MM'), - 13)
-     ) lg,
-     lmscorral.amendrenewlicensexref arlx,
-     lmscorral.bl_amendmentrenewal ar,
-     lmscorral.bl_alljobs allj
-WHERE lt.objectid = lic.licensetypeobjectid (+)
-      AND lic.licensegroupobjectid  = lg.objectid (+)
-      AND lic.objectid              = arlx.licenseobjectid (+)
-      AND arlx.amendrenewjobid      = ar.jobid (+)
-      AND ar.jobid                  = allj.jobid (+)
-      AND lic.mostrecentissuedate BETWEEN (allj.completeddate - 1) AND (allj.completeddate + 1)
-      AND ar.statusdescription      = 'Approved'
-      AND ar.externalfilenum LIKE 'BR%'
-      AND lt.name != 'Activity'
-      AND lg.expirationdate IS NOT NULL
+             createdbyusername,
+             jobnumber,
+             jobtype,
+             jobcreateddate,
+             jobcompleteddate
+      FROM (SELECT sub.*,
+                   ROW_NUMBER () OVER (
+                       PARTITION BY licensenumber
+                       ORDER BY jobcompleteddate DESC NULLS LAST
+                   ) seq_no
+            FROM (SELECT licensenumber,
+                         createdbyusername,
+                         jobnumber,
+                         jobtype,
+                         jobcreateddate,
+                         jobcompleteddate
+                  FROM g_mvw_bl_jobs
+                  WHERE jobstatus = 'Approved'
+                 ) sub
+           )
+      WHERE seq_no = 1
+     ) mri   -- "most recent issuance"
+WHERE lic.licensenumber = mri.licensenumber (+)
+      AND lic.expirationdate >= add_months (trunc (sysdate, 'MM'), - 13)
