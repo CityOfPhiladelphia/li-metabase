@@ -319,5 +319,6 @@ queries = [
     EclUnsafes,
     EclComplaints,
     EclComplaintsBusDays,
+    UnsafesOpen,
     PublicDemos
 ]
