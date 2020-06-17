@@ -120,7 +120,7 @@ UninspectedBLsWithCompCheck = SqlQuery(
 
 LicensesIssuedBL = SqlQuery(
     extract_query_file = 'licenses/licenses_issued_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
+    source_db = 'GISLNI',
     target_table = 'licenses_issued_bl'
 )
 
