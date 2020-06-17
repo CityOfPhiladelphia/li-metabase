@@ -12,7 +12,7 @@ IndividualWorkloads = SqlQuery(
 
 IncompleteProcessesBL = SqlQuery(
     extract_query_file = 'licenses/incomplete_processes_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
+    source_db = 'GISLNI',
     target_table = 'incomplete_processes_bl'
 )
 

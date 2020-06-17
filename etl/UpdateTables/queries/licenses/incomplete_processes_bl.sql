@@ -1,126 +1,51 @@
-SELECT DISTINCT *
-FROM (SELECT proc.processid,
-             proc.objectdefdescription processtype,
-             allj.jobnumber,
-             allj.jobtype,
-             (
-                 CASE
-                     WHEN allj.licensetype IS NOT NULL
-                     THEN allj.licensetype
-                     ELSE '(none)'
-                 END
-             ) licensetype,
-             allj.jobstatus,
-             initcap (replace (TRIM (regexp_replace (proc.staffassigned, '[0-9]+', '')), '  ', ' ')) assignedstaff,
-             (
-                 CASE
-                     WHEN regexp_count (proc.staffassigned, ',') IS NULL
-                     THEN 0
-                     ELSE regexp_count (proc.staffassigned, ',') + 1
-                 END
-             ) numassignedstaff,
-             proc.createddate createddate,
-             proc.scheduledstartdate scheduledstartdate,
-             sysdate - proc.scheduledstartdate timesincescheduledstartdate,
-             proc.processstatus processstatus,
-             (
-                 CASE
-                     WHEN allj.jobtype LIKE 'Application'
-                     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1239699&objectHandle='
-                     || allj.jobid || '&processHandle=' || proc.processid || '&paneId=1239699_151'
-                     WHEN allj.jobtype LIKE 'Renewal'
-                     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1243107&objectHandle='
-                     || allj.jobid || '&processHandle=' || proc.processid || '&paneId=1243107_175'
-                 END
-             ) processlink
-      FROM (SELECT DISTINCT ap.jobid,
-                            ap.externalfilenum jobnumber,
-                            ap.applicationtype jobtype,
-                            lt.name licensetype,
-                            ap.statusdescription jobstatus
-            FROM lmscorral.bl_application ap,
-                 lmscorral.bl_joblicensetypexref jltx,
-                 lmscorral.bl_licensetype lt,
-                 lmscorral.bl_alljobs allj
-            WHERE ap.jobid = jltx.jobid (+)
-                  AND jltx.licenseobjectid  = lt.objectid (+)
-                  AND ap.jobid              = allj.jobid
-            UNION
-            SELECT DISTINCT ar.jobid,
-                            ar.externalfilenum jobnumber,
-                            ar.applicationtype jobtype,
-                            lt.name licensetype,
-                            ar.statusdescription jobstatus
-            FROM lmscorral.bl_amendmentrenewal ar,
-                 lmscorral.bl_joblicensetypexref jltx,
-                 lmscorral.bl_licensetype lt,
-                 lmscorral.bl_alljobs allj
-            WHERE ar.jobid = jltx.jobid (+)
-                  AND jltx.licenseobjectid  = lt.objectid (+)
-                  AND ar.jobid              = allj.jobid
-      ) allj,
-           lmscorral.processes proc
-      WHERE allj.jobid = proc.jobid
-            AND proc.datecompleted IS NULL
-            AND (proc.staffassigned IS NULL
-                 OR regexp_count (proc.staffassigned, ',') > 0)
-      UNION
-      SELECT proc.processid,
-             proc.objectdefdescription processtype,
-             allj.jobnumber,
-             allj.jobtype,
-             (
-                 CASE
-                     WHEN allj.licensetype IS NOT NULL
-                     THEN allj.licensetype
-                     ELSE '(none)'
-                 END
-             ) licensetype,
-             allj.jobstatus,
-             initcap (replace (TRIM (regexp_replace (proc.staffassigned, '[0-9]+', '')), '  ', ' ')) assignedstaff,
-             1 numassignedstaff,
-             proc.createddate createddate,
-             proc.scheduledstartdate scheduledstartdate,
-             sysdate - proc.scheduledstartdate timesincescheduledstartdate,
-             proc.processstatus processstatus,
-             (
-                 CASE
-                     WHEN allj.jobtype LIKE 'Application'
-                     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1239699&objectHandle='
-                     || allj.jobid || '&processHandle=' || proc.processid || '&paneId=1239699_151'
-                     WHEN allj.jobtype LIKE 'Renewal'
-                     THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1243107&objectHandle='
-                     || allj.jobid || '&processHandle=' || proc.processid || '&paneId=1243107_175'
-                 END
-             ) processlink
-      FROM (SELECT DISTINCT ap.jobid,
-                            ap.externalfilenum jobnumber,
-                            ap.applicationtype jobtype,
-                            lt.name licensetype,
-                            ap.statusdescription jobstatus
-            FROM lmscorral.bl_application ap,
-                 lmscorral.bl_joblicensetypexref jltx,
-                 lmscorral.bl_licensetype lt,
-                 lmscorral.bl_alljobs allj
-            WHERE ap.jobid = jltx.jobid (+)
-                  AND jltx.licenseobjectid  = lt.objectid (+)
-                  AND ap.jobid              = allj.jobid
-            UNION
-            SELECT DISTINCT ar.jobid,
-                            ar.externalfilenum jobnumber,
-                            ar.applicationtype jobtype,
-                            lt.name licensetype,
-                            ar.statusdescription jobstatus
-            FROM lmscorral.bl_amendmentrenewal ar,
-                 lmscorral.bl_joblicensetypexref jltx,
-                 lmscorral.bl_licensetype lt,
-                 lmscorral.bl_alljobs allj
-            WHERE ar.jobid = jltx.jobid (+)
-                  AND jltx.licenseobjectid  = lt.objectid (+)
-                  AND ar.jobid              = allj.jobid
-      ) allj,
-           lmscorral.processes proc
-      WHERE allj.jobid = proc.jobid
-            AND proc.datecompleted IS NULL
-            AND regexp_count (proc.staffassigned, ',') = 0
-)
+SELECT proc.processid,
+       proc.processtype,
+       j.jobnumber,
+       j.jobtype,
+       (
+           CASE
+               WHEN j.licensetype IS NOT NULL
+               THEN j.licensetype
+               ELSE '(none)'
+           END
+       ) licensetype,
+       j.jobstatus,
+       (
+           CASE
+               WHEN proc.staffassigned IS NULL
+               THEN '(none)'
+               WHEN regexp_count (proc.staffassigned, ',') > 0
+               THEN 'multiple'
+               ELSE initcap (regexp_replace (replace (proc.staffassigned, '  ', ' '), '[0-9]', ''))
+           END
+       ) assignedstaff,
+       (
+           CASE
+               WHEN proc.staffassigned IS NULL
+               THEN 0
+               WHEN regexp_count (proc.staffassigned, ',') > 0
+               THEN regexp_count (proc.staffassigned, ',') + 1
+               ELSE 1
+           END
+       ) numassignedstaff,
+       proc.createddate,
+       proc.scheduledstartdate,
+       sysdate - proc.scheduledstartdate timesincescheduledstartdate,
+       proc.processstatus,
+       (
+           CASE
+               WHEN j.jobtype = 'Application'
+               THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1239699&objectHandle=' || j.
+               jobid || '&processHandle=' || proc.processid || '&paneId=2854033_140'
+               WHEN j.jobtype IN (
+                   'Renewal',
+                   'Amendment'
+               )
+               THEN 'https://eclipseprod.phila.gov/phillylmsprod/int/lms/Default.aspx#presentationId=1243107&objectHandle=' || j.
+               jobid || '&processHandle=' || proc.processid || '&paneId=2857688_116'
+           END
+       ) processlink
+FROM g_mvw_processes proc,
+     g_mvw_bl_jobs j
+WHERE proc.jobid = j.jobid
+      AND proc.datecompleted IS NULL
