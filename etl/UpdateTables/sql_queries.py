@@ -320,5 +320,6 @@ queries = [
     EclComplaints,
     EclComplaintsBusDays,
     UnsafesOpen,
+    ImmDangOpen,
     PublicDemos
 ]
