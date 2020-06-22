@@ -22,6 +22,12 @@ IncompleteProcessesTL = SqlQuery(
     target_table = 'incomplete_processes_tl'
 )
 
+IncompleteProcessesTLRev = SqlQuery(
+    extract_query_file = 'licenses/incomplete_processes_tl_rev.sql',
+    source_db = 'GISLNI',
+    target_table = 'incomplete_processes_tl_rev'
+)
+
 ActiveJobsBL = SqlQuery(
     extract_query_file = 'licenses/active_jobs_bl.sql',
     source_db = 'GISLNI',
@@ -44,6 +50,12 @@ ActiveProcessesTL = SqlQuery(
     extract_query_file = 'licenses/active_processes_tl.sql',
     source_db = 'ECLIPSE_REPORTS',
     target_table = 'active_processes_tl'
+)
+
+ActiveProcessesTLRev = SqlQuery(
+    extract_query_file = 'licenses/active_processes_tl_rev.sql',
+    source_db = 'GISLNI',
+    target_table = 'active_processes_tl_rev'
 )
 
 SubmissionModeBL = SqlQuery(
@@ -297,10 +309,12 @@ queries = [
     ActiveJobsTL,
     ActiveProcessesBL,
     ActiveProcessesTL,
+    ActiveProcessesTLRev,
     ExpiringLicensesBL,
     ExpiringLicensesTL,
     IncompleteProcessesBL,
     IncompleteProcessesTL,
+    IncompleteProcessesTLRev,
     SubmissionModeBL,
     SubmissionModeTL,
     LicenseRevenueBL,
