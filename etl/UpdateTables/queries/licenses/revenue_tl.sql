@@ -2,7 +2,8 @@ SELECT j.jobnumber,
        j.jobtype,
        pay.paymentreceiveddate paymentdate,
        pay.paymentdistamount amount,
-       fee.feetype
+       fee.feetype,
+       j.licensetype
 FROM g_mvw_tl_jobs j,
      g_mvw_fee fee,
      g_mvw_payment pay

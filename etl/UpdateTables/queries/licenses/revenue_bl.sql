@@ -2,7 +2,8 @@ SELECT j.jobnumber,
        j.jobtype,
        pay.maxpaymentreceiveddate paymentdate,
        pay.totalpaymentamount amount,
-       fee.feetype
+       fee.feetype,
+       j.licensetype
 FROM g_mvw_bl_jobs j,
      g_mvw_fee fee,
      (SELECT feeobjectid,
