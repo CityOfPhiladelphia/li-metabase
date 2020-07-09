@@ -11,22 +11,14 @@ SELECT proc.processid,
        ) licensetype,
        (
            CASE
-               WHEN proc.staffassigned IS NULL
+               WHEN proc.currentstaffassigned IS NULL
                THEN '(none)'
-               WHEN regexp_count (proc.staffassigned, ',') > 0
+               WHEN proc.currentstaffassigned = 'multiple'
                THEN 'multiple'
-               ELSE initcap (regexp_replace (replace (proc.staffassigned, '  ', ' '), '[0-9]', ''))
+               ELSE initcap (regexp_replace (replace (proc.currentstaffassigned, '  ', ' '), '[0-9]', ''))
            END
        ) assignedstaff,
-       (
-           CASE
-               WHEN proc.staffassigned IS NULL
-               THEN 0
-               WHEN regexp_count (proc.staffassigned, ',') > 0
-               THEN regexp_count (proc.staffassigned, ',') + 1
-               ELSE 1
-           END
-       ) numassignedstaff,
+       proc.currentstaffassignedcount numassignedstaff,
        proc.scheduledstartdate,
        sysdate - proc.scheduledstartdate timesincescheduledstartdate,
        (

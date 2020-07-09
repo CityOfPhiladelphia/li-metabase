@@ -6,7 +6,7 @@ SELECT DISTINCT j.jobnumber,
                 proc.processtype,
                 proc.datecompleted jobaccepteddate,
                 proc.processstatus,
-                proc.staffassigned assignedstaff,
+                proc.currentstaffassigned assignedstaff,
                 proc.timesincescheduledstartdate,
                 (
                     CASE
