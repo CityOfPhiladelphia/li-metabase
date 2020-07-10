@@ -97,7 +97,7 @@ FROM g_mvw_complaints compl,
                                  THEN '(none)'
                                  WHEN currentstaffassigned = 'multiple'
                                  THEN 'multiple'
-                                 ELSE upper (regexp_replace (replace (currentstaffassigned, '  ', ' '), '[0-9]', ''))
+                                 ELSE currentstaffassigned
                              END
                          ) staffassigned
                   FROM g_mvw_processes
@@ -123,7 +123,7 @@ FROM g_mvw_complaints compl,
                                  THEN '(none)'
                                  WHEN staffassigned = 'multiple'
                                  THEN 'multiple'
-                                 ELSE upper (regexp_replace (replace (staffassigned, '  ', ' '), '[0-9]', ''))
+                                 ELSE staffassigned
                              END
                          ) staffassigned,
                          investigationoutcome
@@ -150,7 +150,7 @@ FROM g_mvw_complaints compl,
                                  THEN '(none)'
                                  WHEN staffassigned = 'multiple'
                                  THEN 'multiple'
-                                 ELSE upper (regexp_replace (replace (staffassigned, '  ', ' '), '[0-9]', ''))
+                                 ELSE staffassigned
                              END
                          ) staffassigned,
                          investigationoutcome

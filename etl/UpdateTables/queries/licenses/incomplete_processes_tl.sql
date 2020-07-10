@@ -15,7 +15,7 @@ SELECT proc.processid,
                THEN '(none)'
                WHEN proc.currentstaffassigned = 'multiple'
                THEN 'multiple'
-               ELSE initcap (regexp_replace (replace (proc.currentstaffassigned, '  ', ' '), '[0-9]', ''))
+               ELSE proc.currentstaffassigned
            END
        ) assignedstaff,
        proc.currentstaffassignedcount numassignedstaff,
