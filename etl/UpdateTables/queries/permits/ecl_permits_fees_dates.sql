@@ -5,7 +5,8 @@ SELECT perm.permitnumber,
        perm.completeddate,
        perm.permitstatus,
        pay.paymentdistamount paidfees,
-       pay.paymentreceiveddate paiddate
+       pay.paymentreceiveddate paiddate,
+       fee.feedescription
 FROM (SELECT DISTINCT jobid,
                       permitnumber,
                       permitdescription permittype,

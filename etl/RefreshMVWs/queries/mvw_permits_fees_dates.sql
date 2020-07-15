@@ -6,7 +6,8 @@ SELECT permitnumber,
        upper (permitstatus) permitstatus,
        paidfees,
        paiddate,
-       'ECLIPSE' systemofrecord
+       'ECLIPSE' systemofrecord,
+       feedescription
 FROM ecl_permits_fees_dates
 UNION ALL
 SELECT permitnumber,
@@ -17,5 +18,6 @@ SELECT permitnumber,
        status permitstatus,
        paidfees,
        paiddate,
-       'HANSEN' systemofrecord
+       'HANSEN' systemofrecord,
+       initcap(feedescription) feedescription
 FROM permits_fees_dates
