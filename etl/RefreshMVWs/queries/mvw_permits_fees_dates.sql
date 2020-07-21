@@ -7,7 +7,9 @@ SELECT permitnumber,
        paidfees,
        paiddate,
        'ECLIPSE' systemofrecord,
-       feedescription
+       feedescription,
+       totalconstructionarea,
+       costorvalue
 FROM ecl_permits_fees_dates
 UNION ALL
 SELECT permitnumber,
@@ -19,5 +21,7 @@ SELECT permitnumber,
        paidfees,
        paiddate,
        'HANSEN' systemofrecord,
-       initcap(feedescription) feedescription
+       initcap(feedescription) feedescription,
+       bldgarea totalconstructionarea,
+       declaredvalue costorvalue
 FROM permits_fees_dates

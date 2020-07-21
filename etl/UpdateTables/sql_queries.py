@@ -142,18 +142,6 @@ LicenseRevenueTL = SqlQuery(
     target_table = 'revenue_tl'
 )
 
-PermitsFees = SqlQuery(
-    extract_query_file = 'permits/permits_and_fees.sql',
-    source_db='LIDB',
-    target_table = 'permits_fees'
-)
-
-PermitsFeesDates = SqlQuery(
-    extract_query_file = 'permits/permits_fees_dates.sql',
-    source_db='LIDB',
-    target_table = 'permits_fees_dates'
-)
-
 EclPermitsFeesDates = SqlQuery(
     extract_query_file = 'permits/ecl_permits_fees_dates.sql',
     source_db = 'GISLNI',

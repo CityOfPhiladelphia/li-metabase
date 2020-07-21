@@ -6,14 +6,18 @@ SELECT perm.permitnumber,
        perm.permitstatus,
        pay.paymentdistamount paidfees,
        pay.paymentreceiveddate paiddate,
-       fee.feedescription
+       fee.feedescription,
+       perm.totalconstructionarea,
+       perm.costorvalue
 FROM (SELECT DISTINCT jobid,
                       permitnumber,
                       permitdescription permittype,
                       createddate,
                       issuedate,
                       completeddate,
-                      permitstatus
+                      permitstatus,
+                      totalconstructionarea,
+                      costorvalue
       FROM g_mvw_permits
       WHERE issuedate >= '01-JAN-16'
             AND permittype <> 'Property Certificate'
