@@ -34,6 +34,12 @@ ActiveJobsTL = SqlQuery(
     target_table = 'active_jobs_tl'
 )
 
+ActiveJobsTLRev = SqlQuery(
+    extract_query_file = 'licenses/active_jobs_tl_rev.sql',
+    source_db = 'GISLNI',
+    target_table = 'active_jobs_tl_rev'
+)
+
 ActiveProcessesBL = SqlQuery(
     extract_query_file = 'licenses/active_processes_bl.sql',
     source_db = 'GISLNI',
@@ -309,5 +315,6 @@ queries = [
     EclComplaintsBusDays,
     UnsafesOpen,
     ImmDangOpen,
-    PublicDemos
+    PublicDemos,
+    ActiveJobsTLRev
 ]
