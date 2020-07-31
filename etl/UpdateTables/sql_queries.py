@@ -174,7 +174,7 @@ UnsafesOpen = SqlQuery(
 
 PublicDemos = SqlQuery(
     extract_query_file = 'misc/public_demos.sql',
-    source_db = 'DataBridge',
+    source_db = 'GISLNI',
     target_table = 'public_demos'
 )
 
