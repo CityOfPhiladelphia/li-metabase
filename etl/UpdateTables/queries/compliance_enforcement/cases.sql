@@ -1,7 +1,6 @@
 SELECT c.internalid,
        c.casenumber,
        c.casetype,
-       c.casesource,
        (
            CASE
                WHEN c.caseresponsibility IS NULL
