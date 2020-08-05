@@ -196,6 +196,12 @@ CaseInspections = SqlQuery(
     target_table = 'case_inspections'
 )
 
+CaseInvestigations = SqlQuery(
+    extract_query_file = 'compliance_enforcement/case_investigations.sql',
+    source_db = 'GISLNI',
+    target_table = 'case_investigations'
+)
+
 Cases = SqlQuery(
     extract_query_file = 'compliance_enforcement/cases.sql',
     source_db = 'GISLNI',
@@ -309,5 +315,7 @@ queries = [
     EclComplaintsBusDays,
     UnsafesOpen,
     ImmDangOpen,
-    PublicDemos
+    PublicDemos,
+    Cases,
+    CaseInvestigations
 ]

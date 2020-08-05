@@ -1,7 +1,21 @@
-SELECT c.casenumber,
+SELECT c.internalid,
+       c.casenumber,
        c.casetype,
-       c.caseresponsibility,
-       c.casepriority,
+       c.casesource,
+       (
+           CASE
+               WHEN c.caseresponsibility IS NULL
+               THEN '(none)'
+               ELSE c.caseresponsibility
+           END
+       ) caseresponsibility,
+       (
+           CASE
+               WHEN c.casepriority IS NULL
+               THEN '(none)'
+               ELSE c.casepriority
+           END
+       ) casepriority,
        c.createddate,
        c.completeddate,
        (
@@ -11,13 +25,22 @@ SELECT c.casenumber,
                ELSE 'Yes'
            END
        ) casecompleteddatehasvalue,
+       c.casestatus,
+       c.firstcompletedinv,
        (
            CASE
-               WHEN c.casestatus IS NULL
+               WHEN c.firstcompletedinvstatus IS NULL
                THEN '(none)'
-               ELSE c.casestatus
+               ELSE c.firstcompletedinvstatus
            END
-       ) casestatus,
+       ) firstcompletedinvstatus,
+       (
+           CASE
+               WHEN c.firstcompletedinvinvestigator IS NULL
+               THEN '(none)'
+               ELSE c.firstcompletedinvinvestigator
+           END
+       ) firstcompletedinvinvestigator,
        c.lastcompletedinv,
        c.lastcompletedinvstatus,
        (
@@ -43,15 +66,8 @@ SELECT c.casenumber,
                ELSE c.overdueinvinvestigator
            END
        ) overdueinvinvestigator,
-       c.firstcompletedinv,
-       c.firstcompletedinvstatus,
-       (
-           CASE
-               WHEN c.firstcompletedinvinvestigatore IS NULL
-               THEN '(none)'
-               ELSE c.firstcompletedinvinvestigator
-           END
-       ) firstcompletedinvinvestigator,
+       c.onlyincludeslicensevios,
+       c.address,
        (
            CASE
                WHEN c.zip IS NULL
@@ -62,43 +78,10 @@ SELECT c.casenumber,
        ) zip,
        c.council_district,
        c.li_district,
-       c.census_tract_2010,
-       (
-           CASE
-               WHEN cases_with_only_license_vios.casenumber IS NOT NULL
-               THEN 'Yes'
-               ELSE 'No'
-           END
-       ) onlyincludeslicensevios
-FROM cases_mvw c,
-     (SELECT DISTINCT casenumber
-      FROM violations_mvw
-      WHERE (violationtype IN (
-          '9-3902 (1)',
-          '9-3902 (2)',
-          '9-3902 (3)',
-          '9-3902 (4)',
-          '9-3904',
-          '9-3905'
-      )
-             OR violationtype NOT LIKE 'PM-102%')
-            AND caseaddeddate >= add_months (trunc (sysdate, 'MM'), - 60)
-            AND caseaddeddate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
-      MINUS
-      SELECT DISTINCT casenumber
-      FROM violations_mvw
-      WHERE violationtype NOT IN (
-          '9-3902 (1)',
-          '9-3902 (2)',
-          '9-3902 (3)',
-          '9-3902 (4)',
-          '9-3904',
-          '9-3905'
-      )
-            AND violationtype NOT LIKE 'PM-102%'
-            AND caseaddeddate >= add_months (trunc (sysdate, 'MM'), - 60)
-            AND caseaddeddate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
-     ) cases_with_only_license_vios
-WHERE c.casenumber = cases_with_only_license_vios.casenumber (+)
-      AND c.createddate >= add_months (trunc (sysdate, 'MM'), - 60)
-      AND c.createddate < to_date (to_char (sysdate, 'MM/DD/YYYY'), 'MM/DD/YYYY')
+       c.censustract,
+       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (c.geocode_x, c.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
+       x lon,
+       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (c.geocode_x, c.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
+       y lat,
+       c.systemofrecord
+FROM mvw_cases c
