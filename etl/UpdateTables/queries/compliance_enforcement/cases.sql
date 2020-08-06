@@ -20,23 +20,30 @@ SELECT c.internalid,
        (
            CASE
                WHEN c.completeddate IS NULL
-               THEN 'No'
-               ELSE 'Yes'
+               THEN 'Incomplete'
+               ELSE 'Completed'
            END
-       ) casecompleteddatehasvalue,
+       ) completed,
        c.casestatus,
+       (
+           CASE
+               WHEN c.firstcompletedinv IS NULL
+               THEN 'Uninvestigated'
+               ELSE 'Investigated'
+           END
+       ) investigated,
        c.firstcompletedinv,
        (
            CASE
                WHEN c.firstcompletedinvstatus IS NULL
-               THEN '(none)'
+               THEN '(n/a - no completed investigations)'
                ELSE c.firstcompletedinvstatus
            END
        ) firstcompletedinvstatus,
        (
            CASE
                WHEN c.firstcompletedinvinvestigator IS NULL
-               THEN '(none)'
+               THEN '(n/a - no completed investigations)'
                ELSE c.firstcompletedinvinvestigator
            END
        ) firstcompletedinvinvestigator,
@@ -45,7 +52,7 @@ SELECT c.internalid,
        (
            CASE
                WHEN c.lastcompletedinvinvestigator IS NULL
-               THEN '(none)'
+               THEN '(n/a - no completed investigations)'
                ELSE c.lastcompletedinvinvestigator
            END
        ) lastcompletedinvinvestigator,
@@ -53,7 +60,7 @@ SELECT c.internalid,
        (
            CASE
                WHEN c.nextscheduledinvinvestigator IS NULL
-               THEN '(none)'
+               THEN '(n/a - no upcoming investigations)'
                ELSE c.nextscheduledinvinvestigator
            END
        ) nextscheduledinvinvestigator,
@@ -61,7 +68,7 @@ SELECT c.internalid,
        (
            CASE
                WHEN c.overdueinvinvestigator IS NULL
-               THEN '(none)'
+               THEN '(n/a - no overdue investigations)'
                ELSE c.overdueinvinvestigator
            END
        ) overdueinvinvestigator,
@@ -84,3 +91,5 @@ SELECT c.internalid,
        y lat,
        c.systemofrecord
 FROM mvw_cases c
+WHERE (c.createddate >= add_months (trunc (sysdate, 'MM'), - 36)
+       OR c.completeddate >= add_months (trunc (sysdate, 'MM'), - 36))
