@@ -1,6 +1,12 @@
 SELECT c.internalid,
        c.casenumber,
-       c.casetype,
+       (
+           CASE
+               WHEN c.casetype IS NULL
+               THEN '(none)'
+               ELSE c.casetype
+           END
+       ) casetype,
        (
            CASE
                WHEN c.caseresponsibility IS NULL
