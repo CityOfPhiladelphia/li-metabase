@@ -1,101 +1,172 @@
 SELECT c.internalid,
        c.casenumber,
-       (
-           CASE
-               WHEN c.casetype IS NULL
-               THEN '(none)'
-               ELSE c.casetype
-           END
-       ) casetype,
-       (
-           CASE
-               WHEN c.caseresponsibility IS NULL
-               THEN '(none)'
-               ELSE c.caseresponsibility
-           END
-       ) caseresponsibility,
-       (
-           CASE
-               WHEN c.casepriority IS NULL
-               THEN '(none)'
-               ELSE c.casepriority
-           END
-       ) casepriority,
+       c.casetype,
+       c.caseresponsibility,
+       c.casepriority,
        c.createddate,
-       c.completeddate,
-       (
-           CASE
-               WHEN c.completeddate IS NULL
-               THEN 'Incomplete'
-               ELSE 'Completed'
-           END
-       ) completed,
        c.casestatus,
        (
            CASE
-               WHEN c.firstcompletedinv IS NULL
-               THEN 'Uninvestigated'
-               ELSE 'Investigated'
+               WHEN c.completeddate IS NULL
+               THEN bds1.businessdayssince - bds2.businessdayssince
+               ELSE bds6.businessdayssince - bds2.businessdayssince
            END
-       ) investigated,
+       ) bdopen,
+       (
+           CASE
+               WHEN c.completeddate IS NULL
+               THEN (
+                   CASE
+                       WHEN bds1.businessdayssince - bds2.businessdayssince <= 10
+                       THEN '0-10'
+                       WHEN bds1.businessdayssince - bds2.businessdayssince BETWEEN 11 AND 20
+                       THEN '11-20'
+                       WHEN bds1.businessdayssince - bds2.businessdayssince BETWEEN 21 AND 100
+                       THEN '21-100'
+                       ELSE 'More than 100'
+                   END
+               )
+               ELSE (
+                   CASE
+                       WHEN bds6.businessdayssince - bds2.businessdayssince <= 10
+                       THEN '0-10'
+                       WHEN bds6.businessdayssince - bds2.businessdayssince BETWEEN 11 AND 20
+                       THEN '11-20'
+                       WHEN bds6.businessdayssince - bds2.businessdayssince BETWEEN 21 AND 100
+                       THEN '21-100'
+                       ELSE 'More than 100'
+                   END
+               )
+           END
+       ) bdopencategories,
+       c.completeddate,
+       c.completed,
+       c.investigated,
        c.firstcompletedinv,
-       (
-           CASE
-               WHEN c.firstcompletedinvstatus IS NULL
-               THEN '(n/a - no completed investigations)'
-               ELSE c.firstcompletedinvstatus
-           END
-       ) firstcompletedinvstatus,
-       (
-           CASE
-               WHEN c.firstcompletedinvinvestigator IS NULL
-               THEN '(n/a - no completed investigations)'
-               ELSE c.firstcompletedinvinvestigator
-           END
-       ) firstcompletedinvinvestigator,
+       c.firstcompletedinvstatus,
+       c.firstcompletedinvinvestigator,
        c.lastcompletedinv,
-       c.lastcompletedinvstatus,
        (
            CASE
-               WHEN c.lastcompletedinvinvestigator IS NULL
-               THEN '(n/a - no completed investigations)'
-               ELSE c.lastcompletedinvinvestigator
+               WHEN c.lastcompletedinv IS NULL
+               THEN NULL
+               ELSE bds1.businessdayssince - bds3.businessdayssince
            END
-       ) lastcompletedinvinvestigator,
+       ) bdsincelastcomplinv,
+       (
+           CASE
+               WHEN c.lastcompletedinv IS NULL
+               THEN NULL
+               WHEN bds1.businessdayssince - bds3.businessdayssince <= 10
+               THEN '0-10'
+               WHEN bds1.businessdayssince - bds3.businessdayssince BETWEEN 11 AND 20
+               THEN '11-20'
+               WHEN bds1.businessdayssince - bds3.businessdayssince BETWEEN 21 AND 100
+               THEN '21-100'
+               ELSE 'More than 100'
+           END
+       ) bdsincelastcomplinvcategories,
+       c.lastcompletedinvstatus,
+       c.lastcompletedinvinvestigator,
        c.nextscheduledinv,
        (
            CASE
-               WHEN c.nextscheduledinvinvestigator IS NULL
-               THEN '(n/a - no upcoming investigations)'
-               ELSE c.nextscheduledinvinvestigator
+               WHEN c.nextscheduledinv IS NULL
+               THEN NULL
+               ELSE bds4.businessdayssince - bds1.businessdayssince
            END
-       ) nextscheduledinvinvestigator,
+       ) bduntilnextscheduledinv,
+       (
+           CASE
+               WHEN c.nextscheduledinv IS NULL
+               THEN NULL
+               WHEN bds4.businessdayssince - bds1.businessdayssince <= 10
+               THEN '0-10'
+               WHEN bds4.businessdayssince - bds1.businessdayssince BETWEEN 11 AND 20
+               THEN '11-20'
+               WHEN bds4.businessdayssince - bds1.businessdayssince BETWEEN 21 AND 100
+               THEN '21-100'
+               ELSE 'More than 100'
+           END
+       ) bduntilnextschedinvcategories,
+       c.nextscheduledinvinvestigator,
        c.overdueinvscheduleddate,
        (
            CASE
-               WHEN c.overdueinvinvestigator IS NULL
-               THEN '(n/a - no overdue investigations)'
-               ELSE c.overdueinvinvestigator
+               WHEN c.overdueinvscheduleddate IS NULL
+               THEN NULL
+               ELSE bds1.businessdayssince - bds5.businessdayssince
            END
-       ) overdueinvinvestigator,
-       c.onlyincludeslicensevios,
-       c.address,
+       ) bdsinceoverdueinv,
        (
            CASE
-               WHEN c.zip IS NULL
-                    OR c.zip = ' '
-               THEN '(none)'
-               ELSE c.zip
+               WHEN c.overdueinvscheduleddate IS NULL
+               THEN NULL
+               WHEN bds1.businessdayssince - bds5.businessdayssince <= 10
+               THEN '0-10'
+               WHEN bds1.businessdayssince - bds5.businessdayssince BETWEEN 11 AND 20
+               THEN '11-20'
+               WHEN bds1.businessdayssince - bds5.businessdayssince BETWEEN 21 AND 100
+               THEN '21-100'
+               ELSE 'More than 100'
            END
-       ) zip,
+       ) bdsinceoverdueinvcategories,
+       c.overdueinvinvestigator,
+       c.onlyincludeslicensevios,
+       c.address,
+       c.zip,
        c.council_district,
        c.li_district,
        c.censustract,
-       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (c.geocode_x, c.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
-       x lon,
-       sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (c.geocode_x, c.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
-       y lat,
+       c.lon,
+       c.lat,
        c.systemofrecord
-FROM mvw_cases c
-WHERE (c.createddate >= add_months (trunc (sysdate, 'MM'), - 36)
-       OR c.completeddate >= add_months (trunc (sysdate, 'MM'), - 36))
+       /*
+       (
+           CASE
+               WHEN bds1.businessdayssince - bds?.businessdayssince <= c.sla
+               THEN 'Yes'
+               ELSE 'No'
+           END
+       ) withinsla,
+       (
+           CASE
+               WHEN bds1.businessdayssince - bds?.businessdayssince <= c.sla
+               THEN NULL
+               ELSE bds1.businessdayssince - bds?.businessdayssince - c.sla
+           END
+       ) bdoverdue,
+       (
+           CASE
+               WHEN bds1.businessdayssince - bds?.businessdayssince <= c.sla
+               THEN NULL
+               WHEN bds1.businessdayssince - bds?.businessdayssince - c.sla <= 10
+               THEN '0-10'
+               WHEN bds1.businessdayssince - bds?.businessdayssince - c.sla BETWEEN 11 AND 20
+               THEN '11-20'
+               WHEN bds1.businessdayssince - bds?.businessdayssince - c.sla BETWEEN 21 AND 100
+               THEN '21-100'
+               WHEN bds1.businessdayssince - bds?.businessdayssince - c.sla > 100
+               THEN 'More than 100'
+               ELSE NULL
+           END
+       ) bdoverduecategories */
+FROM cases_basic c,
+     business_days_since_2007 bds1,
+     business_days_since_2007 bds2,
+     business_days_since_2007 bds3,
+     business_days_since_2007 bds4,
+     business_days_since_2007 bds5,
+     business_days_since_2007 bds6
+WHERE to_date (to_char (sysdate, 'mm') || to_char (sysdate, 'dd') || to_char (sysdate, 'yyyy'), 'MMDDYYYY') = bds1.dateofyear (+)
+      AND to_date (to_char (c.createddate, 'mm') || to_char (c.createddate, 'dd') || to_char (c.createddate, 'yyyy'), 'MMDDYYYY')                          =
+      bds2.dateofyear (+)
+      AND to_date (to_char (c.lastcompletedinv, 'mm') || to_char (c.lastcompletedinv, 'dd') || to_char (c.lastcompletedinv, 'yyyy'
+      ), 'MMDDYYYY')   = bds3.dateofyear (+)
+      AND to_date (to_char (c.nextscheduledinv, 'mm') || to_char (c.nextscheduledinv, 'dd') || to_char (c.nextscheduledinv, 'yyyy'
+      ), 'MMDDYYYY')   = bds4.dateofyear (+)
+      AND to_date (to_char (c.overdueinvscheduleddate, 'mm') || to_char (c.overdueinvscheduleddate, 'dd') || to_char (c.overdueinvscheduleddate
+      , 'yyyy'), 'MMDDYYYY') = bds5.dateofyear (+)
+      AND to_date (to_char (c.completeddate, 'mm') || to_char (c.completeddate, 'dd') || to_char (c.completeddate, 'yyyy'), 'MMDDYYYY'
+      )            = bds6.dateofyear (+)
+      --and c.createddate >= '01-JAN-2019'
