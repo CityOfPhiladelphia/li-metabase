@@ -202,10 +202,28 @@ CaseInvestigations = SqlQuery(
     target_table = 'case_investigations'
 )
 
+CasesBasic = SqlQuery(
+    extract_query_file = 'compliance_enforcement/cases_basic.sql',
+    source_db = 'GISLNI',
+    target_table = 'cases_basic'
+)
+
 Cases = SqlQuery(
     extract_query_file = 'compliance_enforcement/cases.sql',
-    source_db = 'GISLNI',
+    source_db = 'GISLNIDBX',
     target_table = 'cases'
+)
+
+OpenCases = SqlQuery(
+    extract_query_file = 'compliance_enforcement/open_cases.sql',
+    source_db = 'GISLNI',
+    target_table = 'open_cases'
+)
+
+OpenCasesBusDays = SqlQuery(
+    extract_query_file = 'compliance_enforcement/open_cases_bus_days.sql',
+    source_db = 'GISLNIDBX',
+    target_table = 'open_cases_bus_days'
 )
 
 OldUnresolvedCases = SqlQuery(
@@ -316,6 +334,9 @@ queries = [
     UnsafesOpen,
     ImmDangOpen,
     PublicDemos,
+    CasesBasic,
     Cases,
+    OpenCases,
+    OpenCasesBusDays,
     CaseInvestigations
 ]
