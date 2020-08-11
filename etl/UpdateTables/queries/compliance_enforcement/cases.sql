@@ -50,6 +50,22 @@ SELECT c.internalid,
            CASE
                WHEN c.lastcompletedinv IS NULL
                THEN NULL
+               ELSE trunc (sysdate - c.lastcompletedinv)
+           END
+       ) cdsincelastcomplinv,
+       (
+           CASE
+               WHEN c.lastcompletedinv IS NULL
+               THEN NULL
+               WHEN trunc (sysdate - c.lastcompletedinv) <= 45
+               THEN '0-45'
+               ELSE '45+'
+           END
+       ) cdsinceclastcomplinvcategories,
+       (
+           CASE
+               WHEN c.lastcompletedinv IS NULL
+               THEN NULL
                ELSE bds1.businessdayssince - bds3.businessdayssince
            END
        ) bdsincelastcomplinv,
