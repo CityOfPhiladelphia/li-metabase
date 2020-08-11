@@ -26,19 +26,26 @@ SELECT c.internalid,
        (
            CASE
                WHEN c.completeddate IS NULL
-               THEN 'Incomplete'
-               ELSE 'Completed'
+               THEN 'No'
+               ELSE 'Yes'
            END
        ) completed,
        c.casestatus,
        (
            CASE
                WHEN c.firstcompletedinv IS NULL
-               THEN 'Uninvestigated'
-               ELSE 'Investigated'
+               THEN 'No'
+               ELSE 'Yes'
            END
        ) investigated,
-       c.firstcompletedinv,
+       (
+           CASE
+               WHEN c.firstcompletedinv IS NULL
+               THEN 'No'
+               ELSE 'Yes'
+           END
+       ) firstcompletedinv,
+       c.firstcompletedinv firstcompletedinvdate,
        (
            CASE
                WHEN c.firstcompletedinvstatus IS NULL
@@ -53,8 +60,21 @@ SELECT c.internalid,
                ELSE c.firstcompletedinvinvestigator
            END
        ) firstcompletedinvinvestigator,
-       c.lastcompletedinv,
-       c.lastcompletedinvstatus,
+       (
+           CASE
+               WHEN c.lastcompletedinv IS NULL
+               THEN 'No'
+               ELSE 'Yes'
+           END
+       ) lastcompletedinv,
+       c.lastcompletedinv lastcompletedinvdate,
+       (
+           CASE
+               WHEN c.lastcompletedinvstatus IS NULL
+               THEN '(n/a - no completed investigations)'
+               ELSE c.lastcompletedinvstatus
+           END
+       ) lastcompletedinvstatus,
        (
            CASE
                WHEN c.lastcompletedinvinvestigator IS NULL
@@ -62,7 +82,14 @@ SELECT c.internalid,
                ELSE c.lastcompletedinvinvestigator
            END
        ) lastcompletedinvinvestigator,
-       c.nextscheduledinv,
+       (
+           CASE
+               WHEN c.nextscheduledinv IS NULL
+               THEN 'No'
+               ELSE 'Yes'
+           END
+       ) nextscheduledinv,
+       c.nextscheduledinv nextscheduledinvdate,
        (
            CASE
                WHEN c.nextscheduledinvinvestigator IS NULL
@@ -70,6 +97,13 @@ SELECT c.internalid,
                ELSE c.nextscheduledinvinvestigator
            END
        ) nextscheduledinvinvestigator,
+       (
+           CASE
+               WHEN c.overdueinvscheduleddate IS NULL
+               THEN 'No'
+               ELSE 'Yes'
+           END
+       ) overdueinv,
        c.overdueinvscheduleddate,
        (
            CASE

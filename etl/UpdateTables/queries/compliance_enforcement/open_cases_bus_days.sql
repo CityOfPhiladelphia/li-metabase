@@ -46,6 +46,7 @@ SELECT c.internalid,
        c.firstcompletedinvstatus,
        c.firstcompletedinvinvestigator,
        c.lastcompletedinv,
+       c.lastcompletedinvdate,
        (
            CASE
                WHEN c.lastcompletedinv IS NULL
@@ -69,6 +70,7 @@ SELECT c.internalid,
        c.lastcompletedinvstatus,
        c.lastcompletedinvinvestigator,
        c.nextscheduledinv,
+       c.nextscheduledinvdate,
        (
            CASE
                WHEN c.nextscheduledinv IS NULL
@@ -90,6 +92,7 @@ SELECT c.internalid,
            END
        ) bduntilnextschedinvcategories,
        c.nextscheduledinvinvestigator,
+       c.overdueinv,
        c.overdueinvscheduleddate,
        (
            CASE
@@ -131,9 +134,9 @@ FROM open_cases c,
 WHERE to_date (to_char (sysdate, 'mm') || to_char (sysdate, 'dd') || to_char (sysdate, 'yyyy'), 'MMDDYYYY') = bds1.dateofyear (+)
       AND to_date (to_char (c.createddate, 'mm') || to_char (c.createddate, 'dd') || to_char (c.createddate, 'yyyy'), 'MMDDYYYY')                          =
       bds2.dateofyear (+)
-      AND to_date (to_char (c.lastcompletedinv, 'mm') || to_char (c.lastcompletedinv, 'dd') || to_char (c.lastcompletedinv, 'yyyy'
+      AND to_date (to_char (c.lastcompletedinvdate, 'mm') || to_char (c.lastcompletedinvdate, 'dd') || to_char (c.lastcompletedinvdate, 'yyyy'
       ), 'MMDDYYYY')   = bds3.dateofyear (+)
-      AND to_date (to_char (c.nextscheduledinv, 'mm') || to_char (c.nextscheduledinv, 'dd') || to_char (c.nextscheduledinv, 'yyyy'
+      AND to_date (to_char (c.nextscheduledinvdate, 'mm') || to_char (c.nextscheduledinvdate, 'dd') || to_char (c.nextscheduledinvdate, 'yyyy'
       ), 'MMDDYYYY')   = bds4.dateofyear (+)
       AND to_date (to_char (c.overdueinvscheduleddate, 'mm') || to_char (c.overdueinvscheduleddate, 'dd') || to_char (c.overdueinvscheduleddate
       , 'yyyy'), 'MMDDYYYY') = bds5.dateofyear (+)
