@@ -72,6 +72,16 @@ SELECT compl.jobid complaintjobid,
            END
        ) origintype,
        addr.li_district district,
+       (
+           CASE
+               WHEN reviewcomplaint.datecompleted IS NOT NULL
+                    OR mostrecentinv.investigationcompleted IS NOT NULL
+                    OR compl.complaint_resolutiondate IS NOT NULL
+               THEN least (coalesce (reviewcomplaint.datecompleted, to_date ('01-JAN-2099')), coalesce (mostrecentinv.investigationcompleted, to_date
+               ('01-JAN-2099')), coalesce (compl.complaint_resolutiondate, to_date ('01-JAN-2099')))
+               ELSE NULL
+           END
+       ) firstaction_date,  --Get the earliest date that one of these actions was taken
        sla.sla,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (addr.geocode_x, addr.geocode_y, NULL), NULL, NULL), 4326).sdo_point
        .x lon,
@@ -171,4 +181,3 @@ WHERE compl.casefilejobid = cases.jobid (+)
       AND cases.jobid            = mostrecentinv.casejobid (+)
       AND compl.addressobjectid  = addr.addressobjectid (+)
       AND compl.complaintcode    = sla.prob (+)
-ORDER BY compl.complaintnumber
