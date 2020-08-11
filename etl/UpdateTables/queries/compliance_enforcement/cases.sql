@@ -61,7 +61,7 @@ SELECT c.internalid,
                THEN '0-45'
                ELSE '45+'
            END
-       ) cdsinceclastcomplinvcategories,
+       ) cdsincelastcomplinvcategories,
        (
            CASE
                WHEN c.lastcompletedinv IS NULL
