@@ -67,7 +67,7 @@ SELECT addressobjectid,
        ) daysdiffschedcomplcategories,
        (
            CASE
-               WHEN investigationcompleted IS NULL
+               WHEN investigationcompleted IS NULL or investigationstatus is null
                THEN '(none)'
                ELSE investigationstatus
            END

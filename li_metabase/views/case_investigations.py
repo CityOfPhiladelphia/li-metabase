@@ -4,19 +4,19 @@ from li_metabase.utils import Dashboard, build_iframe_url_from_dashboard_url, Da
 from li_metabase.auth import auth
 
 
-CASE_INSPECTIONS_DASHBOARDS = [
-    Dashboard('Completed', 'completed', 150),
+CASE_INVESTIGATIONS_DASHBOARDS = [
+    Dashboard('Completed', 'completed', 196),
     Dashboard('Outstanding', 'outstanding', 115)
 ]
 
 bp = Blueprint('case_inspections', __name__)
 
-@bp.route('/compliance-enforcement/case-inspections/<dashboard_url>')
+@bp.route('/compliance-enforcement/case-investigations/<dashboard_url>')
 @auth.login_required
 def case_inspections(dashboard_url):
-    global CASE_INSPECTIONS_DASHBOARDS
+    global CASE_INVESTIGATIONS_DASHBOARDS
 
-    iframe_url = build_iframe_url_from_dashboard_url(dashboard_url, CASE_INSPECTIONS_DASHBOARDS)
+    iframe_url = build_iframe_url_from_dashboard_url(dashboard_url, CASE_INVESTIGATIONS_DASHBOARDS)
 
     return render_template('dashboard.html', iframe_url=iframe_url)
 

@@ -4,7 +4,7 @@ from li_metabase.config import SECRET_KEY
 from li_metabase.auth import auth
 from li_metabase.views import (
     business_licensing, trade_licensing, permits,
-    compliance_enforcement, misc, case_inspections, unsafes, imm_dang, tl_investigations,
+    compliance_enforcement, misc, case_investigations, unsafes, imm_dang, tl_investigations,
     cases, archive
 )
 from li_metabase.utils import build_iframe_url
@@ -21,7 +21,7 @@ def create_app():
     app.register_blueprint(permits.bp)
     app.register_blueprint(compliance_enforcement.bp)
     app.register_blueprint(misc.bp)
-    app.register_blueprint(case_inspections.bp)
+    app.register_blueprint(case_investigations.bp)
     app.register_blueprint(unsafes.bp)
     app.register_blueprint(imm_dang.bp)
     app.register_blueprint(tl_investigations.bp)
