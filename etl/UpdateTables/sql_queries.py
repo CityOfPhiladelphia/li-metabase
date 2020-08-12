@@ -190,18 +190,6 @@ EclComplaintsBusDays = SqlQuery(
     target_table = 'ecl_complaints_bus_days'
 )
 
-CaseInspections = SqlQuery(
-    extract_query_file = 'compliance_enforcement/case_inspections.sql',
-    source_db = 'GISLNI',
-    target_table = 'case_inspections'
-)
-
-CaseInvestigations = SqlQuery(
-    extract_query_file = 'compliance_enforcement/case_investigations.sql',
-    source_db = 'GISLNI',
-    target_table = 'case_investigations'
-)
-
 CasesBasic = SqlQuery(
     extract_query_file = 'compliance_enforcement/cases_basic.sql',
     source_db = 'GISLNI',
@@ -226,10 +214,10 @@ OpenCasesBusDays = SqlQuery(
     target_table = 'open_cases_bus_days'
 )
 
-OldUnresolvedCases = SqlQuery(
-    extract_query_file = 'compliance_enforcement/old_unresolved_cases.sql',
+CaseInvestigationsCompleted = SqlQuery(
+    extract_query_file = 'compliance_enforcement/case_investigations_completed.sql',
     source_db = 'GISLNI',
-    target_table = 'old_unresolved_cases'
+    target_table = 'case_investigations_completed'
 )
 
 Violations = SqlQuery(
@@ -338,5 +326,5 @@ queries = [
     Cases,
     OpenCases,
     OpenCasesBusDays,
-    CaseInvestigations
+    CaseInvestigationsCompleted
 ]

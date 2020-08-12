@@ -29,9 +29,34 @@ SELECT addressobjectid,
                ELSE investigationtype
            END
        ) investigationtype,
-       investigationcreated,
-       investigationscheduled,
-       investigationcompleted,
+       investigationcreated AS investigationcreateddate,
+       investigationscheduled AS investigationscheduleddate,
+       (
+           CASE
+               WHEN investigationscheduled IS NULL
+               THEN 'No'
+               ELSE 'Yes'
+           END
+       ) investigationscheduled,
+       investigationcompleted AS investigationcompleteddate,
+       (
+           CASE
+               WHEN investigationcompleted IS NULL
+               THEN 'No'
+               ELSE 'Yes'
+           END
+       ) investigationcompleted,
+       (
+           CASE
+               WHEN investigationcompleted IS NOT NULL
+               THEN investigationstatus
+               WHEN investigationscheduled < sysdate
+               THEN 'Incomplete - Overdue'
+               WHEN investigationscheduled >= sysdate
+               THEN 'Incomplete - Upcoming'
+               ELSE 'Incomplete - Unscheduled'
+           END
+       ) investigationstatus,
        (
            CASE
                WHEN investigationresult IS NULL
@@ -46,13 +71,6 @@ SELECT addressobjectid,
                ELSE investigationoutcome
            END
        ) investigationoutcome,
-       (
-           CASE
-               WHEN investigationstatus IS NULL
-               THEN '(none)'
-               ELSE investigationstatus
-           END
-       ) investigationstatus,
        findings,
        (
            CASE
@@ -66,7 +84,13 @@ SELECT addressobjectid,
        zip,
        censustract,
        council_district,
-       li_district,
+       (
+           CASE
+               WHEN li_district IS NULL
+               THEN '(none)'
+               ELSE li_district
+           END
+       ) li_district,
        systemofrecord,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (geocode_x, geocode_y, NULL), NULL, NULL), 4326).sdo_point.x lon
        ,
