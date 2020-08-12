@@ -6,7 +6,7 @@ from li_metabase.auth import auth
 
 CASES_DASHBOARDS = [
     Dashboard('All Recent', 'all-recent', 194),
-    Dashboard('Old Unresolved', 'old-unresolved', 177)
+    Dashboard('Open', 'open', 195)
 ]
 
 bp = Blueprint('cases', __name__)

@@ -49,7 +49,23 @@ SELECT c.internalid,
        c.lastcompletedinvdate,
        (
            CASE
-               WHEN c.lastcompletedinv IS NULL
+               WHEN c.lastcompletedinvdate IS NULL
+               THEN NULL
+               ELSE trunc (sysdate - c.lastcompletedinvdate)
+           END
+       ) cdsincelastcomplinv,
+       (
+           CASE
+               WHEN c.lastcompletedinvdate IS NULL
+               THEN NULL
+               WHEN trunc (sysdate - c.lastcompletedinvdate) <= 45
+               THEN '0-45'
+               ELSE '45+'
+           END
+       ) cdsincelastcomplinvcategories,
+       (
+           CASE
+               WHEN c.lastcompletedinvdate IS NULL
                THEN NULL
                ELSE bds1.businessdayssince - bds3.businessdayssince
            END
@@ -58,13 +74,9 @@ SELECT c.internalid,
            CASE
                WHEN c.lastcompletedinv IS NULL
                THEN NULL
-               WHEN bds1.businessdayssince - bds3.businessdayssince <= 10
-               THEN '0-10'
-               WHEN bds1.businessdayssince - bds3.businessdayssince BETWEEN 11 AND 20
-               THEN '11-20'
-               WHEN bds1.businessdayssince - bds3.businessdayssince BETWEEN 21 AND 100
-               THEN '21-100'
-               ELSE 'More than 100'
+               WHEN bds1.businessdayssince - bds3.businessdayssince <= 45
+               THEN '0-45'
+               ELSE '45+'
            END
        ) bdsincelastcomplinvcategories,
        c.lastcompletedinvstatus,
