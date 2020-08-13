@@ -220,6 +220,12 @@ CaseInvestigationsCompleted = SqlQuery(
     target_table = 'case_investigations_completed'
 )
 
+CaseInvestigationsIncomplete = SqlQuery(
+    extract_query_file = 'compliance_enforcement/case_investigations_incomplete.sql',
+    source_db = 'GISLNI',
+    target_table = 'case_investigations_incomplete'
+)
+
 Violations = SqlQuery(
     extract_query_file = 'compliance_enforcement/violations.sql',
     source_db = 'GISLNI',
@@ -326,5 +332,6 @@ queries = [
     Cases,
     OpenCases,
     OpenCasesBusDays,
-    CaseInvestigationsCompleted
+    CaseInvestigationsCompleted,
+    CaseInvestigationsIncomplete
 ]

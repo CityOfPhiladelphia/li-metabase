@@ -53,15 +53,13 @@ SELECT addressobjectid,
                WHEN investigationscheduled IS NULL
                THEN 'n/a - no scheduled start date'
                WHEN trunc (investigationcompleted) - trunc (investigationscheduled) < 0
-               THEN 'Completed Date before Scheduled Start Date'
-               WHEN trunc (investigationcompleted) - trunc (investigationscheduled) = 0
-               THEN '0'
-               WHEN trunc (investigationcompleted) - trunc (investigationscheduled) <= 10
-               THEN '1-10'
-               WHEN trunc (investigationcompleted) - trunc (investigationscheduled) <= 30
-               THEN '11-30'
+               THEN 'n/a - completed before scheduled'
+               WHEN trunc (investigationcompleted) - trunc (investigationscheduled) <= 5
+               THEN '0-5'
+               WHEN trunc (investigationcompleted) - trunc (investigationscheduled) <= 20
+               THEN '6-20'
                WHEN trunc (investigationcompleted) - trunc (investigationscheduled) <= 90
-               THEN '31-90'
+               THEN '21-90'
                ELSE '90+'
            END
        ) daysdiffschedcomplcategories,

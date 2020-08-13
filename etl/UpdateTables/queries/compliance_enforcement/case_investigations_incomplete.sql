@@ -1,5 +1,6 @@
 SELECT addressobjectid,
        casenumber,
+       casestatus,
        (
            CASE
                WHEN casetype IS NULL
@@ -30,31 +31,43 @@ SELECT addressobjectid,
            END
        ) investigationtype,
        investigationcreated AS investigationcreateddate,
-       investigationscheduled AS investigationscheduleddate,
        (
            CASE
-               WHEN investigationscheduled IS NULL
+               WHEN investigationscheduled is null
                THEN 'No'
                ELSE 'Yes'
            END
        ) investigationscheduled,
-       investigationcompleted AS investigationcompleteddate,
+       investigationscheduled AS investigationscheduleddate,
        (
            CASE
-               WHEN investigationcompleted IS NULL
-               THEN 'No'
-               ELSE 'Yes'
+               WHEN investigationscheduled is null
+               THEN null
+               ELSE trunc(sysdate) - trunc(investigationscheduled)
            END
-       ) investigationcompleted,
+       ) cdpastscheduleddate,
        (
            CASE
-               WHEN investigationcompleted IS NOT NULL
-               THEN investigationstatus
-               WHEN investigationscheduled < sysdate
-               THEN 'Incomplete - Overdue'
-               WHEN investigationscheduled >= sysdate
-               THEN 'Incomplete - Upcoming'
-               ELSE 'Incomplete - Unscheduled'
+               WHEN investigationscheduled IS NULL
+               THEN 'n/a - no scheduled start date'
+               when trunc(sysdate) - trunc(investigationscheduled) < 0 
+               then 'n/a - scheduled start date upcoming'
+               WHEN trunc(sysdate) - trunc(investigationscheduled) <= 5
+               THEN '0-5'
+               WHEN trunc(sysdate) - trunc(investigationscheduled) <= 20
+               THEN '6-20'
+               WHEN trunc(sysdate) - trunc(investigationscheduled) <= 90
+               THEN '21-90'
+               ELSE '90+'
+           END
+       ) cdpastscheduleddatecategories,
+       (
+           CASE
+               WHEN investigationscheduled is null
+               THEN 'Unscheduled'
+               WHEN trunc(sysdate) <= trunc(investigationscheduled)
+               then 'Scheduled - Upcoming'
+               else 'Scheduled - Overdue'
            END
        ) investigationstatus,
        (
@@ -96,6 +109,4 @@ SELECT addressobjectid,
        ,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (geocode_x, geocode_y, NULL), NULL, NULL), 4326).sdo_point.y lat
 FROM mvw_case_inv_internal
-WHERE (investigationcreated >= add_months (trunc (sysdate, 'MM'), - 24)
-       OR investigationscheduled >= add_months (trunc (sysdate, 'MM'), - 24)
-       OR investigationcompleted >= add_months (trunc (sysdate, 'MM'), - 24))
+WHERE investigationcompleted is null

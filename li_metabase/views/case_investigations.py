@@ -6,7 +6,7 @@ from li_metabase.auth import auth
 
 CASE_INVESTIGATIONS_DASHBOARDS = [
     Dashboard('Completed', 'completed', 196),
-    Dashboard('Outstanding', 'outstanding', 115)
+    Dashboard('Incomplete', 'incomplete', 197)
 ]
 
 bp = Blueprint('case_inspections', __name__)
