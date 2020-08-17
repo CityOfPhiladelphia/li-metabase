@@ -4,12 +4,6 @@ class SqlQuery():
         self.source_db = source_db
         self.target_table = target_table
 
-IndividualWorkloads = SqlQuery(
-    extract_query_file = 'licenses/individual_workloads.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'individual_workloads'
-)
-
 IncompleteProcessesBL = SqlQuery(
     extract_query_file = 'licenses/incomplete_processes_bl.sql',
     source_db = 'GISLNI',
@@ -82,12 +76,6 @@ OverdueInspectionsBLBusDays = SqlQuery(
     target_table = 'overdue_insp_bl_bus_days'
 )
 
-InspectionsBL = SqlQuery(
-    extract_query_file = 'licenses/inspections_bl.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'inspections_bl'
-)
-
 SLA_BL = SqlQuery(
     extract_query_file = 'licenses/sla_bl.sql',
     source_db = 'GISLNI',
@@ -98,24 +86,6 @@ SLA_BL_BUS_DAYS = SqlQuery(
     extract_query_file = 'licenses/sla_bl_bus_days.sql',
     source_db = 'GISLNIDBX',
     target_table = 'sla_bl_bus_days'
-)
-
-SLA_TL = SqlQuery(
-    extract_query_file = 'licenses/sla_tl.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'sla_tl'
-)
-
-SLA_TL_BUS_DAYS = SqlQuery(
-    extract_query_file = 'licenses/sla_tl_bus_days.sql',
-    source_db = 'GISLNIDBX',
-    target_table = 'sla_tl_bus_days'
-)
-
-UninspectedBLsWithCompCheck = SqlQuery(
-    extract_query_file = 'licenses/uninsp_bl_comp_check.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'uninsp_bl_comp_check'
 )
 
 LicensesIssuedBL = SqlQuery(
@@ -226,40 +196,10 @@ CaseInvestigationsIncomplete = SqlQuery(
     target_table = 'case_investigations_incomplete'
 )
 
-Violations = SqlQuery(
-    extract_query_file = 'compliance_enforcement/violations.sql',
-    source_db = 'GISLNI',
-    target_table = 'violations'
-)
-
 EclViolations = SqlQuery(
     extract_query_file = 'compliance_enforcement/ecl_violations.sql',
     source_db = 'GISLNI',
     target_table = 'ecl_violations'
-)
-
-InspectionsCompletedAll = SqlQuery(
-    extract_query_file = 'misc/insp_completed_all.sql',
-    source_db = 'GISLNI',
-    target_table = 'insp_completed_all'
-)
-
-InspectionsCompletedAllFuture = SqlQuery(
-    extract_query_file = 'misc/insp_completed_all_future.sql',
-    source_db = 'GISLNIDBX',
-    target_table = 'insp_completed_all_future'
-)
-
-DumpsterMedallionIDLookup = SqlQuery(
-    extract_query_file = 'licenses/dumpster_licenses_medallion_id_lookup.sql',
-    source_db = 'ECLIPSE_REPORTS',
-    target_table = 'dumpsterlicensesmedallionid'
-)
-
-TLPermitsFPPInsp = SqlQuery(
-    extract_query_file = 'licenses/tl_permits_fpp_insp.sql',
-    source_db = 'GISLNI',
-    target_table = 'contlic_permits_fpp_insp'
 )
 
 EclTLPermitsFPPInsp = SqlQuery(
@@ -268,35 +208,12 @@ EclTLPermitsFPPInsp = SqlQuery(
     target_table = 'ecl_tl_permits_fpp_insp'
 )
 
-TLCases = SqlQuery(
-    extract_query_file = 'licenses/tl_cases.sql',
-    source_db = 'GISLNI',
-    target_table = 'tl_cases'
-)
-
 EclTLCases = SqlQuery(
     extract_query_file = 'licenses/ecl_tl_cases.sql',
     source_db = 'GISLNI',
     target_table = 'ecl_tl_cases'
 )
 
-CaseContacts = SqlQuery(
-    extract_query_file = 'compliance_enforcement/case_contacts.sql',
-    source_db = 'GISLNI',
-    target_table = 'case_contacts'
-)
-
-PermitInspectionsOutstanding = SqlQuery(
-    extract_query_file = 'permits/permit_inspections_outstanding.sql',
-    source_db = 'GISLNI',
-    target_table = 'permit_inspections_outstanding'
-)
-
-Notices = SqlQuery(
-    extract_query_file = 'misc/notices.sql',
-    source_db = 'GISLNI',
-    target_table = 'notices'
-)
 
 queries = [
     ActiveJobsBL,
