@@ -5,7 +5,7 @@ import os
 import petl as etl
 
 from li_dbs import (
-    ECLIPSE_REPORTS, LIDB, GISLNI, DataBridge, GISLICLD, GISLNIDB, GISLNIDBX
+    GISLNI, DataBridge, GISLNIDBX
 )
 from li_utils import li_utils
 from sql_queries import queries
@@ -27,18 +27,10 @@ def get_cursor(conn):
 
 
 def get_source_db(query):
-    if query.source_db == 'ECLIPSE_REPORTS':
-        return ECLIPSE_REPORTS.ECLIPSE_REPORTS
-    elif query.source_db == 'LIDB':
-        return LIDB.LIDB
-    elif query.source_db == 'GISLNI':
+    if query.source_db == 'GISLNI':
         return GISLNI.GISLNI
     elif query.source_db == 'DataBridge':
         return DataBridge.DataBridge
-    elif query.source_db == 'GISLICLD':
-        return GISLICLD.GISLICLD
-    elif query.source_db == 'GISLNIDB':
-        return GISLNIDB.GISLNIDB
     elif query.source_db == 'GISLNIDBX':
         return GISLNIDBX.GISLNIDBX
 
