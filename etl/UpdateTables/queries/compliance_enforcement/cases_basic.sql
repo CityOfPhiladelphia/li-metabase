@@ -95,7 +95,5 @@ SELECT c.internalid,
        x lon,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (c.geocode_x, c.geocode_y, NULL), NULL, NULL), 4326).sdo_point.
        y lat,
-       c.systemofrecord
-FROM mvw_cases c
-WHERE (c.createddate >= add_months (trunc (sysdate, 'MM'), - 36)
-       OR c.completeddate >= add_months (trunc (sysdate, 'MM'), - 36))
+       'ECLIPSE' systemofrecord
+FROM mvw_cases_eclipse c
