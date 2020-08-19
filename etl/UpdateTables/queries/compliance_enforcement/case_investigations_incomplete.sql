@@ -109,4 +109,5 @@ SELECT addressobjectid,
        ,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (geocode_x, geocode_y, NULL), NULL, NULL), 4326).sdo_point.y lat
 FROM mvw_case_inv_internal
-WHERE investigationcompleted is null
+WHERE systemofrecord = 'ECLIPSE'
+AND investigationcompleted is null
