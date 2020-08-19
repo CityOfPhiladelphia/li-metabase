@@ -28,7 +28,7 @@ $ flask run
 ```
 
 ## ETL
-The ETL is structured so that data is queried from our other databases and then dumped to a temporary pickle file. This pickle file is then read and loaded into the cloud database. This setup minimizes how long database connections are open, which had caused a lot of issues previously. This also allows us to look at the data in the pickle file if something fails and understand if the issue was caused due to the data itself.
+The ETL is structured so that data is queried from our other databases and then dumped to a temporary pickle file. This pickle file is then read and loaded into the database. This setup minimizes how long database connections are open, which had caused a lot of issues previously. This also allows us to look at the data in the pickle file if something fails and understand if the issue was caused due to the data itself.
 
 Run the etl process for all queries 
 ```bash

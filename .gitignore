@@ -60,6 +60,7 @@ etl/log.txt
 etl/RefreshMVWs/log.txt
 etl/UpdateTables/log.txt
 output_and_errors.txt
+output_and_errors_2019.txt
 
 # Batch files
 *.bat
