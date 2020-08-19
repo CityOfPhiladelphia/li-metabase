@@ -85,20 +85,20 @@ SELECT compl.complaintjobid,
                WHEN compl.firstaction_date IS NULL
                THEN (
                    CASE
-                       WHEN trunc (sysdate - compl.complaintdate) <= compl.sla
+                       WHEN trunc (sysdate - compl.complaintdate) <= compl.sla_calendar_days
                        THEN 'Yes'
                        ELSE 'No'
                    END
                )
                ELSE
                    CASE
-                       WHEN trunc (compl.firstaction_date - compl.complaintdate) <= compl.sla
+                       WHEN trunc (compl.firstaction_date - compl.complaintdate) <= compl.sla_calendar_days
                        THEN 'Yes'
                        ELSE 'No'
                    END
            END
        ) cdwithinsla,
-       compl.sla,
+       compl.sla_calendar_days,
        compl.lon,
        compl.lat
 FROM ecl_complaints compl,

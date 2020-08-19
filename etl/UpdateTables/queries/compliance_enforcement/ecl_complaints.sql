@@ -77,12 +77,12 @@ SELECT compl.jobid complaintjobid,
                WHEN reviewcomplaint.datecompleted IS NOT NULL
                     OR mostrecentinv.investigationcompleted IS NOT NULL
                     OR compl.complaint_resolutiondate IS NOT NULL
-               THEN least (coalesce (reviewcomplaint.datecompleted, to_date ('01-JAN-2099')), coalesce (mostrecentinv.investigationcompleted, to_date
-               ('01-JAN-2099')), coalesce (compl.complaint_resolutiondate, to_date ('01-JAN-2099')))
+               THEN least (coalesce (reviewcomplaint.datecompleted, to_date ('01-JAN-2099')), coalesce (mostrecentinv.investigationcompleted
+               , to_date ('01-JAN-2099')), coalesce (compl.complaint_resolutiondate, to_date ('01-JAN-2099')))
                ELSE NULL
            END
        ) firstaction_date,  --Get the earliest date that one of these actions was taken
-       sla.sla,
+       sla.sla_calendar_days,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (addr.geocode_x, addr.geocode_y, NULL), NULL, NULL), 4326).sdo_point
        .x lon,
        sdo_cs.transform (sdo_geometry (2001, 2272, sdo_point_type (addr.geocode_x, addr.geocode_y, NULL), NULL, NULL), 4326).sdo_point
@@ -171,13 +171,13 @@ FROM g_mvw_complaints compl,
       WHERE seq_no = 1
      ) mostrecentinv,
      eclipse_lni_addr addr,
-     (SELECT DISTINCT prob,
-                      sla
-      FROM sla_dictionary
+     (SELECT DISTINCT complaintcodename,
+                      sla_calendar_days
+      FROM complaint_sla
      ) sla
 WHERE compl.casefilejobid = cases.jobid (+)
-      AND compl.jobid            = reviewcomplaint.jobid (+)
-      AND cases.jobid            = firstinv.casejobid (+)
-      AND cases.jobid            = mostrecentinv.casejobid (+)
-      AND compl.addressobjectid  = addr.addressobjectid (+)
-      AND compl.complaintcode    = sla.prob (+)
+      AND compl.jobid              = reviewcomplaint.jobid (+)
+      AND cases.jobid              = firstinv.casejobid (+)
+      AND cases.jobid              = mostrecentinv.casejobid (+)
+      AND compl.addressobjectid    = addr.addressobjectid (+)
+      AND compl.complaintcodename  = sla.complaintcodename (+)
