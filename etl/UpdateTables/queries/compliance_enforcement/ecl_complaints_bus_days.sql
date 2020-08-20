@@ -50,7 +50,7 @@ SELECT compl.complaintjobid,
            CASE
                WHEN compl.firstaction_date IS NULL
                THEN trunc (sysdate - compl.complaintdate)
-               ELSE trunc (compl.firstaction_date) - compl.complaintdate
+               ELSE trunc (compl.firstaction_date - compl.complaintdate)
            END
        ) cdbeforefirstaction,
        (
