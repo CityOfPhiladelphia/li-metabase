@@ -117,39 +117,23 @@ SELECT
             '90+'
     END overdueinspectioncat,
     CASE
-        WHEN i.inspectioncompleteddate IS NULL THEN
-            'n/a - no completed date'
-        WHEN trunc(i.inspectioncompleteddate - i.inspectionscheduledstartdate) < 0 THEN
-            'n/a'
-        WHEN trunc(i.inspectioncompleteddate - i.inspectionscheduledstartdate) <= 5 THEN
-            '0-5'
-        WHEN trunc(i.inspectioncompleteddate - i.inspectionscheduledstartdate) <= 20 THEN
-            '6-20'
-        WHEN trunc(i.inspectioncompleteddate - i.inspectionscheduledstartdate) <= 90 THEN
-            '21-90'
-        ELSE
-            '90+'
-    END daysinspcompafterscheduledcat,
-    CASE
         WHEN trunc(i.inspectioncompleteddate) > trunc(i.inspectionscheduledstartdate) THEN
             abs(trunc(i.inspectioncompleteddate) - trunc(i.inspectionscheduledstartdate))
         ELSE
             0
     END daysinspcompafterscheduled,
     CASE
-        WHEN first_insp.inspectioncompleteddate IS NULL THEN
-            'n/a - no initial inspection'
-        WHEN trunc(sysdate - first_insp.inspectioncompleteddate) < 0 THEN
-            'n/a'
-        WHEN trunc(sysdate - first_insp.inspectioncompleteddate) <= 5 THEN
-            '0-5'
-        WHEN trunc(sysdate - first_insp.inspectioncompleteddate) <= 20 THEN
-            '6-20'
-        WHEN trunc(sysdate - first_insp.inspectioncompleteddate) <= 90 THEN
-            '21-90'
+        WHEN i.inspectioncompleteddate IS NULL THEN
+            'n/a - no completed inspection'
+        WHEN i.inspectionscheduledstartdate IS NULL THEN
+            'n/a - no scheduled inspection'
+        when trunc(i.inspectioncompleteddate - i.inspectionscheduledstartdate) < 0 then 'n/a'
+        when trunc(i.inspectioncompleteddate) - trunc(i.inspectionscheduledstartdate) <= 5 then '0-5'
+        when trunc(i.inspectioncompleteddate - i.inspectionscheduledstartdate) <= 20 then '6-20'
+        when trunc(i.inspectioncompleteddate - i.inspectionscheduledstartdate) <= 90 then '21-90'
         ELSE
             '90+'
-    END dayssinceinitialinspectioncat,
+    END daysinspcompafterscheduledcat,
     case when i.inspectioncompleteddate IS NULL then 0
         else trunc(i.inspectioncompleteddate - p.issuedate)
     end issuancetocompletion,
