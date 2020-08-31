@@ -219,6 +219,12 @@ EclPermitInspections = SqlQuery(
     target_table = 'ecl_permit_inspections'
 )
 
+EclPermits = SqlQuery(
+    extract_query_file = 'permits/ecl_permits.sql',
+    source_db = 'GISLNI',
+    target_table = 'ecl_permits'
+)
+
 queries = [
     ActiveJobsBL,
     ActiveJobsTL,
@@ -255,5 +261,6 @@ queries = [
     OpenCasesBusDays,
     CaseInvestigationsCompleted,
     CaseInvestigationsIncomplete,
-    EclPermitInspections
+    EclPermitInspections,
+    EclPermits
 ]
